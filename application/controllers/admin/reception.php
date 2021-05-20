@@ -14,6 +14,8 @@ class Reception extends Admin_Controller
 		$this->lang->load("system", 'english');
 		$this->load->model("admin/test_group_model");
 		$this->load->model("admin/invoice_model");
+		$this->load->model("admin/test_type_model");
+
 
 		$this->load->model("admin/patient_model");
 		// $this->load->model("admin/patient_model");
@@ -30,6 +32,8 @@ class Reception extends Admin_Controller
 
 		$where = "`test_groups`.`status` IN (1) ORDER BY  test_group_name ASC";
 		$this->data["test_groups"] = $this->test_group_model->get_test_group_list($where, false);
+		$this->data["test_categories"] = $this->test_type_model->getList("test_categories", "test_category_id", "test_category", $where = "`test_categories`.`status` IN (1) ");
+
 
 		$where = "`invoices`.`status` IN (1,2,3) AND DATE(`invoices`.`created_date`) = DATE(NOW())  ORDER BY `invoices`.`invoice_id` DESC";
 		$this->data["all_tests"] = $this->invoice_model->get_invoice_list($where, false);
@@ -44,6 +48,17 @@ class Reception extends Admin_Controller
 		$test_group_ids = rtrim($this->input->post('testGroupIDs'), ',');
 		//$test_group_ids =  implode(',', $this->input->post('test_group_id'));
 		//exit();
+
+
+		$query = "SELECT category_id FROM `test_groups` 
+				WHERE `test_groups`.`test_group_id` IN (" . $test_group_ids . ")
+				GROUP BY `category_id`";
+		$category_id = $this->db->query($query)->result();
+		if (count($category_id) > 1) {
+			echo 'You select different group category. please select same group. click here <a href="' . site_url(ADMIN_DIR . "reception") . '" > Home </a>';
+			exit();
+		}
+
 
 		$discount = $this->input->post("discount");
 
@@ -66,6 +81,21 @@ class Reception extends Admin_Controller
 		$inputs["total_price"]  =  ($total_test_price + $tax) - $discount;
 		$inputs["patient_refer_by"]  =  $refered_by;
 		$inputs["created_by"]  =  $this->session->userdata('user_id');
+		$inputs["category_id"]  =  $category_id[0]->category_id;
+
+		if ($category_id[0]->category_id == 5) {
+			$today_count = $this->db->query("SELECT count(*) as total FROM `invoices` 
+			WHERE category_id = '" . $category_id[0]->category_id . "'
+			AND opd_doctor = '" . $test_group_ids . "'
+			AND DATE(created_date) = DATE(NOW())")->result()[0]->total;
+			$inputs["opd_doctor"] = $test_group_ids;
+			$inputs["patient_refer_by"]  =  1;
+		} else {
+			$today_count = $this->db->query("SELECT count(*) as total FROM `invoices` 
+		               WHERE category_id = '" . $category_id[0]->category_id . "'
+					   AND DATE(created_date) = DATE(NOW())")->result()[0]->total;
+		}
+		$inputs["today_count"]  =  $today_count + 1;
 
 		$invoice_id  = $this->invoice_model->save($inputs);
 
@@ -82,10 +112,17 @@ class Reception extends Admin_Controller
 		$test_token_id = time();
 		$group_ids = $test_group_ids;
 
+		if ($category_id[0]->category_id == 1) {
+			$status = 1;
+		} else {
+			$status = 3;
+		}
+
+
 		$query = "UPDATE `invoices` 
 					SET `test_token_id`='" . $test_token_id . "',
 						`test_report_by`='" . $this->session->userdata("user_id") . "',
-						`status`='1'
+						`status`='" . $status . "'
 					WHERE `invoice_id` = '" . $invoice_id . "'";
 		$this->db->query($query);
 

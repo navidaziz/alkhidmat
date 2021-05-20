@@ -58,7 +58,7 @@
                   $other_info .= 'Mobile No: ' . $test->patient_mobile_no . '<br />';
                   $other_info .= 'Address: ' . $test->patient_address . '<br />';
                   $other_info .= 'Refered By: ' . $test->doctor_name . ' (' . $test->doctor_designation . ')<br />';
-                  $other_info .= 'Tests: <strong>';
+                  $other_info .= 'Tests: <strong style=\'font-size:15px !important; margin-top:5px\'>';
                   $patient_group_test_ids = '';
                   //get the test groups for the pacient...
                   $query = "SELECT
@@ -81,7 +81,7 @@
 
                   <input id="in_<?php echo $test->invoice_id; ?>" type="hidden" value="<?php echo @$other_info; ?>" />
                   <input id="patient_group_test_ids_<?php echo $test->invoice_id; ?>" type="hidden" value="<?php echo @$patient_group_test_ids; ?>" />
-                  <a href="#" onclick="test_token('<?php echo $test->invoice_id; ?>')">Process</a>
+                  <a href="#" onclick="test_token('<?php echo $test->invoice_id; ?>', '<?php echo $test->patient_name;  ?>', '', '<?php echo $test->test_token_id;  ?>' )">Process</a>
                 <?php  } ?>
 
               </td>
@@ -282,10 +282,11 @@
         <h3 id="invoice_id"></h3>
         <h4 id="patient_name"></h4>
         <div id="other_info" style="margin-bottom:10px; border:1px dashed #666666; border-radius:5px; "></div>
-        <form action="<?php echo site_url(ADMIN_DIR . 'lab/save_and_process') ?>" method="post">
+        <form onsubmit="return validate_token()" action="<?php echo site_url(ADMIN_DIR . 'lab/save_and_process') ?>" method="post">
           <input type="hidden" value="" name="invoice_id" id="invoiceid" />
           <input type="hidden" value="" name="patient_group_test_ids" id="patientgrouptestids" />
-          <input required="required" placeholder="Enter test token ID" type="text" name="test_token_id" value="" />
+          <input required="required" placeholder="Enter test token ID" type="text" name="test_token_id" id="test_token_id" value="" />
+          <input type="hidden" value="" name="testTokenId" id="testTokenId" />
           <input type="submit" value="Save and Process" name="save_and_process" />
         </form>
       </div>
@@ -295,6 +296,20 @@
     </div>
   </div>
 </div>
+
+<script>
+  function validate_token() {
+    var testTokenId = $('#testTokenId').val();
+    //alert(testTokenId);
+    var test_token_id = $('#test_token_id').val();
+    //alert(test_token_id);
+    if (testTokenId != test_token_id) {
+      alert("invalid token");
+      return false;
+    }
+
+  }
+</script>
 
 
 
@@ -320,9 +335,11 @@
 
 
 <script>
-  function test_token(invoice_id, Patient_name, other_info) {
+  function test_token(invoice_id, Patient_name, other_info, token_id) {
     // $('#information_model_body').html('<div style="padding: 32px; text-align: center;"><img  src="<?php echo site_url('assets/admin/preloader.gif'); ?>" /></div>');
     //alert(invoice_id);
+    //alert(token_id);
+    $('#testTokenId').val(token_id);
     $('#information_model_title').html('Assign Test Token ID');
     $('#invoice_id').html("Invoice No: " + invoice_id);
     $('#patient_name').html("Patient Name: " + Patient_name);

@@ -28,14 +28,14 @@ class Lab extends Admin_Controller
 	public function index()
 	{
 
-		$where = "`invoices`.`status` IN (1) ORDER BY `invoices`.`invoice_id` DESC";
+		$where = "`invoices`.`status` IN (1) AND category_id=1 AND DATE(`invoices`.`created_date`) = DATE(NOW()) ORDER BY `invoices`.`invoice_id` DESC";
 		$this->data["forwarded_tests"] = $this->invoice_model->get_invoice_list($where, false);
 
 
-		$where = "`invoices`.`status` IN (2) ORDER BY `invoices`.`invoice_id` DESC";
+		$where = "`invoices`.`status` IN (2) AND category_id=1 AND DATE(`invoices`.`created_date`) = DATE(NOW()) ORDER BY `invoices`.`invoice_id` DESC";
 		$this->data["inprogress_tests"] = $this->invoice_model->get_invoice_list($where, false);
 
-		$where = "`invoices`.`status` IN (3) ORDER BY `invoices`.`invoice_id` DESC";
+		$where = "`invoices`.`status` IN (3) AND category_id=1 AND DATE(`invoices`.`created_date`) = DATE(NOW()) ORDER BY `invoices`.`invoice_id` DESC";
 		$this->data["completed_tests"] = $this->invoice_model->get_invoice_list($where, false);
 
 
@@ -44,10 +44,17 @@ class Lab extends Admin_Controller
 
 	public function save_data()
 	{
+
+
+
+
 		//save patient data and get pacient id ....
 		$patient_id = $this->patient_model->save_data();
 		//var_dump($_POST);
 		$test_group_ids =  implode(',', $this->input->post('test_group_id'));
+
+
+
 
 		$discount = $this->input->post("discount");
 		$tax = $this->input->post("tax");
@@ -248,7 +255,7 @@ class Lab extends Admin_Controller
 		   						  VALUES ('" . $message . " ', " . $this->db->escape($mobile_number) . ", '0', '1')");
 			}
 		}
-		redirect(ADMIN_DIR . "reception/");
+		redirect(ADMIN_DIR . "lab/");
 	}
 
 	public function print_patient_test_receipts($invoice_id)

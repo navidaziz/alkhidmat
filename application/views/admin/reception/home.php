@@ -179,7 +179,12 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
                     <td><strong style="margin-left:2px;">
                         <?php echo $test_group->test_group_name; ?>
                       </strong></td>
-                    <td><?php echo $test_group->test_time; ?> min</td>
+
+                    <td><?php
+                        if ($test_group->category_id != 5) {
+                          echo $test_group->test_time . " min";
+                        }
+                        ?></td>
                     <td><?php echo $test_group->test_price; ?> Rs.</td>
                   </tr>
                 <?php } ?>
@@ -239,7 +244,9 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
           <thead>
             <tr>
               <th>#</th>
+              <th>Category</th>
               <th>Name</th>
+
               <th>Mobile</th>
               <th>Receipts</th>
               <!-- <th>Price</th>
@@ -263,77 +270,45 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
           ?>
             <tr style="background-color: <?php echo $color; ?>;">
               <td><?php echo $test->invoice_id; ?> </td>
+              <td><?php
+                  if ($test->category_id != 5) {
+                    echo $test_categories[$test->category_id] . "-" . $test->today_count;
+                  } else {
+                    $query = "SELECT test_group_name FROM test_groups WHERE test_group_id = '" . $test->opd_doctor . "'";
+                    $opd_doctor = $this->db->query($query)->result()[0]->test_group_name;
+                    echo $opd_doctor . "-" . $test->today_count;
+                  } ?>
+              </td>
               <td><?php echo $test->patient_name; ?></td>
               <td><?php echo $test->patient_mobile_no; ?></td>
               <td>
-                <a style="margin-left: 10px;" target="new" href="<?php echo site_url(ADMIN_DIR . "lab/print_patient_test_receipts/$test->invoice_id") ?>"><i class="fa fa-print" aria-hidden="true"></i> Receipts</a>
-
-                <?php
-                // $query = "SELECT
-                //     `test_groups`.`test_group_name`,
-                //     `test_groups`.`test_group_id`
-                //   FROM
-                //   `invoice_test_groups`,
-                //   `test_groups` 
-                //   WHERE `invoice_test_groups`.`test_group_id` = `test_groups`.`test_group_id`
-                //   AND `invoice_test_groups`.`invoice_id` = '" . $test->invoice_id . "'";
-                // $query_result = $this->db->query($query);
-                // $patient_tests = $query_result->result();
-                // $tests = '';
-                // foreach ($patient_tests as $patient_test) {
-                //   $tests .= $patient_test->test_group_name . ',';
-                // }
-                // echo $tests;
-                ?>
+                <a style="margin-left: 10px;" target="new" href="<?php echo site_url(ADMIN_DIR . "lab/print_patient_test_receipts/$test->invoice_id") ?>"><i class="fa fa-print" aria-hidden="true"></i> Receipt</a>
 
               </td>
               <!-- <td><?php echo $test->price; ?></td>
               <td><?php echo $test->discount; ?></td> -->
               <td><?php echo $test->total_price; ?></td>
               <td>
-                <?php if ($test->status == 1) {
+                <?php if ($test->category_id == 1) {
+                  if ($test->status == 1) { ?>
 
-                  // $other_info = 'Patient Name: ' . $test->patient_name . '<br />';
-                  // $other_info .= 'Mobile No: ' . $test->patient_mobile_no . '<br />';
-                  // $other_info .= 'Address: ' . $test->patient_address . '<br />';
-                  // $other_info .= 'Refered By: ' . $test->doctor_name . ' (' . $test->doctor_designation . ')<br />';
-                  // $other_info .= 'Tests: <strong>';
-                  // $patient_group_test_ids = '';
-                  // //get the test groups for the pacient...
-                  // $query = "SELECT
-                  //   `test_groups`.`test_group_name`,
-                  //   `test_groups`.`test_group_id`
-                  // FROM
-                  // `invoice_test_groups`,
-                  // `test_groups` 
-                  // WHERE `invoice_test_groups`.`test_group_id` = `test_groups`.`test_group_id`
-                  // AND `invoice_test_groups`.`invoice_id` = '" . $test->invoice_id . "'";
-                  // $query_result = $this->db->query($query);
-                  // $patient_tests = $query_result->result();
-                  // foreach ($patient_tests as $patient_test) {
-                  //   $other_info .= $patient_test->test_group_name . ', ';
-                  //   $patient_group_test_ids .= $patient_test->test_group_id . ', ';
-                  // }
-                  // $other_info .= '</strong>';
-
-                ?>
-
-                  <input id="in_<?php echo $test->invoice_id; ?>" type="hidden" value="<?php echo @$other_info; ?>" />
+                    <!-- <input id="in_<?php echo $test->invoice_id; ?>" type="hidden" value="<?php echo @$other_info; ?>" />
                   <input id="patient_group_test_ids_<?php echo $test->invoice_id; ?>" type="hidden" value="<?php echo @$patient_group_test_ids; ?>" />
-                  <a href="#" onclick="test_token('<?php echo $test->invoice_id; ?>')">New</a>
-                  <a href="<?php echo site_url(ADMIN_DIR . "lab/delete_invoice/$test->invoice_id") ?>" class="pull-right"><i class="fa fa-times" style="color:red"></i> Delete</a>
+                  <a href="#" onclick="test_token('<?php echo $test->invoice_id; ?>')">New</a> -->
+                    New
+                    <a href="<?php echo site_url(ADMIN_DIR . "lab/delete_invoice/$test->invoice_id") ?>" class="pull-right"><i class="fa fa-times" style="color:red"></i> Delete</a>
 
-                <?php
+                  <?php
 
-                } ?>
-                <?php if ($test->status == 2) { ?>
-                  Inprogress
-                <?php  } ?>
-                <?php if ($test->status == 3) { ?>
-                  <a href="#" onclick="get_patient_test_report('<?php echo $test->invoice_id; ?>')">
-                    <i class="fa fa-eye" aria-hidden="true"></i> Report</a>
-                  <a style="margin-left: 10px;" target="new" href="<?php echo site_url(ADMIN_DIR . "lab/print_patient_test_report/$test->invoice_id") ?>"><i class="fa fa-print" aria-hidden="true"></i> Print</a>
-                <?php  } ?>
+                  } ?>
+                  <?php if ($test->status == 2) { ?>
+                    Inprogress
+                  <?php  } ?>
+                  <?php if ($test->status == 3) { ?>
+
+                    <a style="margin-left: 10px;" target="new" href="<?php echo site_url(ADMIN_DIR . "lab/print_patient_test_report/$test->invoice_id") ?>"><i class="fa fa-print" aria-hidden="true"></i> Print Report</a>
+                <?php  }
+                }  ?>
               </td>
             </tr>
           <?php } ?>
