@@ -128,13 +128,14 @@ class Module_m extends MY_Model{
     
     
     public function actionIdFromName($controller_name, $action_name){
-        
+       
         $this->db->select("module_id");
         $this->db->from($this->table);
         $this->db->where("module_uri", $controller_name);
         $this->db->limit(1);
         $con_query = $this->db->get();
         $cont_obj = $con_query->row();
+		
 		if($cont_obj){
         $controller_id = $cont_obj->module_id;
 		}else{
@@ -159,7 +160,21 @@ class Module_m extends MY_Model{
     }
     
     
-    
+    public function allowed_module_id($controller_name){
+		$this->db->select("module_id");
+        $this->db->from($this->table);
+        $this->db->where("module_uri", $this->controller_name);
+        $this->db->limit(1);
+        $con_query = $this->db->get();
+        $cont_obj = $con_query->row();
+		//var_dump($cont_obj);
+		if($cont_obj){
+        return $cont_obj->module_id;
+		}else{
+			return false;
+			}
+		
+		}
     
     
 }

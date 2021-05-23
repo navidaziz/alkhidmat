@@ -74,7 +74,7 @@
             <h1 style="text-align:center !important; color:#D2322D;">Login In</h1>
             
             <div class="divide-40"></div>
-            <form role="form" method="post" action="<?php echo site_url(ADMIN_DIR."users/login"); ?>">
+            <form role="form" method="post" action="<?php echo site_url(ADMIN_DIR."login/"); ?>">
               <div class="form-group">
                 <label for="user_email">User Name</label>
                 <i class="fa fa-envelope"></i>

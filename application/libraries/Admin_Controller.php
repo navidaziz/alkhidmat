@@ -36,25 +36,44 @@ class Admin_Controller extends MY_Controller{
         
         //login check
         $exception_uri = array(
-            ADMIN_DIR."users/login",
-            ADMIN_DIR."users/logout"
+            ADMIN_DIR."login",
+            ADMIN_DIR."users/logout",
+			//ADMIN_DIR."register",
+			//ADMIN_DIR."register/signup",
+			
         );
-        
+		
        if(!in_array(uri_string(), $exception_uri)){
             
             //check if the user is logged in or not
             if($this->user_m->loggedIn() == false){
 				
-				if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-	/* special ajax here */
-	echo "<h4>Your session has expired. Please log-in again.</4>";
-	exit();
-}else{
-	redirect(ADMIN_DIR."users/login");
-	}
-				
-                
-            }
+				if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+				strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+					/* special ajax here */
+					echo "<h4>Your session has expired. Please log-in again.</4>";
+					exit();
+					}else{
+						redirect(ADMIN_DIR."login/");
+						}
+		 }else{
+			
+			
+			
+		/*	 if($this->session->userdata['profile_complete']==0){
+			
+			if($this->uri->segment(2)!='complete_profile' and $this->uri->segment(3)!='update_profile_complete'){
+				redirect(ADMIN_DIR.'complete_profile');
+			}
+				 }
+				 
+				 */
+			 
+			 
+			 
+			 
+			 
+			 }
 			
 			
 			
@@ -71,6 +90,8 @@ class Admin_Controller extends MY_Controller{
             if(!in_array($current_action_id, $allowed_modules)){
                 //$this->session->set_flashdata('msg_error', 'You are not allowed to access this module');
                 //redirect(ADMIN_DIR.$this->session->userdata("role_homepage_uri"));
+			
+				
             }
         }
     }

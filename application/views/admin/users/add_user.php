@@ -72,6 +72,12 @@
                 <?php echo form_error("role_id", "<p class=\"text-danger\">", "</p>"); ?>
             </div>
             
+           
+            
+            
+          
+            
+            
             
             <div class="form-group">
             
@@ -166,7 +172,7 @@
                     $label = array(
                         "class" => "col-md-2 control-label",
                         "style" => "",
-                    ); echo form_label($this->lang->line('user_name'), "user_name", $label);      ?>
+                    ); echo form_label("Account User Name", "user_name", $label);      ?>
 
                 <div class="col-md-10">
                 <?php
