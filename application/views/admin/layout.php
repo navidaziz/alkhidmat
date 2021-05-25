@@ -13,7 +13,7 @@ $allowed_modules[] = $this->session->userdata("role_homepage_id");
 
 
 
-if (in_array($current_action_id, $allowed_modules) or 1 == 1) {
+if (in_array($current_action_id, $allowed_modules) or $this->uri->segment(3) == 'update_profile') {
 
 
 
