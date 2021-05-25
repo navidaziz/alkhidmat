@@ -5,7 +5,7 @@
   <title>Receipt</title>
   <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/css/cloud-admin.css" media="screen,print" />
   <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/css/themes/default.css" media="screen,print" id="skin-switcher" />
-  <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/css/responsive.css" media="screen,print" />
+
   <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/css/custom.css" media="screen,print" />
 
 
@@ -24,34 +24,12 @@
 
     page[size="A4"] {
       width: 8cm;
-      /* height: 29.7cm;  */
       height: auto;
+      font-weight: bold !important;
+      font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+      font-size: 12px !important;
     }
 
-    page[size="A4"][layout="landscape"] {
-      width: 8cm;
-      height: 21cm;
-    }
-
-    page[size="A3"] {
-      width: 29.7cm;
-      height: 42cm;
-    }
-
-    page[size="A3"][layout="landscape"] {
-      width: 42cm;
-      height: 29.7cm;
-    }
-
-    page[size="A5"] {
-      width: 14.8cm;
-      height: 21cm;
-    }
-
-    page[size="A5"][layout="landscape"] {
-      width: 21cm;
-      height: 14.8cm;
-    }
 
     @media print {
 
@@ -60,6 +38,24 @@
         margin: 0;
         box-shadow: 0;
         color: black;
+      }
+
+      .table-bordered {
+        border: 1px solid black !important;
+      }
+
+      .table>thead>tr>th,
+      .table>tbody>tr>th,
+      .table>tfoot>tr>th,
+      .table>thead>tr>td,
+      .table>tbody>tr>td,
+      .table>tfoot>tr>td {
+        padding: 3px;
+        line-height: 1.628571;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+        color: black !important;
+        border: 1px solid black;
       }
 
     }
@@ -75,103 +71,150 @@
       line-height: 1.628571;
       vertical-align: top;
       border-top: 1px solid #ddd;
-      font-size: 12px !important;
+      color: black !important;
+      border: 1px solid black;
     }
   </style>
 </head>
 
 <body>
-  <page size='A4' style="font-size: 9px !important;">
-    <div style="padding: 0px;" contenteditable="tr ue">
-      <div style="text-align: center; padding-top: 10px;">
-        <h4>Al-Khidmat Diagnostic Center</h4>
-        <small style="font-size: 11px;">Chinar Inn Market Shahi Bazar Near Ataliq, Bridge Chitral
-          <br /> PHONE 0943-412814</small>
-        <br />
-        <strong style="font-size: 12px;">RECEIPT NO: <?php echo $invoice_detail->invoice_id; ?> <br /> Token NO: <?php echo $invoice_detail->test_token_id; ?></strong>
+  <page size='A4'>
 
-      </div>
 
-      <table style="width: 100%;">
-        <thead>
-          <tr>
-            <td style="text-align: center;">
-              <table style="width: 100%; margin-top: 10px;">
-                <tr>
-                  <td>
 
-                    <div style="border: 1px dashed black; margin: 5px; padding:5px">
-                      <table style="text-align: left; width:100%; font-size: 11px !important;">
+    <table style="width: 99%; margin: 2px; padding:2px; ">
+      <thead>
+        <tr>
+          <td>
+            <table style="width: 100%; margin-top: 10px; color:black">
+
+              <tr>
+                <td style="text-align: center;">
+                  <h4>Al-Khidmat Diagnostic Center</h4>
+                  <h6 style="font-size: 11px;">Chinar Inn Market Shahi Bazar Near Ataliq Bridge, Chitral
+                    <br /> PHONE 0943-412814
+                  </h6>
+                  <h5>RECEIPT NO: <?php echo $invoice_detail->invoice_id; ?>
+                    <?php if ($invoice_detail->category_id != 5) { ?>
+                      <br /> Token NO: <?php echo $invoice_detail->test_token_id; ?>
+                    <?php } ?>
+                    <h4>
+                      Appointment No:
+                      <?php
+                      if ($invoice_detail->category_id != 5) {
+
+                        $query = "SELECT test_category FROM test_categories WHERE test_category_id= '" . $invoice_detail->category_id . "'";
+                        echo $this->db->query($query)->result()[0]->test_category;
+                        echo " - " . $invoice_detail->today_count;
+                      } else {
+                        $query = "SELECT test_group_name FROM test_groups WHERE test_group_id = '" . $invoice_detail->opd_doctor . "'";
+                        $opd_doctor = $this->db->query($query)->result()[0]->test_group_name;
+                        echo  $invoice_detail->today_count;
+                        echo "<br />" . $opd_doctor . '<br />';
+                        echo date("d F, Y ", strtotime($invoice_detail->created_date));
+                      } ?>
+                    </h4>
+                  </h5>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h6 style="border: 1px dashed  black; padding: 2px; color:black">
+                    <table width="100%">
+                      <tr>
+                        <td width="80">Patient Name: </td>
+                        <td><?php echo trim(ucwords(strtolower($invoice_detail->patient_name))); ?></td>
+                      </tr>
+                      <tr>
+                        <td>Mobile No:</td>
+                        <td><?php echo $invoice_detail->patient_mobile_no; ?></td>
+                      </tr>
+                      <tr>
+                        <td>Gender: <?php echo $invoice_detail->patient_gender; ?></td>
+                        <td>Age: <?php echo @$invoice_detail->patient_age; ?> Y</td>
+                      </tr>
+
+                      <tr>
+                        <td>Address</td>
+                        <td><?php echo trim(ucwords(strtolower($invoice_detail->patient_address))); ?></td>
+                      </tr>
+
+                      <?php if ($invoice_detail->category_id != 5) { ?>
                         <tr>
-                          <th>Patient Name: </th>
-                          <td><?php echo trim(ucwords(strtolower($invoice_detail->patient_name))); ?></td>
-                        </tr>
-                        <tr>
-                          <th>Mobile No:</th>
-                          <td><?php echo $invoice_detail->patient_mobile_no; ?></td>
-                        </tr>
-                        <tr>
-                          <th>Gender: <?php echo $invoice_detail->patient_gender; ?></th>
-                          <th>Age: <?php echo @$invoice_detail->patient_age; ?> Y</th>
-                        </tr>
-
-                        <tr>
-                          <th>Address</th>
-                          <td><?php echo trim(ucwords(strtolower($invoice_detail->patient_address))); ?></td>
-                        </tr>
-
-
-                        <tr>
-                          <th>Refereed By:</th>
+                          <td>Refereed By:</td>
                           <td><?php echo str_replace("Muhammad", "M.", $invoice_detail->doctor_name) . "( " . $invoice_detail->doctor_designation . " )"; ?></td>
                         </tr>
+                      <?php } ?>
+                      <tr>
+                        <td>Date & Time:</td>
+                        <td><?php echo date("d F, Y h:i:s", strtotime($invoice_detail->created_date)); ?></td>
+                      </tr>
+                    </table>
+                    <h6>
+                </td>
+
+              </tr>
+
+              <tr>
+                <td>
+
+                  <h5>
+                    <table border="1" width="100%" style="border-collapse:collapse; color:black">
+                      <tr>
+                        <td>#</td>
+                        <td>Details</td>
+                        <td>Amount</td>
+                      </tr>
+                      <?php
+                      $count = 1;
+                      foreach ($invoice->invoice_details as $invoicedetail) { ?>
                         <tr>
-                          <th>Date & Time:</th>
-                          <td><?php echo date("d F, Y h:i:s", strtotime($invoice_detail->created_date)); ?></td>
+                          <td><?php echo $count++; ?></td>
+                          <td>
+                            <?php if ($invoice_detail->category_id != 5) { ?>
+                              <?php echo $invoicedetail->test_group_name; ?>
+                            <?php } else {
+                              echo "Consultation Fee";
+                            } ?>
+                          </td>
+                          <td><?php echo $invoicedetail->price; ?></td>
                         </tr>
-                      </table>
-                    </div>
-                  </td>
+                      <?php } ?>
+                      <tr>
+                        <th colspan="3" style="text-align: right;">
+                          <h5>
+                            Total: <?php echo $invoice->price; ?>.00 Rs <br />
+                            Discount: <?php if ($invoice->discount) {
+                                        echo $invoice->discount;
+                                      } else {
+                                        echo "00";
+                                      }  ?>.00 Rs <br />
+                            Total: <?php echo $invoice->total_price; ?>.00 Rs
+                          </h5>
+                </td>
+              </tr>
 
-                </tr>
+            </table>
+            </h5>
+          </td>
+        </tr>
+    </table>
+    </td>
+    </tr>
+    </thead>
 
-                <tr>
-                  <td>
-
-                    <div style="margin: 5px; padding:5px; ">
-                      <table class="table table-bordered" style="text-align: left; font-size: 12px !important;">
-                        <tr>
-                          <th>#</th>
-                          <th>Details</th>
-                          <th>Amount</th>
-                        </tr>
-                        <?php
-                        $count = 1;
-                        foreach ($invoice->invoice_details as $invoicedetail) { ?>
-                          <tr>
-                            <th><?php echo $count++; ?></th>
-                            <td><?php echo $invoicedetail->test_group_name; ?></td>
-                            <td><?php echo $invoicedetail->price; ?></td>
-                          </tr>
-                        <?php } ?>
-                        <tr>
-                          <th colspan="3" style="text-align: right;">Total: <?php echo $invoice->price; ?> Rs <br />
-                            Discount: <?php echo $invoice->discount; ?> Rs <br />
-                            Total: <?php echo $invoice->total_price; ?> Rs
-                          </th>
-                        </tr>
-
-                      </table>
-
-                    </div>
-                  </td>
-                </tr>
-              </table>
-              </th>
-          </tr>
-        </thead>
-
-      </table>
+    </table>
+    <p style="font-size: smaller; font-weight: initial; text-align: center; color:black">Data entered by:
+      <?php $query = "SELECT user_title from users WHERE user_id='" . $invoice->created_by . "'";
+      echo $this->db->query($query)->result()[0]->user_title;
+      $query = "SELECT
+                  `roles`.`role_title` 
+              FROM `roles`,
+              `users` 
+              WHERE `roles`.`role_id` = `users`.`role_id`
+              AND `users`.`user_id`='" . $invoice->created_by . "'";
+      echo " (" . $this->db->query($query)->result()[0]->role_title . ")";
+      ?> </p>
     </div>
 
   </page>
