@@ -34,7 +34,7 @@ class Reception extends Admin_Controller
 					, COUNT(`invoices`.`invoice_id`) AS total_count
 					FROM
 					`test_categories`
-					LEFT JOIN `lab`.`invoices` 
+					LEFT JOIN `invoices` 
 					ON (`test_categories`.`test_category_id` = `invoices`.`category_id`)
 					WHERE DATE(`invoices`.`created_date`) = DATE(NOW())
 					GROUP BY `test_categories`.`test_category`;";
@@ -45,7 +45,7 @@ class Reception extends Admin_Controller
 					, COUNT(`invoices`.`invoice_id`) AS total_count
 					FROM
 					`test_categories`
-					LEFT JOIN `lab`.`invoices` 
+					LEFT JOIN `invoices` 
 					ON (`test_categories`.`test_category_id` = `invoices`.`category_id`)
 					WHERE DATE(`invoices`.`created_date`) = DATE(NOW())";
 		$today_cat_wise_progress_report = $this->db->query($query)->result();
