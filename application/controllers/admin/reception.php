@@ -24,6 +24,63 @@ class Reception extends Admin_Controller
 	//---------------------------------------------------------------
 
 
+
+	public function today_progress_report()
+	{
+
+		$query = "SELECT
+					`test_categories`.`test_category`
+					, IF(SUM(`invoices`.`total_price`), SUM(`invoices`.`total_price`), 0) AS total_sum
+					, COUNT(`invoices`.`invoice_id`) AS total_count
+					FROM
+					`test_categories`
+					LEFT JOIN `lab`.`invoices` 
+					ON (`test_categories`.`test_category_id` = `invoices`.`category_id`)
+					WHERE DATE(`invoices`.`created_date`) = DATE(NOW())
+					GROUP BY `test_categories`.`test_category`;";
+		$today_cat_wise_progress_report = $this->db->query($query)->result();
+		$this->data["today_cat_wise_progress_reports"] = $today_cat_wise_progress_report;
+
+		$query = "SELECT SUM(`invoices`.`total_price`) AS total_sum
+					, COUNT(`invoices`.`invoice_id`) AS total_count
+					FROM
+					`test_categories`
+					LEFT JOIN `lab`.`invoices` 
+					ON (`test_categories`.`test_category_id` = `invoices`.`category_id`)
+					WHERE DATE(`invoices`.`created_date`) = DATE(NOW())";
+		$today_cat_wise_progress_report = $this->db->query($query)->result();
+		$this->data["today_total_cat_wise_progress_reports"] = $today_cat_wise_progress_report;
+
+		$query = "SELECT
+					`test_groups`.`test_group_name`
+					, IF(SUM(`invoices`.`total_price`), SUM(`invoices`.`total_price`), 0) AS total_sum
+					, COUNT(`invoices`.`invoice_id`) AS total_count
+				FROM
+				`test_groups`,
+				`invoices` 
+				WHERE `test_groups`.`test_group_id` = `invoices`.`opd_doctor`
+				AND `invoices`.`category_id`=5
+				AND DATE(`invoices`.`created_date`) = DATE(NOW())
+				GROUP BY `test_groups`.`test_group_name`";
+		$today_OPD_report = $this->db->query($query)->result();
+		$this->data["today_OPD_reports"] = $today_OPD_report;
+		$query = "SELECT SUM(`invoices`.`total_price`) AS total_sum
+					, COUNT(`invoices`.`invoice_id`) AS total_count
+				FROM
+				`test_groups`,
+				`invoices` 
+				WHERE `test_groups`.`test_group_id` = `invoices`.`opd_doctor`
+				AND `invoices`.`category_id`=5
+				AND DATE(`invoices`.`created_date`) = DATE(NOW())";
+		$today_OPD_report = $this->db->query($query)->result();
+		$this->data["today_total_OPD_reports"] = $today_OPD_report;
+
+
+		$this->load->view(ADMIN_DIR . "reception/today_report", $this->data);
+	}
+
+
+
 	/**
 	 * Default action to be called
 	 */

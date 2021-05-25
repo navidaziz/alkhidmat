@@ -190,7 +190,7 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
   <div class="col-md-4" style="padding-left:1px !important; padding-right:1px !important; ">
     <div class="box border blue" id="messenger">
       <div class="box-title">
-        <h4><i class="fa fa-flask"></i>Lab Tests</h4>
+        <h4><i class="fa fa-flask"></i>Service Tokens (Reception)</h4>
       </div>
       <div class="box-body">
         <div class="row" style="font-size: 12px !important;">
@@ -252,9 +252,28 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
   <div class="col-md-5">
     <div class="box border blue" id="messenger">
       <div class="box-title">
-        <h4><i class="fa fa-file"></i>Lab Test Report Status</h4>
+        <h4><i class="fa fa-file"></i>Receipt / LAB Tests Status / LAB Test Reports</h4>
       </div>
       <div class="box-body" style="font-size: 12px !important;">
+
+        <span style="cursor: pointer;" class="pull-left" onclick="get_today_progress_report()"><br />
+          <i class="fa fa-bar-chart" aria-hidden="true"></i> Today Report</span>
+
+        <script>
+          function get_today_progress_report() {
+            $.ajax({
+              type: "POST",
+              url: "<?php echo site_url(ADMIN_DIR); ?>/reception/today_progress_report/",
+              data: {}
+            }).done(function(data) {
+
+              $('#test_form_title').html('Today Report');
+              $('#test_form_body').html(data);
+              $('#test_form').modal('show');
+
+            });
+          }
+        </script>
 
         <div style="padding: 1px; text-align: right;">
           <script>
