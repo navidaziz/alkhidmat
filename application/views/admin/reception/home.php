@@ -1,5 +1,45 @@
 <?php $this->load->view(ADMIN_DIR . "reception/reception_header"); ?>
 
+
+
+<?php
+
+//now we will check if the current module is assigned to the user or not
+/*$this->data['current_action_id'] = $current_action_id = $this->module_m->actionIdFromName($this->controller_name, $this->method_name);*/
+$this->data['current_action_id'] = $current_action_id = $this->module_m->allowed_module_id($this->controller_name);
+
+$allowed_modules = $this->mr_m->rightsByRole($this->session->userdata("role_id"));
+
+//var_dump($allowed_modules);
+//add role homepage to allowed modules
+$allowed_modules[] = $this->session->userdata("role_homepage_id");
+
+if (!in_array($current_action_id, $allowed_modules)) { ?>
+
+  <div style=" margin:0px auto; width:100%; text-align:center !important;">
+    <div style="margin:150px !important;">
+
+      <h1 style="color: #d9534f;  font-size: 80px;  ">Access Denied</h1>
+      <div class="content">
+        <h3>Oops! Something went wrong</h3>
+        <p>You are not allowed to access this module. Thanks.</p>
+        <div class="btn-group">
+          <a href="<?php echo site_url(ADMIN_DIR . $this->session->userdata("role_homepage_uri")); ?>" class="btn btn-danger"><i class="fa fa-chevron-left"></i> Go Back</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+<?php
+  exit();
+}
+
+?>
+
+
+
 <?php
 $add_form_attr = array("class" => "form-horizontal");
 echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
@@ -21,7 +61,7 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
               <!-- <a href="<?php echo site_url(ADMIN_DIR . $this->session->userdata("role_homepage_uri")); ?>"> 
         <img src="<?php echo site_url("assets/uploads/" . $log); ?>" alt="<?php echo $system_global_settings[0]->system_title ?>" 
         title="<?php echo $system_global_settings[0]->system_title ?>" class="img-responsive " style="width:40px !important;"></a>-->
-              <h4 style="margin-top: -5px;"><strong>Alkhidmat Chitral</strong></h4>
+              <h5 style="margin-top: -5px;"><strong>Alkhidmat Chitral</strong></h5>
               <h5 style="margin-top: -5px;">Diagnostic Center</h5>
             </td>
             <td>

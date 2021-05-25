@@ -149,12 +149,12 @@ class Test_categories extends Admin_Controller
     {
 
         $test_category_id = (int) $test_category_id;
-        //$this->test_category_model->changeStatus($test_category_id, "3");
+        $this->test_category_model->changeStatus($test_category_id, "3");
         //Remove file....
-        $test_categories = $this->test_category_model->get_test_category($test_category_id);
-        $file_path = $test_categories[0]->image;
-        $this->test_category_model->delete_file($file_path);
-        $this->test_category_model->delete(array('test_category_id' => $test_category_id));
+        //$test_categories = $this->test_category_model->get_test_category($test_category_id);
+        //$file_path = $test_categories[0]->image;
+        //$this->test_category_model->delete_file($file_path);
+        //$this->test_category_model->delete(array('test_category_id' => $test_category_id));
         $this->session->set_flashdata("msg_success", $this->lang->line("delete_msg_success"));
         redirect(ADMIN_DIR . "test_categories/trashed/" . $page_id);
     }
