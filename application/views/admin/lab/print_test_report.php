@@ -99,7 +99,7 @@
         <thead>
           <tr>
             <td>
-              <table style="width: 100%; margin-top: 100px;">
+              <table style="width: 100%; margin-top: 70px;">
                 <tr>
                   <td style="width: 45%;">
 
@@ -223,8 +223,21 @@
             <td>
               <br />
               <br />
+              <?php
+              $query = "SELECT
+                  `roles`.`role_title`,
+                  `users`.`user_title`  
+              FROM `roles`,
+              `users` 
+              WHERE `roles`.`role_id` = `users`.`role_id`
+              AND `users`.`user_id`='" . $this->session->userdata('user_id') . "'";
+              $user_data = $this->db->query($query)->result()[0];
+              ?> </p>
 
-              <p class="divFooter" style="text-align: right;"><b>Eid Ullah</b><br />Chitral City Medical <br /> Laboratory Chitral</p>
+              <p class="divFooter" style="text-align: right;"><b><?php echo $user_data->user_title; ?>
+                  <?php echo $user_data->role_title; ?></b>
+                <br />Alkhidmat Diagnostic Center<br /> Chitral City
+              </p>
             </td>
           </tr>
         </tfoot>
