@@ -93,14 +93,14 @@
 
             <div class="col-md-6">
               <table class="table table-bordered">
-                <h4>Refered By Doctors</h4>
+                <h4>Referred By Doctors</h4>
                 <tr>
                   <th>#</th>
                   <th>Name</th>
-                  <th>Total Refered</th>
+                  <th>Total Referred</th>
                   <th>Previous Month</th>
                   <th>Current Month</th>
-                  <th>Refered Today</th>
+                  <th>Referred Today</th>
                 </tr>
                 <?php
                 $count = 1;
