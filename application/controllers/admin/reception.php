@@ -183,48 +183,48 @@ class Reception extends Admin_Controller
 					WHERE `invoice_id` = '" . $invoice_id . "'";
 		$this->db->query($query);
 
-		$query = "SELECT 
-					  `test_group_tests`.`test_group_id`,
-					  `tests`.`test_id`,
-					  `tests`.`test_category_id`,
-					  `tests`.`test_type_id`,
-					  `tests`.`test_name`,
-					  `tests`.`test_description`,
-					  `tests`.`normal_values` 
-					FROM
-					  `tests`,
-					  `test_group_tests`
-					WHERE  `tests`.`test_id` = `test_group_tests`.`test_id` 
-					AND `test_group_tests`.`test_group_id` IN (" . $group_ids . ") 
-					ORDER BY `test_group_tests`.`test_group_id` ASC, `test_group_tests`.`order` ASC";
-		$query_result = $this->db->query($query);
-		$all_tests = $query_result->result();
-		$order = 1;
-		foreach ($all_tests as $test) {
-			$query = "INSERT INTO `patient_tests`(`invoice_id`, 
-													  `test_group_id`, 
-													  `test_category_id`, 
-													  `test_type_id`, 
-													  `test_id`, 
-													  `test_name`, 
-													  `test_normal_value`, 
-													  `test_result`, 
-													  `remarks`,
-													  `created_by`,
-													  `order`) 
-											VALUES('" . $invoice_id . "',
-												   '" . $test->test_group_id . "',
-												   '" . $test->test_category_id . "',
-													'" . $test->test_type_id . "',
-													'" . $test->test_id . "',
-													'" . $test->test_name . "',
-													'" . $test->normal_values . "',
-													'',
-													'',
-													'" . $this->session->userdata("user_id") . "',
-													'" . $order++ . "')";
-			$this->db->query($query);
-		}
+		// $query = "SELECT 
+		// 			  `test_group_tests`.`test_group_id`,
+		// 			  `tests`.`test_id`,
+		// 			  `tests`.`test_category_id`,
+		// 			  `tests`.`test_type_id`,
+		// 			  `tests`.`test_name`,
+		// 			  `tests`.`test_description`,
+		// 			  `tests`.`normal_values` 
+		// 			FROM
+		// 			  `tests`,
+		// 			  `test_group_tests`
+		// 			WHERE  `tests`.`test_id` = `test_group_tests`.`test_id` 
+		// 			AND `test_group_tests`.`test_group_id` IN (" . $group_ids . ") 
+		// 			ORDER BY `test_group_tests`.`test_group_id` ASC, `test_group_tests`.`order` ASC";
+		// $query_result = $this->db->query($query);
+		// $all_tests = $query_result->result();
+		// $order = 1;
+		// foreach ($all_tests as $test) {
+		// 	$query = "INSERT INTO `patient_tests`(`invoice_id`, 
+		// 											  `test_group_id`, 
+		// 											  `test_category_id`, 
+		// 											  `test_type_id`, 
+		// 											  `test_id`, 
+		// 											  `test_name`, 
+		// 											  `test_normal_value`, 
+		// 											  `test_result`, 
+		// 											  `remarks`,
+		// 											  `created_by`,
+		// 											  `order`) 
+		// 									VALUES('" . $invoice_id . "',
+		// 										   '" . $test->test_group_id . "',
+		// 										   '" . $test->test_category_id . "',
+		// 											'" . $test->test_type_id . "',
+		// 											'" . $test->test_id . "',
+		// 											'" . $test->test_name . "',
+		// 											'" . $test->normal_values . "',
+		// 											'',
+		// 											'',
+		// 											'" . $this->session->userdata("user_id") . "',
+		// 											'" . $order++ . "')";
+		// 	$this->db->query($query);
+		// }
 
 		$this->session->set_flashdata("msg_success", "Data Save Successfully.");
 		redirect(ADMIN_DIR . "reception");

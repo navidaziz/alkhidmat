@@ -182,10 +182,11 @@ class Lab extends Admin_Controller
 		$patient_tests_groups = $this->db->query($query)->result();
 		foreach ($patient_tests_groups as $patient_tests_group) {
 			$where = "`patient_tests`.`invoice_id` = '" . $invoice_id . "'
-					          AND `patient_tests`.`test_group_id` = '" . $patient_tests_group->test_group_id . "' ";
+			AND `patient_tests`.`test_group_id` = '" . $patient_tests_group->test_group_id . "' ";
 			$patient_tests_group->patient_tests = $this->patient_test_model->get_patient_test_list($where, false);
 		}
 		$this->data["patient_tests_groups"] = $patient_tests_groups;
+
 
 		$query = "SELECT * FROM `invoices` WHERE `invoices`.`invoice_id`=$invoice_id;";
 		$invoice = $this->db->query($query)->result()[0];
