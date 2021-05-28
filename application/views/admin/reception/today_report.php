@@ -11,7 +11,7 @@
             <th>#</th>
             <th>Catagories</th>
             <th>Total COUNT</th>
-            <th>Total SUM</th>
+            <th>Total Rs</th>
           </tr>
           <?php
           $count = 1;
@@ -44,7 +44,7 @@
             <th>#</th>
             <th>Catagories</th>
             <th>Total COUNT</th>
-            <th>Total SUM</th>
+            <th>Total RS</th>
           </tr>
           <?php
           $count = 1;
