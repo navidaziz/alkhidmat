@@ -30,8 +30,9 @@ class Reception extends Admin_Controller
 
 		$query = "SELECT
 					`test_categories`.`test_category`
-					, IF(SUM(`invoices`.`total_price`), SUM(`invoices`.`total_price`), 0) AS total_sum
-					, COUNT(`invoices`.`invoice_id`) AS total_count
+					, IF(SUM(`invoices`.`total_price`) AND `invoices`.`is_deleted`=0 , SUM(`invoices`.`total_price`), 0) AS total_sum
+	, IF(`invoices`.`is_deleted`=0,COUNT(`invoices`.`is_deleted`),0) AS total_count
+	, IF(`invoices`.`is_deleted`=1,COUNT(`invoices`.`is_deleted`),0) AS total_receipt_cancelled
 					FROM
 					`test_categories`
 					LEFT JOIN `invoices` 
@@ -41,8 +42,9 @@ class Reception extends Admin_Controller
 		$today_cat_wise_progress_report = $this->db->query($query)->result();
 		$this->data["today_cat_wise_progress_reports"] = $today_cat_wise_progress_report;
 
-		$query = "SELECT SUM(`invoices`.`total_price`) AS total_sum
-					, COUNT(`invoices`.`invoice_id`) AS total_count
+		$query = "SELECT IF(SUM(`invoices`.`total_price`) AND `invoices`.`is_deleted`=0 , SUM(`invoices`.`total_price`), 0) AS total_sum
+		, IF(`invoices`.`is_deleted`=0,COUNT(`invoices`.`is_deleted`),0) AS total_count
+		, IF(`invoices`.`is_deleted`=1,COUNT(`invoices`.`is_deleted`),0) AS total_receipt_cancelled
 					FROM
 					`test_categories`
 					LEFT JOIN `invoices` 
@@ -53,8 +55,9 @@ class Reception extends Admin_Controller
 
 		$query = "SELECT
 					`test_groups`.`test_group_name`
-					, IF(SUM(`invoices`.`total_price`), SUM(`invoices`.`total_price`), 0) AS total_sum
-					, COUNT(`invoices`.`invoice_id`) AS total_count
+					, IF(SUM(`invoices`.`total_price`) AND `invoices`.`is_deleted`=0 , SUM(`invoices`.`total_price`), 0) AS total_sum
+	, IF(`invoices`.`is_deleted`=0,COUNT(`invoices`.`is_deleted`),0) AS total_count
+	, IF(`invoices`.`is_deleted`=1,COUNT(`invoices`.`is_deleted`),0) AS total_receipt_cancelled
 				FROM
 				`test_groups`,
 				`invoices` 
@@ -64,8 +67,10 @@ class Reception extends Admin_Controller
 				GROUP BY `test_groups`.`test_group_name`";
 		$today_OPD_report = $this->db->query($query)->result();
 		$this->data["today_OPD_reports"] = $today_OPD_report;
-		$query = "SELECT SUM(`invoices`.`total_price`) AS total_sum
-					, COUNT(`invoices`.`invoice_id`) AS total_count
+
+		$query = "SELECT IF(SUM(`invoices`.`total_price`) AND `invoices`.`is_deleted`=0 , SUM(`invoices`.`total_price`), 0) AS total_sum
+		, IF(`invoices`.`is_deleted`=0,COUNT(`invoices`.`is_deleted`),0) AS total_count
+		, IF(`invoices`.`is_deleted`=1,COUNT(`invoices`.`is_deleted`),0) AS total_receipt_cancelled
 				FROM
 				`test_groups`,
 				`invoices` 

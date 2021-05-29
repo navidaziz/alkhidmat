@@ -10,7 +10,8 @@
           <tr>
             <th>#</th>
             <th>Catagories</th>
-            <th>Total COUNT</th>
+            <th>Total</th>
+            <th>Cancelled</th>
             <th>Total Rs</th>
           </tr>
           <?php
@@ -20,12 +21,14 @@
               <th><?php echo $count++; ?></th>
               <th><?php echo $report->test_category; ?></th>
               <th><?php echo $report->total_count; ?></th>
+              <th><?php echo $report->total_receipt_cancelled; ?></th>
               <th><?php echo $report->total_sum; ?></th>
             </tr>
           <?php } ?>
           <tr>
             <th colspan="2" style="text-align: right;">Total</th>
             <th><?php echo $today_total_cat_wise_progress_reports[0]->total_count ?></th>
+            <th><?php echo $today_total_cat_wise_progress_reports[0]->total_receipt_cancelled; ?></th>
             <th><?php echo $today_total_cat_wise_progress_reports[0]->total_sum ?></th>
           </tr>
         </table>
@@ -43,7 +46,8 @@
           <tr>
             <th>#</th>
             <th>Catagories</th>
-            <th>Total COUNT</th>
+            <th>Total</th>
+            <th>Cancelled</th>
             <th>Total RS</th>
           </tr>
           <?php
@@ -53,12 +57,14 @@
               <th><?php echo $count++; ?></th>
               <th><?php echo $report->test_group_name; ?></th>
               <th><?php echo $report->total_count; ?></th>
+              <th><?php echo $report->total_receipt_cancelled; ?></th>
               <th><?php echo $report->total_sum; ?></th>
             </tr>
           <?php } ?>
           <tr>
             <th colspan="2" style="text-align: right;">Total</th>
             <th><?php echo $today_total_OPD_reports[0]->total_count ?></th>
+            <th><?php echo $today_total_OPD_reports[0]->total_receipt_cancelled; ?></th>
             <th><?php echo $today_total_OPD_reports[0]->total_sum ?></th>
           </tr>
         </table>

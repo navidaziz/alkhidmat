@@ -95,9 +95,7 @@
                     <br /> PHONE 0943-412814
                   </h6>
                   <h5>RECEIPT NO: <?php echo $invoice_detail->invoice_id; ?>
-                    <?php if ($invoice_detail->category_id != 5) { ?>
-                      <br /> Token NO: <?php echo $invoice_detail->test_token_id; ?>
-                    <?php } ?>
+                    <br /> Token NO: <?php echo $invoice_detail->test_token_id; ?>
                     <h4>
                       Appointment No:
                       <?php
