@@ -13,6 +13,7 @@ class Reception extends Admin_Controller
 		$this->lang->load("patients", 'english');
 		$this->lang->load("system", 'english');
 		$this->load->model("admin/test_group_model");
+		$this->load->model("admin/reports_model");
 		$this->load->model("admin/invoice_model");
 		$this->load->model("admin/test_type_model");
 
@@ -28,59 +29,7 @@ class Reception extends Admin_Controller
 	public function today_progress_report()
 	{
 
-		$query = "SELECT
-					`test_categories`.`test_category`
-					, IF(SUM(`invoices`.`total_price`) AND `invoices`.`is_deleted`=0 , SUM(`invoices`.`total_price`), 0) AS total_sum
-	, IF(`invoices`.`is_deleted`=0,COUNT(`invoices`.`is_deleted`),0) AS total_count
-	, IF(`invoices`.`is_deleted`=1,COUNT(`invoices`.`is_deleted`),0) AS total_receipt_cancelled
-					FROM
-					`test_categories`
-					LEFT JOIN `invoices` 
-					ON (`test_categories`.`test_category_id` = `invoices`.`category_id`)
-					WHERE DATE(`invoices`.`created_date`) = DATE(NOW())
-					GROUP BY `test_categories`.`test_category`;";
-		$today_cat_wise_progress_report = $this->db->query($query)->result();
-		$this->data["today_cat_wise_progress_reports"] = $today_cat_wise_progress_report;
-
-		$query = "SELECT IF(SUM(`invoices`.`total_price`) AND `invoices`.`is_deleted`=0 , SUM(`invoices`.`total_price`), 0) AS total_sum
-		, IF(`invoices`.`is_deleted`=0,COUNT(`invoices`.`is_deleted`),0) AS total_count
-		, IF(`invoices`.`is_deleted`=1,COUNT(`invoices`.`is_deleted`),0) AS total_receipt_cancelled
-					FROM
-					`test_categories`
-					LEFT JOIN `invoices` 
-					ON (`test_categories`.`test_category_id` = `invoices`.`category_id`)
-					WHERE DATE(`invoices`.`created_date`) = DATE(NOW())";
-		$today_cat_wise_progress_report = $this->db->query($query)->result();
-		$this->data["today_total_cat_wise_progress_reports"] = $today_cat_wise_progress_report;
-
-		$query = "SELECT
-					`test_groups`.`test_group_name`
-					, IF(SUM(`invoices`.`total_price`) AND `invoices`.`is_deleted`=0 , SUM(`invoices`.`total_price`), 0) AS total_sum
-	, IF(`invoices`.`is_deleted`=0,COUNT(`invoices`.`is_deleted`),0) AS total_count
-	, IF(`invoices`.`is_deleted`=1,COUNT(`invoices`.`is_deleted`),0) AS total_receipt_cancelled
-				FROM
-				`test_groups`,
-				`invoices` 
-				WHERE `test_groups`.`test_group_id` = `invoices`.`opd_doctor`
-				AND `invoices`.`category_id`=5
-				AND DATE(`invoices`.`created_date`) = DATE(NOW())
-				GROUP BY `test_groups`.`test_group_name`";
-		$today_OPD_report = $this->db->query($query)->result();
-		$this->data["today_OPD_reports"] = $today_OPD_report;
-
-		$query = "SELECT IF(SUM(`invoices`.`total_price`) AND `invoices`.`is_deleted`=0 , SUM(`invoices`.`total_price`), 0) AS total_sum
-		, IF(`invoices`.`is_deleted`=0,COUNT(`invoices`.`is_deleted`),0) AS total_count
-		, IF(`invoices`.`is_deleted`=1,COUNT(`invoices`.`is_deleted`),0) AS total_receipt_cancelled
-				FROM
-				`test_groups`,
-				`invoices` 
-				WHERE `test_groups`.`test_group_id` = `invoices`.`opd_doctor`
-				AND `invoices`.`category_id`=5
-				AND DATE(`invoices`.`created_date`) = DATE(NOW())";
-		$today_OPD_report = $this->db->query($query)->result();
-		$this->data["today_total_OPD_reports"] = $today_OPD_report;
-
-
+		$this->data = $this->reports_model->daily_reception_report();
 		$this->load->view(ADMIN_DIR . "reception/today_report", $this->data);
 	}
 
