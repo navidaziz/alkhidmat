@@ -180,7 +180,7 @@
       <p class="divFooter" style="text-align: right;"><b><?php echo $user_data->user_title; ?><br />
           <?php echo $user_data->role_title; ?></b>
         <br />Alkhidmat Diagnostic Center<br /> Chitral City <br />
-        <strong>Printed at: <?php echo date("d, F, Y H:i:s", time()); ?></strong>
+        <strong>Printed at: <?php echo date("d, F, Y h:i:s A", time()); ?></strong>
       </p>
 
 
