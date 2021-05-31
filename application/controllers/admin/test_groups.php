@@ -429,14 +429,14 @@ class Test_groups extends Admin_Controller
         $test_group_id = (int) $test_group_id;
 
         //get order number of this record
-        $this_test_group_test_where = "test_group_test_id = $test_group_test_id";
+        $this_test_group_test_where = "test_group_test_id = $test_group_test_id AND test_group_id = '" . $test_group_id . "'";
         $this_test_group_test = $this->test_group_test_model->getBy($this_test_group_test_where, true);
         $this_test_group_test_id = $test_group_test_id;
         $this_test_group_test_order = $this_test_group_test->order;
 
 
         //get order number of previous record
-        $previous_test_group_test_where = "order <= $this_test_group_test_order AND test_group_test_id != $test_group_test_id ORDER BY `order` DESC";
+        $previous_test_group_test_where = "order <= $this_test_group_test_order AND test_group_id = '" . $test_group_id . "' AND  test_group_test_id != $test_group_test_id ORDER BY `order` DESC";
         $previous_test_group_test = $this->test_group_test_model->getBy($previous_test_group_test_where, true);
         $previous_test_group_test_id = $previous_test_group_test->test_group_test_id;
         $previous_test_group_test_order = $previous_test_group_test->order;
@@ -478,7 +478,7 @@ class Test_groups extends Admin_Controller
         $test_group_id = (int) $test_group_id;
 
         //get order number of this record
-        $this_test_group_test_where = "test_group_test_id = $test_group_test_id";
+        $this_test_group_test_where = "test_group_test_id = $test_group_test_id AND test_group_id = '" . $test_group_id . "'";
         $this_test_group_test = $this->test_group_test_model->getBy($this_test_group_test_where, true);
         $this_test_group_test_id = $test_group_test_id;
         $this_test_group_test_order = $this_test_group_test->order;
@@ -486,7 +486,7 @@ class Test_groups extends Admin_Controller
 
         //get order number of next record
 
-        $next_test_group_test_where = "order >= $this_test_group_test_order and test_group_test_id != $test_group_test_id ORDER BY `order` ASC";
+        $next_test_group_test_where = "order >= $this_test_group_test_order AND test_group_id = '" . $test_group_id . "' and test_group_test_id != $test_group_test_id ORDER BY `order` ASC";
         $next_test_group_test = $this->test_group_test_model->getBy($next_test_group_test_where, true);
         $next_test_group_test_id = $next_test_group_test->test_group_test_id;
         $next_test_group_test_order = $next_test_group_test->order;

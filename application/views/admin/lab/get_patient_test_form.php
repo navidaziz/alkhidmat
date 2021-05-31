@@ -53,19 +53,19 @@
         </tr>
       <?php } ?>
       <tr>
-          <th colspan="2" style="text-align: left;">Total</th>
-          <td><?php echo $invoice->price; ?></td>
-        </tr>
+        <th colspan="2" style="text-align: left;">Total</th>
+        <td><?php echo $invoice->price; ?></td>
+      </tr>
 
-        <tr>
-          <th colspan="2" style="text-align: left;">Discount</th>
-          <td><?php echo $invoice->discount; ?></td>
-        </tr>
+      <tr>
+        <th colspan="2" style="text-align: left;">Discount</th>
+        <td><?php echo $invoice->discount; ?></td>
+      </tr>
 
-        <tr>
-          <th colspan="2" style="text-align: left;">Paid</th>
-          <td><?php echo $invoice->total_price; ?></td>
-        </tr>
+      <tr>
+        <th colspan="2" style="text-align: left;">Paid</th>
+        <td><?php echo $invoice->total_price; ?></td>
+      </tr>
     </table>
 
   </div>
@@ -88,7 +88,7 @@
           <tr>
             <td><?php echo $count++; ?></td>
             <td><?php echo $patient_test->test_name; ?></td>
-            <td><input onkeyup="update_test_value('<?php echo $patient_test->patient_test_id; ?>')" type="text" id="test_<?php echo $patient_test->patient_test_id; ?>_value" value="<?php echo $patient_test->test_result; ?>" /></td>
+            <td><input class="test_value_input" onkeyup="update_test_value('<?php echo $patient_test->patient_test_id; ?>')" type="text" id="test_<?php echo $patient_test->patient_test_id; ?>_value" value="<?php echo $patient_test->test_result; ?>" /></td>
             <td><?php echo $patient_test->unit; ?></td>
             <td><?php echo $patient_test->test_normal_value; ?></td>
             <!-- <td><input type="text" onkeyup="update_test_remarks('<?php echo $patient_test->patient_test_id; ?>')" id="test_<?php echo $patient_test->patient_test_id; ?>_remark" value="<?php echo $patient_test->remarks; ?>" /></td> -->
@@ -96,17 +96,34 @@
         <?php } ?>
       </table>
     <?php  } ?>
-   
-    
+
+
     <form action="<?php echo site_url(ADMIN_DIR . "lab/complete_test"); ?>" method="post">
-    <div style="text-align: left;"><strong>Remarks:</strong>
-    <textarea name="test_remarks" id="test_remarks" class="form-control" style="margin-bottom: 5px;" ></textarea></div>
+      <div style="text-align: left;"><strong>Remarks:</strong>
+        <textarea name="test_remarks" id="test_remarks" class="form-control" style="margin-bottom: 5px;"></textarea>
+      </div>
       <input type="hidden" value="<?php echo $invoice_id; ?>" name="invoice_id" />
       <input class="btn btn-success" type="submit" value="Complete Test" name="Complete Test" />
     </form>
   </div>
 </div>
 <script>
+  $('.test_value_input').keydown(function(e) {
+    if (e.keyCode == 40 || e.keyCode == 13) {
+
+      var index = $("input[type='text']").index(this);
+      $("input[type='text']").eq(index + 1).focus();
+      e.preventDefault();
+
+    }
+    if (e.keyCode == 38) {
+      var index = $("input[type='text']").index(this);
+      $("input[type='text']").eq(index - 1).focus();
+      e.preventDefault();
+
+    }
+  });
+
   function update_test_value(patient_test_id) {
 
 
