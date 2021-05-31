@@ -407,6 +407,8 @@ if (!in_array($current_action_id, $allowed_modules)) { ?>
     //alert(invoice_id);
     //alert(token_id);
     $('#testTokenId').val(token_id);
+    var sub_token = token_id.substr(0, 6)
+    $('#test_token_id').val(sub_token);
     $('#information_model_title').html('Assign Test Token ID');
     $('#invoice_id').html("Invoice No: " + invoice_id);
     $('#patient_name').html("Patient Name: " + Patient_name);
