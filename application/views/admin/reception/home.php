@@ -107,7 +107,7 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
               $(function() {
                 var availableTags = [
                   <?php $query = "SELECT `patient_id`, `patient_name` 
-                                  FROM `Patients` 
+                                  FROM `patients` 
                                   WHERE DATE(`created_date`) = DATE(NOW()) GROUP BY `patient_name`";
                   $today_patients = $this->db->query($query)->result();
                   foreach ($today_patients as $patient) { ?> "<?php echo $patient->patient_name; ?>", "<?php echo $patient->patient_id; ?>",
