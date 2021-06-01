@@ -85,11 +85,71 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
           </tr>
         </table>
         <hr style="margin-top: -5px;" />
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <table style="width: 100%;">
-          <input style="display: none;" type="text" name="validate" id="validate" required="required" />
+
           <tr>
             <td>Patient Name: </td>
-            <td><input type="text" name="patient_name" value="" id="patient_name" class="for m-control" style="" required="required" title="Name" placeholder="Name"></td>
+
+            <td>
+              <input style="display: none;" type="text" name="validate" id="validate" required="required" />
+
+              <input type="hidden" name="patientID" id="patientID" />
+
+              <input type="text" name="patient_name" value="" id="patient_name" autocomplete="off" class="ui-autocomplete-input" style="" required="required" title="Name" placeholder="Name">
+
+              <span id="please_wait"></span>
+
+            </td>
+
+
+            <script>
+              $(function() {
+                var availableTags = [
+                  <?php $query = "SELECT `patient_id`, `patient_name` 
+                                  FROM `Patients` 
+                                  WHERE DATE(`created_date`) = DATE(NOW()) GROUP BY `patient_name`";
+                  $today_patients = $this->db->query($query)->result();
+                  foreach ($today_patients as $patient) { ?> "<?php echo $patient->patient_name; ?>", "<?php echo $patient->patient_id; ?>",
+                  <?php } ?>
+
+
+                ];
+                $("#patient_name").autocomplete({
+                  source: availableTags
+                });
+              });
+
+              $('#patient_name').on('keydown', function(e) {
+                if (e.keyCode == 13) {
+                  var patient = $('#patient_name').val();
+                  $('#please_wait').html('<p style="text-align:center"><strong>Please Wait...... Loading</strong></p>');
+                  $.ajax({
+                    type: "POST",
+                    url: "<?php echo site_url(ADMIN_DIR . "/reception/get_patient_detail"); ?>",
+                    data: {
+                      patient: patient
+                    }
+                  }).done(function(data) {
+                    var patient = jQuery.parseJSON(data);
+
+                    $('#patientID').val(patient.patient_id);
+                    $('#patient_address').val(patient.patient_address);
+                    $('#patient_age').val(patient.patient_age);
+                    if (patient.patient_gender == 'Male') {
+                      $('#male').attr('checked', true);
+                    } else {
+                      $('#female').attr('checked', true);
+                    }
+                    $('#patient_mobile_no').val(patient.patient_mobile_no);
+
+                  });
+                  $('#please_wait').hide();
+                }
+
+              });
+            </script>
+
           </tr>
 
           <tr>
@@ -102,7 +162,7 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
           </tr>
           <tr>
             <td>Sex: </td>
-            <td><input type="radio" name="patient_gender" value="Male" id="patient_gender" style="" required="required" class="uniform"><label for="patient_gender" style="margin-left:10px;">Male</label><input type="radio" name="patient_gender" value="Female" id="patient_gender" style="" required="required" class="uniform"><label for="patient_gender" style="margin-left:10px;">Female</label></td>
+            <td><input type="radio" name="patient_gender" value="Male" id="male" style="" required="required" class="uniform"><label for="patient_gender" style="margin-left:10px;">Male</label><input type="radio" name="patient_gender" value="Female" id="female" style="" required="required" class="uniform"><label for="patient_gender" style="margin-left:10px;">Female</label></td>
           </tr>
           <tr>
             <td>Referred By: </td>
@@ -242,8 +302,16 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
             <script>
               $(document).ready(function() {
                 $('#testGroupsTable').DataTable({
-                  "pageLength": 13,
+                  "pageLength": 10,
                   "lengthChange": false
+
+                });
+              });
+              $(document).ready(function() {
+                $('#receipts_table').DataTable({
+                  "paging": false,
+                  "lengthChange": false,
+                  "sorting": false
                 });
               });
             </script>
@@ -265,7 +333,7 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
       </div>
       <div class="box-body" style="font-size: 12px !important;">
 
-        <span style="cursor: pointer;" class="pull-left" onclick="get_today_progress_report()"><br />
+        <span style="cursor: pointer;" class="pull-left" onclick="get_today_progress_report()">
           <i class="fa fa-bar-chart" aria-hidden="true"></i> Today Report</span>
 
         <script>
@@ -285,38 +353,38 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
           }
         </script>
 
-        <div style="padding: 1px; text-align: right;">
-          <script>
-            function get_patient_search_result() {
-              var search = $('#search').val();
-              if (search != "") {
-                $.ajax({
-                  type: "POST",
-                  url: "<?php echo site_url(ADMIN_DIR); ?>/lab/get_patient_search_result/",
-                  data: {
-                    search: search
-                  }
-                }).done(function(data) {
-                  $('#search_result').html(data);
-                });
-              } else {
-                $('#search_result').html("");
-              }
+
+        <script>
+          function get_patient_search_result() {
+            var search = $('#search').val();
+            if (search != "") {
+              $.ajax({
+                type: "POST",
+                url: "<?php echo site_url(ADMIN_DIR); ?>/lab/get_patient_search_result/",
+                data: {
+                  search: search
+                }
+              }).done(function(data) {
+                $('#search_result').html(data);
+              });
+            } else {
+              $('#search_result').html("");
             }
-          </script>
+          }
+        </script>
 
-          Search Test <input onkeyup="get_patient_search_result()" type="text" name="search" id="search" class="form-control" style="width: 200px; display: inline;" />
-
+        <!-- Search Test <input onkeyup="get_patient_search_result()" type="text" name="search" id="search" class="form-control" style="width: 200px; display: inline;" /> 
+        <div style="padding: 1px; text-align: right;">
         </div>
-        <div id="search_result"></div>
-        <table class="table table-bordered">
+        <div id="search_result"></div>-->
+        <table class="table table-bordered" id="receipts_table" style="margin-top: -10px;">
           <thead>
             <tr>
               <th>#</th>
               <th>Category</th>
               <th>Name</th>
 
-              <th>Mobile</th>
+              <th>Gender</th>
               <th>Receipts</th>
               <!-- <th>Price</th>
               <th>Discount</th> -->
@@ -354,7 +422,8 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
                   } ?>
               </td>
               <td><?php echo $test->patient_name; ?></td>
-              <td><?php echo $test->patient_mobile_no; ?></td>
+              <!-- <td><?php echo $test->patient_mobile_no; ?></td> -->
+              <td><?php echo $test->patient_gender; ?></td>
               <td>
                 <a style="margin-left: 10px;" target="new" href="<?php echo site_url(ADMIN_DIR . "lab/print_patient_test_receipts/$test->invoice_id") ?>"><i class="fa fa-print" aria-hidden="true"></i> Receipt</a>
 

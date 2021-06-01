@@ -120,7 +120,7 @@
                   <h5 style="border: 1px dashed  black; padding: 2px; color:black">
                     <table width="100%" style="font-size: 15px;">
                       <tr>
-                        <td width="100">Patient Name: </td>
+                        <td width="100">Patient: </td>
                         <td style="font-size: 20px;"><?php echo trim(ucwords(strtolower($invoice_detail->patient_name))); ?></td>
                       </tr>
                       <!--                       

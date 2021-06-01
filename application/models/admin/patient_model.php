@@ -23,11 +23,11 @@ class Patient_model extends MY_Model
                 "rules"  =>  "required"
             ),
 
-            array(
-                "field"  =>  "patient_mobile_no",
-                "label"  =>  "Patient Mobile No",
-                "rules"  =>  "required"
-            ),
+            // array(
+            //     "field"  =>  "patient_mobile_no",
+            //     "label"  =>  "Patient Mobile No",
+            //     "rules"  =>  "required"
+            // ),
 
             array(
                 "field"  =>  "patient_address",
@@ -51,11 +51,11 @@ class Patient_model extends MY_Model
     {
         $inputs = array();
 
-        $inputs["patient_name"]  =  $this->input->post("patient_name");
+        $inputs["patient_name"]  =  ucwords(strtolower($this->input->post("patient_name")));
         $inputs["patient_age"]  =  $this->input->post("patient_age");
         $inputs["patient_mobile_no"]  =  preg_replace("/[^0-9,.]/", "", $this->input->post('patient_mobile_no'));
 
-        $inputs["patient_address"]  =  $this->input->post("patient_address");
+        $inputs["patient_address"]  =  ucwords(strtolower($this->input->post("patient_address")));
 
         $inputs["patient_gender"]  =  $this->input->post("patient_gender");
 
@@ -67,11 +67,11 @@ class Patient_model extends MY_Model
     {
         $inputs = array();
 
-        $inputs["patient_name"]  =  $this->input->post("patient_name");
+        $inputs["patient_name"]  =  ucwords(strtolower($this->input->post("patient_name")));
 
         $inputs["patient_mobile_no"]  =  preg_replace("/[^0-9,.]/", "", $this->input->post('patient_mobile_no'));
 
-        $inputs["patient_address"]  =  $this->input->post("patient_address");
+        $inputs["patient_address"]  =  ucwords(strtolower($this->input->post("patient_address")));
         $inputs["patient_age"]  =  $this->input->post("patient_age");
         $inputs["patient_gender"]  =  $this->input->post("patient_gender");
 

@@ -55,7 +55,11 @@ class Reception extends Admin_Controller
 	{
 
 		//save patient data and get pacient id ....
-		$patient_id = $this->patient_model->save_data();
+		if ($this->input->post('patientID')) {
+			$patient_id = (int) $this->input->post('patientID');
+		} else {
+			$patient_id = $this->patient_model->save_data();
+		}
 		$test_group_ids = rtrim($this->input->post('testGroupIDs'), ',');
 		//$test_group_ids =  implode(',', $this->input->post('test_group_id'));
 		//exit();
@@ -256,5 +260,13 @@ class Reception extends Admin_Controller
 						WHERE `invoice_id` = '" . $invoice_id . "'";
 		$this->db->query($query);
 		redirect(ADMIN_DIR . "reception/");
+	}
+
+	public function get_patient_detail()
+	{
+		$patient = $this->db->escape($this->input->post('patient'));
+		$query = "SELECT * FROM patients WHERE patient_name = $patient AND DATE(`created_date`)=DATE(NOW())";
+		$patient_detail = $this->db->query($query)->result()[0];
+		echo json_encode($patient_detail);
 	}
 }

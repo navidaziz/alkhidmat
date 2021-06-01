@@ -98,7 +98,7 @@
         <thead>
           <tr>
             <td>
-              <table style="width: 100%; margin-top: 70px;">
+              <table style="width: 100%; margin-top: 40px;">
                 <tr>
                   <td style="width: 45%;">
 
