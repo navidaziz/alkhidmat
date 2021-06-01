@@ -119,6 +119,7 @@
                                             <option value="patient_cancelled">Patient Cancelled</option>
                                             <option value="fault_entry">Fault Entery</option>
                                             <option value="opd_doctor_return">OPD Doctor Return</option>
+                                            <option value="advance_booking_cancellation">Advance Booking Cancellation</option>
                                         </select>
                                     <?php } else { ?>
                                         <?php echo $test->cancel_reason; ?>

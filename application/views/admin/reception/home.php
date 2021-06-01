@@ -91,19 +91,14 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
             <td>Patient Name: </td>
             <td><input type="text" name="patient_name" value="" id="patient_name" class="for m-control" style="" required="required" title="Name" placeholder="Name"></td>
           </tr>
-          <tr>
-            <td>Mobile No: </td>
-            <td><input type="text" minlength="11" name="patient_mobile_no" value="" id="patient_mobile_no" class="for m-control" style="" required="required" title="Mobile No" placeholder="Mobile No"></td>
 
-
-          </tr>
           <tr>
             <td>Address: </td>
             <td><input type="text" name="patient_address" value="" id="patient_address" class="for m-control" style="" required="required" title="Address" placeholder="Address"></td>
           </tr>
           <tr>
             <td>Age: </td>
-            <td><input type="number" name="patient_age" value="" id="patient_age" class="for m-control" style="" required="required" title="Patient Age" placeholder="Patient Age"></td>
+            <td><input type="text" name="patient_age" value="" id="patient_age" class="for m-control" style="" required="required" title="Patient Age" placeholder="Patient Age"></td>
           </tr>
           <tr>
             <td>Sex: </td>
@@ -112,7 +107,7 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
           <tr>
             <td>Referred By: </td>
             <td><select class="for m-control" required name="refered_by">
-                <option value="">Referred By</option>
+                <option value="14">Self</option>
                 <?php
 
                 $query = "SELECT * FROM `doctors` WHERE `status`=1";
@@ -127,6 +122,13 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
               </select></td>
           </tr>
 
+          <tr>
+            <td>Mobile No:</td>
+            <td><input type="text" minlength="11" name="patient_mobile_no" value="" id="patient_mobile_no" class="for m-control" style="" title="Mobile No" placeholder="Mobile No"></td>
+
+
+          </tr>
+
         </table>
         <hr />
 
@@ -139,7 +141,7 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
 
 
 
-          <div id="test_price_list" style="min-height: 180px;">
+          <div id="test_price_list" style="min-height: 130px;">
             <table class="table table-bordered">
               <tr>
                 <td>#</td>
@@ -335,7 +337,12 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
             }
 
           ?>
-            <tr style="background-color: <?php echo $color; ?>;">
+            <tr style="background-color: <?php echo $color; ?>;
+            
+            <?php if ($test->is_deleted == 1) { ?>
+              text-decoration: line-through;
+            <?php }  ?>
+            ">
               <td><?php echo $test->invoice_id; ?> </td>
               <td><?php
                   if ($test->category_id != 5) {

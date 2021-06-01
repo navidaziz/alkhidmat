@@ -95,7 +95,7 @@
                     <br /> PHONE 0943-412814
                   </h6>
                   <h5>RECEIPT NO: <?php echo $invoice_detail->invoice_id; ?>
-                    <br /> Token NO: <?php echo $invoice_detail->test_token_id; ?>
+                    <span style="font-size: 17px; display: block; margin-top: 5px;">Token NO: <?php echo $invoice_detail->test_token_id; ?></span>
                     <h4>
                       Appointment No:
                       <?php
@@ -117,19 +117,20 @@
               </tr>
               <tr>
                 <td>
-                  <h6 style="border: 1px dashed  black; padding: 2px; color:black">
-                    <table width="100%">
+                  <h5 style="border: 1px dashed  black; padding: 2px; color:black">
+                    <table width="100%" style="font-size: 15px;">
                       <tr>
-                        <td width="80">Patient Name: </td>
-                        <td><?php echo trim(ucwords(strtolower($invoice_detail->patient_name))); ?></td>
+                        <td width="100">Patient Name: </td>
+                        <td style="font-size: 20px;"><?php echo trim(ucwords(strtolower($invoice_detail->patient_name))); ?></td>
                       </tr>
+                      <!--                       
                       <tr>
                         <td>Mobile No:</td>
                         <td><?php echo $invoice_detail->patient_mobile_no; ?></td>
-                      </tr>
+                      </tr> -->
                       <tr>
-                        <td>Gender: <?php echo $invoice_detail->patient_gender; ?></td>
-                        <td>Age: <?php echo @$invoice_detail->patient_age; ?> Y</td>
+                        <td colspan="2">Gender: <span style="font-size: 20px;"><?php echo $invoice_detail->patient_gender; ?></span>
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Age: <span style="font-size: 20px;"><?php echo @$invoice_detail->patient_age; ?> Y </span></td>
                       </tr>
 
                       <tr>
@@ -148,7 +149,7 @@
                         <td><?php echo date("d F, Y h:i:s", strtotime($invoice_detail->created_date)); ?></td>
                       </tr>
                     </table>
-                    <h6>
+                    <h5>
                 </td>
 
               </tr>
@@ -157,7 +158,7 @@
                 <td>
 
                   <h5>
-                    <table border="1" width="100%" style="border-collapse:collapse; color:black">
+                    <table border="1" width="100%" style="border-collapse:collapse; color:black; font-size: 15px;">
                       <tr>
                         <td>#</td>
                         <td>Details</td>
@@ -180,7 +181,7 @@
                       <?php } ?>
                       <tr>
                         <th colspan="3" style="text-align: right;">
-                          <h5>
+                          <h4>
                             Total: <?php echo $invoice->price; ?>.00 Rs <br />
                             Discount: <?php if ($invoice->discount) {
                                         echo $invoice->discount;
@@ -188,7 +189,7 @@
                                         echo "00";
                                       }  ?>.00 Rs <br />
                             Total: <?php echo $invoice->total_price; ?>.00 Rs
-                          </h5>
+                          </h4>
                 </td>
               </tr>
 

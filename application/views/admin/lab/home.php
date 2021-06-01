@@ -286,6 +286,8 @@ if (!in_array($current_action_id, $allowed_modules)) { ?>
               <td>
 
                 <?php if ($test->status == 3) { ?>
+                  <a href="#" onclick="get_patient_test_form('<?php echo $test->invoice_id; ?>')">Edit Result</a>
+
                   <a href="#" onclick="get_patient_test_report('<?php echo $test->invoice_id; ?>')">
                     <i class="fa fa-eye" aria-hidden="true"></i> Report</a>
                   <!-- <a style="margin-left: 10px;" target="new" href="<?php echo site_url(ADMIN_DIR . "lab/print_patient_test_report/$test->invoice_id") ?>"><i class="fa fa-print" aria-hidden="true"></i> Print</a>
