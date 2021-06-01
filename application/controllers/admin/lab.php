@@ -339,8 +339,21 @@ class Lab extends Admin_Controller
 	public function delete_invoice($invoice_id)
 	{
 		$invoice_id = (int)  $invoice_id;
-		if ($this->db->query("DELETE FROM `invoices` WHERE `invoice_id` = '" . $invoice_id . "' AND `status` IN(1,2)")) {
-			$this->db->query("DELETE FROM `invoice_test_groups` WHERE `invoice_id` = '" . $invoice_id . "'");
+		// if ($this->db->query("DELETE FROM `invoices` WHERE `invoice_id` = '" . $invoice_id . "' AND `status` IN(1,2)")) {
+		// 	$this->db->query("DELETE FROM `invoice_test_groups` WHERE `invoice_id` = '" . $invoice_id . "'");
+		// 	redirect(ADMIN_DIR . "reception");
+		// }
+
+		$query = "UPDATE invoices
+			          SET is_deleted=1, 
+					  cancel_reason='Faluty entry',  
+					  cancel_reason_detail='Deleted By resection' 
+					  WHERE invoice_id= $invoice_id";
+		if ($this->db->query($query)) {
+			$this->session->set_flashdata("msg_success", "Receipt Cancelled Successfully.");
+			redirect(ADMIN_DIR . "reception");
+		} else {
+			$this->session->set_flashdata("msg_error", "DB Error try again.");
 			redirect(ADMIN_DIR . "reception");
 		}
 	}

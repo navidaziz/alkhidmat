@@ -433,7 +433,7 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
               <td><?php echo $test->total_price; ?></td>
               <td>
                 <?php if ($test->category_id == 1) {
-                  if ($test->status == 1) { ?>
+                  if ($test->status == 1 and $test->is_deleted == 0) { ?>
 
                     <!-- <input id="in_<?php echo $test->invoice_id; ?>" type="hidden" value="<?php echo @$other_info; ?>" />
                   <input id="patient_group_test_ids_<?php echo $test->invoice_id; ?>" type="hidden" value="<?php echo @$patient_group_test_ids; ?>" />
