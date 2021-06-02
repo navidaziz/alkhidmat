@@ -230,6 +230,17 @@ class Lab extends Admin_Controller
 
 	public function complete_test()
 	{
+
+
+		$test_values = $this->input->post('test_values');
+		foreach ($test_values as $patient_test_id => $test_value) {
+			$query = "UPDATE `patient_tests` 
+				  SET `test_result`=" . $this->db->escape($patient_test_id) . " 
+				  WHERE `patient_test_id`=" . $this->db->escape($test_value) . "";
+			$this->db->query($query);
+		}
+
+
 		$invoice_id = (int) $this->input->post("invoice_id");
 		$remarks = $this->db->escape($this->input->post("test_remarks"));
 		$query = "UPDATE `invoices` 
@@ -237,25 +248,25 @@ class Lab extends Admin_Controller
 				, `remarks`= $remarks
 			    WHERE `invoice_id` = '" . $invoice_id . "'";
 		$this->db->query($query);
-		$query = "SELECT 
-			`invoices`.`invoice_id`,
-			`patients`.`patient_name`,
-			`patients`.`patient_mobile_no` 
-		FROM
-			`patients`,
-			`invoices` 
-		WHERE `patients`.`patient_id` = `invoices`.`patient_id` 
-		AND `invoices`.`invoice_id` = '" . $invoice_id . "'";
-		$patient_detail = $this->db->query($query)->result()[0];
-		$customer_name = $patient_detail->patient_name;
-		$mobile_number = $patient_detail->patient_mobile_no;
-		$message = 'CITY Medical Laboratory. Dear ' . $customer_name . ', your laboratory test report has been ready. kindly collect your laboratory test report.';
-		if (strlen($mobile_number) == 11) {
-			if (substr($mobile_number, 0, 2) == '03') {
-				$this->db->query("INSERT INTO `sms`( `message`, `mobile_number`, `status`,`priority`) 
-		   						  VALUES ('" . $message . " ', " . $this->db->escape($mobile_number) . ", '0', '1')");
-			}
-		}
+		// $query = "SELECT 
+		// 	`invoices`.`invoice_id`,
+		// 	`patients`.`patient_name`,
+		// 	`patients`.`patient_mobile_no` 
+		// FROM
+		// 	`patients`,
+		// 	`invoices` 
+		// WHERE `patients`.`patient_id` = `invoices`.`patient_id` 
+		// AND `invoices`.`invoice_id` = '" . $invoice_id . "'";
+		// $patient_detail = $this->db->query($query)->result()[0];
+		// $customer_name = $patient_detail->patient_name;
+		// $mobile_number = $patient_detail->patient_mobile_no;
+		// $message = 'CITY Medical Laboratory. Dear ' . $customer_name . ', your laboratory test report has been ready. kindly collect your laboratory test report.';
+		// if (strlen($mobile_number) == 11) {
+		// 	if (substr($mobile_number, 0, 2) == '03') {
+		// 		$this->db->query("INSERT INTO `sms`( `message`, `mobile_number`, `status`,`priority`) 
+		//    						  VALUES ('" . $message . " ', " . $this->db->escape($mobile_number) . ", '0', '1')");
+		// 	}
+		// }
 		redirect(ADMIN_DIR . "lab/");
 	}
 
