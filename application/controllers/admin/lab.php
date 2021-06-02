@@ -28,7 +28,7 @@ class Lab extends Admin_Controller
 	public function index()
 	{
 
-		$where = "`invoices`.`status` IN (1) AND category_id=1 AND DATE(`invoices`.`created_date`) = DATE(NOW()) ORDER BY `invoices`.`invoice_id` DESC";
+		$where = "`invoices`.`status` IN (1) AND category_id=1 AND DATE(`invoices`.`created_date`) = DATE(NOW()) AND `is_deleted`=0 ORDER BY `invoices`.`invoice_id` DESC";
 		$this->data["forwarded_tests"] = $this->invoice_model->get_invoice_list($where, false);
 
 
