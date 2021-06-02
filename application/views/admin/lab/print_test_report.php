@@ -155,10 +155,13 @@
         <tbody>
           <tr>
             <td>
-
-              <?php foreach ($patient_tests_groups as $patient_tests_group) { ?>
-                <h5><strong><?php echo $patient_tests_group->test_group_name; ?></strong></h5>
-                <table class="table table-bordered" style="text-align: left;">
+            <table class="table table-bordered" style="text-align: left;">
+              <?php 
+              $count = 1;
+              foreach ($patient_tests_groups as $patient_tests_group) { ?>
+              <tr><td colspan="4"><small style=""><?php echo $patient_tests_group->test_group_name; ?></small></td></tr>
+               
+                
 
                   <?php
 
@@ -171,7 +174,7 @@
                     }
                   }
 
-                  $count = 1;
+                  
                   foreach ($patient_tests_group->patient_tests as $patient_test) { ?>
                     <?php if ($patient_test->test_result != '') { ?>
                       <?php if ($count == 1) { ?>
@@ -194,16 +197,17 @@
 
                         <th> <?php echo $patient_test->test_result; ?> </th>
 
-                        <?php if ($normal_value) { ?>
+                        <?php //if ($normal_value) { ?>
                           <td> <?php echo $patient_test->unit; ?> </td>
-                          <td><?php echo $patient_test->test_normal_value; ?></td><?php }  ?>
+                          <td><?php echo $patient_test->test_normal_value; ?></td>
+                          <?php //}  ?>
                         <!-- <td><?php echo $patient_test->remarks; ?> </td> -->
                       </tr>
                     <?php } ?>
                   <?php } ?>
-                </table>
+                
               <?php  } ?>
-
+              </table>
             </td>
           </tr>
           <tr>
