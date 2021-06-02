@@ -359,11 +359,16 @@ class Users extends Admin_Controller
 
         $validation_config = array(
             array(
+                "field"  =>  "user_title",
+                "label"  =>  "Name",
+                "rules"  =>  "required"
+            ),
+
+            array(
                 "field"  =>  "user_email",
                 "label"  =>  "User Email",
                 "rules"  =>  "required|email"
             ),
-
 
             array(
                 "field"  =>  "user_password",
@@ -406,6 +411,13 @@ class Users extends Admin_Controller
             $inputs = array();
 
 
+
+            $inputs["user_title"]  =  $this->input->post("user_title");
+            $user_data = array(
+                "user_title" => $inputs["user_title"]
+            );
+            //add to session
+            $this->session->set_userdata($user_data);
 
             $inputs["user_email"]  =  $this->input->post("user_email");
 
