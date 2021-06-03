@@ -235,8 +235,8 @@ class Lab extends Admin_Controller
 		$test_values = $this->input->post('test_values');
 		foreach ($test_values as $patient_test_id => $test_value) {
 			$query = "UPDATE `patient_tests` 
-				  SET `test_result`=" . $this->db->escape($patient_test_id) . " 
-				  WHERE `patient_test_id`=" . $this->db->escape($test_value) . "";
+				  SET `test_result`=" . $this->db->escape($test_value) . " 
+				  WHERE `patient_test_id`=" . $this->db->escape($patient_test_id) . "";
 			$this->db->query($query);
 		}
 
