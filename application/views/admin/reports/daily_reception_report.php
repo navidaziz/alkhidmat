@@ -97,6 +97,7 @@
       <h4 style="text-align: center;">Daily Receipt Report ( Date: <?php echo date("d F, Y ", time()) ?>)</h4>
 
       <h5>Category Wise Report</h5>
+
       <table class="table table-bordered" id="today_categories_wise_report">
         <thead>
 
@@ -106,6 +107,7 @@
             <th>Total</th>
             <th>Cancelled</th>
             <th>Confirmed</th>
+            <th>Discounts</th>
             <th>Total Rs</th>
           </tr>
 
@@ -121,6 +123,7 @@
               <td><?php echo $report->total_count + $report->total_receipt_cancelled; ?></td>
               <td><?php echo $report->total_receipt_cancelled; ?></td>
               <td><?php echo $report->total_count; ?></td>
+              <td><?php echo $report->total_dis_count; ?> - <?php echo $report->total_discount; ?></td>
               <td><?php echo $report->total_sum; ?></td>
             </tr>
           <?php } ?>
@@ -129,18 +132,71 @@
             <th style="text-align: center;"><?php echo $today_total_cat_wise_progress_reports[0]->total_count + $today_total_cat_wise_progress_reports[0]->total_receipt_cancelled ?></th>
             <th style="text-align: center;"><?php echo $today_total_cat_wise_progress_reports[0]->total_receipt_cancelled; ?></th>
             <th style="text-align: center;"><?php echo $today_total_cat_wise_progress_reports[0]->total_count ?></th>
+            <th><?php echo $today_total_cat_wise_progress_reports[0]->total_dis_count; ?> - <?php echo $today_total_cat_wise_progress_reports[0]->total_discount; ?></th>
             <th style="text-align: center;"><?php echo $today_total_cat_wise_progress_reports[0]->total_sum ?></th>
           </tr>
         </tbody>
       </table>
+
+      <table class="table table-bordered">
+        <tr>
+          <th>#</th>
+          <th>Doctor Name</th>
+          <th>Total</th>
+          <th>Cancelled</th>
+          <th>Confirmed</th>
+          <th>Discount</th>
+          <th>Total RS</th>
+        </tr>
+        <?php
+        $count = 1;
+        $total_income_from_drs = 0;
+        foreach ($income_from_drs as $report) { ?>
+          <tr>
+            <td><?php echo $count++; ?></td>
+            <td><?php echo $report->test_group_name; ?></td>
+            <td><?php echo $report->total_count + $report->total_receipt_cancelled; ?></td>
+            <td><?php echo $report->total_receipt_cancelled; ?></td>
+            <td><?php echo $report->total_count; ?></td>
+            <td><?php echo $report->total_dis_count; ?> - <?php echo $report->total_discount; ?></td>
+            <td>
+              <?php switch ($report->test_group_id) {
+                case '86':
+                  $total_income_from_drs += $report->total_count * 100;
+                  echo $report->total_count * 100;
+                  break;
+                case '104':
+                  $total_income_from_drs += $report->total_count * 200;
+                  echo $report->total_count * 200;
+                  break;
+                default:
+                  $total_income_from_drs += $report->total_sum;
+                  echo $report->total_sum;
+                  break;
+              } ?>
+            </td>
+          </tr>
+        <?php } ?>
+        <tr>
+          <th colspan="6" style="text-align: right;">Total</th>
+
+          <th style="text-align: center;">
+
+            <?php echo $total_income_from_drs; ?></th>
+        </tr>
+      </table>
+      <h4 style="text-align: right;"><?php echo "Total " . $today_total_cat_wise_progress_reports[0]->total_sum . ' + ' . $total_income_from_drs . ' = ' . ($today_total_cat_wise_progress_reports[0]->total_sum + $total_income_from_drs) . ' Rs'; ?></h4>
+
+
       <h5>Dr's. OPD Wise Report</h5>
       <table class="table table-bordered">
         <tr>
           <th>#</th>
           <th>Doctor Name</th>
-          <th>Total Appoinments</th>
+          <th>Total Appointments</th>
           <th>Cancelled</th>
           <th>Confirmed</th>
+          <th>Discount</th>
           <th>Total RS</th>
         </tr>
         <?php
@@ -152,6 +208,8 @@
             <td><?php echo $report->total_count + $report->total_receipt_cancelled; ?></td>
             <td><?php echo $report->total_receipt_cancelled; ?></td>
             <td><?php echo $report->total_count; ?></td>
+            <td><?php echo $report->total_dis_count; ?> - <?php echo $report->total_discount; ?></td>
+
             <td><?php echo $report->total_sum; ?></td>
           </tr>
         <?php } ?>
@@ -160,6 +218,8 @@
           <th style="text-align: center;"><?php echo $today_total_OPD_reports[0]->total_count + $today_total_OPD_reports[0]->total_receipt_cancelled ?></th>
           <th style="text-align: center;"><?php echo $today_total_OPD_reports[0]->total_receipt_cancelled; ?></th>
           <th style="text-align: center;"><?php echo $today_total_OPD_reports[0]->total_count ?></th>
+          <td><?php echo $today_total_OPD_reports[0]->total_dis_count; ?> - <?php echo $today_total_OPD_reports[0]->total_discount; ?></td>
+
           <th style="text-align: center;"><?php echo $today_total_OPD_reports[0]->total_sum ?></th>
         </tr>
       </table>

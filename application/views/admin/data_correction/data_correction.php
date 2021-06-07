@@ -104,7 +104,7 @@
                             <td><?php echo $test->patient_name; ?></td>
                             <td><?php echo $test->patient_mobile_no; ?></td>
                             <td>
-                                <a style="margin-left: 10px;" target="new" href="<?php echo site_url(ADMIN_DIR . "lab/print_patient_test_receipts/$test->invoice_id") ?>"><i class="fa fa-print" aria-hidden="true"></i> Receipt</a>
+                                <!-- <a style="margin-left: 10px;" target="new" href="<?php echo site_url(ADMIN_DIR . "lab/print_patient_test_receipts/$test->invoice_id") ?>"><i class="fa fa-print" aria-hidden="true"></i> Receipt</a> -->
 
                             </td>
                             <!-- <td><?php echo $test->price; ?></td>
