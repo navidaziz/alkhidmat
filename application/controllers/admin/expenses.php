@@ -212,12 +212,12 @@ class Expenses extends Admin_Controller
     {
 
         $expense_id = (int) $expense_id;
-        //$this->expense_model->changeStatus($expense_id, "3");
+        $this->expense_model->changeStatus($expense_id, "3");
         //Remove file....
-        $expenses = $this->expense_model->get_expense($expense_id);
-        $file_path = $expenses[0]->expense_attachment;
-        $this->expense_model->delete_file($file_path);
-        $this->expense_model->delete(array('expense_id' => $expense_id));
+        //$expenses = $this->expense_model->get_expense($expense_id);
+        //$file_path = $expenses[0]->expense_attachment;
+        //$this->expense_model->delete_file($file_path);
+        //$this->expense_model->delete(array('expense_id' => $expense_id));
         $this->session->set_flashdata("msg_success", $this->lang->line("delete_msg_success"));
         redirect(ADMIN_DIR . "expenses/trashed/" . $page_id);
     }

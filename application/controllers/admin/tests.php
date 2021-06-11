@@ -148,9 +148,9 @@ class Tests extends Admin_Controller
     {
 
         $test_id = (int) $test_id;
-        //$this->test_model->changeStatus($test_id, "3");
+        $this->test_model->changeStatus($test_id, "3");
 
-        $this->test_model->delete(array('test_id' => $test_id));
+        //$this->test_model->delete(array('test_id' => $test_id));
         $this->session->set_flashdata("msg_success", $this->lang->line("delete_msg_success"));
         redirect(ADMIN_DIR . "tests/trashed/" . $page_id);
     }

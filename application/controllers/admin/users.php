@@ -162,12 +162,12 @@ class Users extends Admin_Controller
     {
 
         $user_id = (int) $user_id;
-        //$this->user_model->changeStatus($user_id, "3");
+        $this->user_model->changeStatus($user_id, "3");
         //Remove file....
-        $users = $this->user_model->get_user($user_id);
-        $file_path = $users[0]->user_image;
-        $this->user_model->delete_file($file_path);
-        $this->user_model->delete(array('user_id' => $user_id));
+        //$users = $this->user_model->get_user($user_id);
+        //$file_path = $users[0]->user_image;
+        //$this->user_model->delete_file($file_path);
+        //$this->user_model->delete(array('user_id' => $user_id));
         $this->session->set_flashdata("msg_success", $this->lang->line("delete_msg_success"));
         redirect(ADMIN_DIR . "users/trashed/" . $page_id);
     }

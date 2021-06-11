@@ -147,7 +147,7 @@ class Invoices extends Admin_Controller
     {
 
         $invoice_id = (int) $invoice_id;
-        $this->invoice_model->changeStatus($invoice_id, "3");
+        //$this->invoice_model->changeStatus($invoice_id, "3");
 
         //$this->invoice_model->delete(array( 'invoice_id' => $invoice_id));
         $this->session->set_flashdata("msg_success", $this->lang->line("delete_msg_success"));
