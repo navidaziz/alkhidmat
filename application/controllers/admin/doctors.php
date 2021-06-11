@@ -37,9 +37,8 @@ class Doctors extends Admin_Controller
     {
 
         $where = "`doctors`.`status` IN (0, 1) ORDER BY `doctors`.`order`";
-        $data = $this->doctor_model->get_doctor_list($where);
-        $this->data["doctors"] = $data->doctors;
-        $this->data["pagination"] = $data->pagination;
+        $this->data["doctors"] = $this->doctor_model->get_doctor_list($where, false);
+        $this->data["pagination"] = "";
         $this->data["title"] = $this->lang->line('Doctors');
         $this->data["view"] = ADMIN_DIR . "doctors/doctors";
         $this->load->view(ADMIN_DIR . "layout", $this->data);

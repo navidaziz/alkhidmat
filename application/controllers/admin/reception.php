@@ -112,6 +112,7 @@ class Reception extends Admin_Controller
 		$inputs["patient_refer_by"]  =  $refered_by;
 		$inputs["created_by"]  =  $this->session->userdata('user_id');
 		$inputs["category_id"]  =  $category_id[0]->category_id;
+		$inputs['alkhidmat_income'] = $inputs["total_price"];
 
 		if ($category_id[0]->category_id == 5) {
 			$today_count = $this->db->query("SELECT count(*) as total FROM `invoices` 
@@ -120,6 +121,19 @@ class Reception extends Admin_Controller
 			AND DATE(created_date) = DATE(NOW())")->result()[0]->total;
 			$inputs["opd_doctor"] = $test_group_ids;
 			$inputs["patient_refer_by"]  =  1;
+			//for dr shabana 
+			$inputs['alkhidmat_income'] = 0;
+			if ($test_group_ids == 86) {
+				$inputs['alkhidmat_income'] = 100;
+			}
+			// for dr shabana dobler ultrasound share 
+			if ($test_group_ids == 104) {
+				$inputs['alkhidmat_income'] = 200;
+			}
+			//dr naila opd
+			if ($test_group_ids == 77) {
+				$inputs['alkhidmat_income'] = $inputs["total_price"];
+			}
 		} else {
 			$today_count = $this->db->query("SELECT count(*) as total FROM `invoices` 
 		               WHERE category_id = '" . $category_id[0]->category_id . "'
