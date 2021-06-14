@@ -95,7 +95,12 @@
                     <br /> PHONE 0943-412814
                   </h6>
                   <h5>RECEIPT NO: <?php echo $invoice_detail->invoice_id; ?>
-                    <span style="font-size: 17px; display: block; margin-top: 5px;">Token NO: <?php echo $invoice_detail->test_token_id; ?></span>
+                    <?php if ($invoice_detail->receipt_print == 0) { ?>
+                      <span style="font-size: 17px; display: block; margin-top: 5px;">Token NO: <?php echo $invoice_detail->test_token_id; ?></span>
+                    <?php
+                      $query = "UPDATE `invoices` SET `invoices`.`receipt_print`=1 WHERE `invoices`.`invoice_id` = '" . $invoice_detail->invoice_id . "'";
+                      $this->db->query($query);
+                    } ?>
                     <h4>
                       Appointment No:
                       <?php

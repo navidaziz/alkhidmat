@@ -272,7 +272,8 @@ class Lab extends Admin_Controller
 
 	public function print_patient_test_receipts($invoice_id)
 	{
-		$_POST['invoice_id'] = $invoice_id;
+		$_POST['invoice_id'] = (int) $invoice_id;
+
 		$this->load->view(ADMIN_DIR . "lab/print_patient_test_receipts", $this->patient_test_data());
 	}
 
