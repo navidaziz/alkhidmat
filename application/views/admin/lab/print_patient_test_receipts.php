@@ -100,7 +100,10 @@
                     <?php
                       $query = "UPDATE `invoices` SET `invoices`.`receipt_print`=1 WHERE `invoices`.`invoice_id` = '" . $invoice_detail->invoice_id . "'";
                       $this->db->query($query);
-                    } ?>
+                    } else { ?>
+                      <span style="font-size: 17px; display: block; margin-top: 5px;">Token NO: ******<?php echo substr($invoice_detail->test_token_id, -4); ?></span>
+
+                    <?php } ?>
                     <h4>
                       Appointment No:
                       <?php
