@@ -99,4 +99,30 @@ class Reports_model extends MY_Model
 
 		return $data;
 	}
+
+	public function today_report()
+	{
+		$query = "SELECT * FROM `invoices_total` WHERE DATE(created_date) = date(NOW())";
+		$today_report = $this->db->query($query);
+		if ($today_report) {
+			return $today_report->result()[0];
+		} else {
+			$today_report = array(
+				'created_date' => date('d M, Y'),
+				'lab' => 0,
+				'ecg' => 0,
+				'ultrasound' => 0,
+				'x_ray' => 0,
+				'opd' => 0,
+				'dr_naila' => 0,
+				'dr_shabana' => 0,
+				'dr_shabana_us_doppler' => 0,
+				'discount' => 0,
+				'other_deleted' => 0,
+				'opd_deleted' => 0,
+				'alkhidmat_total' => 0
+			);
+			return $today_report;
+		}
+	}
 }

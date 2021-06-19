@@ -28,6 +28,10 @@ class Dashboard extends Admin_Controller
 	public function index()
 	{
 
+		//get today data......
+		$this->data['today_report'] = $this->reports_model->today_report();
+		//end today data
+
 		//Yearly report 
 		$query = "SELECT YEAR(`invoices`.`created_date`) as `year` 
 		          FROM `invoices`  GROUP BY YEAR(`invoices`.`created_date`)";

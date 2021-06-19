@@ -8,6 +8,36 @@
         <div class="box-body">
           <div class="row">
             <div class="col-md-3">
+              <table class="table table-bordered">
+                <tr>
+                  <th>LAB</th>
+                  <th>ECG</th>
+                  <th>ULTRASOUND</th>
+                  <th>X-RAY</th>
+                  <th>OPDs</th>
+                  <th>Dr. Naila</th>
+                  <th>Dr. Shabana</th>
+                  <th>US-Doppler (Dr.Shabana)</th>
+                  <th>Discounts</th>
+                  <th>Other Cancelled</th>
+                  <th>OPD Cancelled</th>
+                  <th>Total</th>
+                </tr>
+                <tr>
+                  <td><?php echo $today_report['lab'] ?></td>
+                  <td><?php echo $today_report['ecg'] ?></td>
+                  <td><?php echo $today_report['ultrasound'] ?></td>
+                  <td><?php echo $today_report['x_ray'] ?></td>
+                  <td><?php echo $today_report['opd'] ?></td>
+                  <td><?php echo $today_report['dr_naila'] ?></td>
+                  <td><?php echo $today_report['dr_shabana'] ?></td>
+                  <td><?php echo $today_report['dr_shabana_us_doppler'] ?></td>
+                  <td><?php echo $today_report['discount'] ?></td>
+                  <td><?php echo $today_report['other_deleted'] ?></td>
+                  <td><?php echo $today_report['opd_deleted'] ?></td>
+                  <td><?php echo $today_report['alkhidmat_total'] ?></td>
+                </tr>
+              </table>
               <h4>Today</h4>
               <table class="table table-bordered">
                 <th>
