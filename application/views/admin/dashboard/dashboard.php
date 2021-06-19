@@ -25,18 +25,18 @@
                   <th>Total</th>
                 </tr>
                 <tr>
-                  <td><?php echo $today_report['lab'] ?></td>
-                  <td><?php echo $today_report['ecg'] ?></td>
-                  <td><?php echo $today_report['ultrasound'] ?></td>
-                  <td><?php echo $today_report['x_ray'] ?></td>
-                  <td><?php echo $today_report['opd'] ?></td>
-                  <td><?php echo $today_report['dr_naila'] ?></td>
-                  <td><?php echo $today_report['dr_shabana'] ?></td>
-                  <td><?php echo $today_report['dr_shabana_us_doppler'] ?></td>
-                  <td><?php echo $today_report['discount'] ?></td>
-                  <td><?php echo $today_report['other_deleted'] ?></td>
-                  <td><?php echo $today_report['opd_deleted'] ?></td>
-                  <td><?php echo $today_report['alkhidmat_total'] ?></td>
+                  <td><?php echo $today_report[0]['lab'] ?></td>
+                  <td><?php echo $today_report[0]['ecg'] ?></td>
+                  <td><?php echo $today_report[0]['ultrasound'] ?></td>
+                  <td><?php echo $today_report[0]['x_ray'] ?></td>
+                  <td><?php echo $today_report[0]['opd'] ?></td>
+                  <td><?php echo $today_report[0]['dr_naila'] ?></td>
+                  <td><?php echo $today_report[0]['dr_shabana'] ?></td>
+                  <td><?php echo $today_report[0]['dr_shabana_us_doppler'] ?></td>
+                  <td><?php echo $today_report[0]['discount'] ?></td>
+                  <td><?php echo $today_report[0]['other_deleted'] ?></td>
+                  <td><?php echo $today_report[0]['opd_deleted'] ?></td>
+                  <td><?php echo $today_report[0]['alkhidmat_total'] ?></td>
                 </tr>
               </table>
               <h4>Today</h4>
