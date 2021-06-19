@@ -16,6 +16,7 @@ class Dashboard extends Admin_Controller
 		$this->load->model("admin/invoice_model");
 		$this->load->model("admin/patient_test_model");
 		$this->load->model("admin/patient_model");
+		$this->load->model('admin/reports_model');
 		// $this->load->model("admin/patient_model");
 		//$this->output->enable_profiler(TRUE);
 	}
