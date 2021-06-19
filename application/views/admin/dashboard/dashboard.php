@@ -8,7 +8,7 @@
         <div class="box-body">
           <div class="row">
             <div class="col-md-3">
-              var_dump($today_report);
+              <?php var_dump($today_report); ?>
               <table class="table table-bordered">
                 <tr>
                   <th>LAB</th>
