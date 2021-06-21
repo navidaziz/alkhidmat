@@ -7,38 +7,80 @@
         </div>
         <div class="box-body">
           <div class="row">
-            <div class="col-md-3">
-              <?php var_dump($today_report); ?>
-              <table class="table table-bordered">
-                <tr>
-                  <th>LAB</th>
-                  <th>ECG</th>
-                  <th>ULTRASOUND</th>
-                  <th>X-RAY</th>
+
+            <div class="col-md-6">
+              <h5>
+                <table class="table table-bordered">
+                  <tr>
+                    <th>LAB</th>
+                    <td><?php echo $today_report->lab_count ?></td>
+                    <td><?php echo $today_report->lab ?></td>
+                  </tr>
+                  <tr>
+                    <th>ECG</th>
+                    <td><?php echo $today_report->ecg_count ?></td>
+                    <td><?php echo $today_report->ecg ?></td>
+                  </tr>
+                  <tr>
+                    <th>ULTRASOUND</th>
+                    <td><?php echo $today_report->ultrasound_count ?></td>
+                    <td><?php echo $today_report->ultrasound ?></td>
+                  </tr>
+                  <tr>
+                    <th>X-RAY</th>
+                    <td><?php echo $today_report->x_ray_count ?></td>
+                    <td><?php echo $today_report->x_ray ?></td>
+                  </tr>
+                  <tr>
+
+                    <th>Dr. Naila</th>
+                    <td><?php echo $today_report->dr_naila_count ?></td>
+                    <td><?php echo $today_report->dr_naila ?></td>
+                  </tr>
+                  <tr>
+                    <th>Dr. Shabana</th>
+                    <td><?php echo $today_report->dr_shabana_count ?></td>
+                    <td><?php echo $today_report->dr_shabana ?></td>
+                  </tr>
+                  <tr>
+                    <th>US-Doppler (Dr.Shabana)</th>
+                    <td><?php echo $today_report->dr_shabana_us_doppler_count ?></td>
+                    <td><?php echo $today_report->dr_shabana_us_doppler ?></td>
+                  </tr>
+                  <tr>
+                    <th>Discounts</th>
+                    <td><?php echo $today_report->discount_count ?></td>
+                    <td><?php echo $today_report->discount ?></td>
+                  </tr>
+                  <tr>
+                    <th>Cancelled</th>
+                    <td><?php echo $today_report->other_deleted ?></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+
+                    <th>Total</th>
+                    <td></td>
+                    <td><?php echo $today_report->alkhidmat_total ?></td>
+                  </tr>
+
+                </table>
+              </h5>
+            </div>
+            <div class="col-md-6">
+              <h5>
+                <table class="table table-bordered">
                   <th>OPDs</th>
-                  <th>Dr. Naila</th>
-                  <th>Dr. Shabana</th>
-                  <th>US-Doppler (Dr.Shabana)</th>
-                  <th>Discounts</th>
-                  <th>Other Cancelled</th>
+                  <td><?php echo $today_report->opd ?></td>
                   <th>OPD Cancelled</th>
-                  <th>Total</th>
-                </tr>
-                <tr>
-                  <td><?php echo $today_report[0]['lab'] ?></td>
-                  <td><?php echo $today_report[0]['ecg'] ?></td>
-                  <td><?php echo $today_report[0]['ultrasound'] ?></td>
-                  <td><?php echo $today_report[0]['x_ray'] ?></td>
-                  <td><?php echo $today_report[0]['opd'] ?></td>
-                  <td><?php echo $today_report[0]['dr_naila'] ?></td>
-                  <td><?php echo $today_report[0]['dr_shabana'] ?></td>
-                  <td><?php echo $today_report[0]['dr_shabana_us_doppler'] ?></td>
-                  <td><?php echo $today_report[0]['discount'] ?></td>
-                  <td><?php echo $today_report[0]['other_deleted'] ?></td>
-                  <td><?php echo $today_report[0]['opd_deleted'] ?></td>
-                  <td><?php echo $today_report[0]['alkhidmat_total'] ?></td>
-                </tr>
-              </table>
+                  <td><?php echo $today_report->opd_deleted ?></td>
+
+                  </tr>
+                </table>
+              </h5>
+            </div>
+            <div class="col-md-3">
+
               <h4>Today</h4>
               <table class="table table-bordered">
                 <th>
