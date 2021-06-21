@@ -28,6 +28,7 @@ class Dashboard extends Admin_Controller
 	 */
 	public function index()
 	{
+		error_reporting(14);
 
 		//get today data......
 		$this->data['today_report'] = $this->reports_model->today_report();
