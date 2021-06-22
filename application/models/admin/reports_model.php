@@ -102,10 +102,12 @@ class Reports_model extends MY_Model
 
 	public function today_report()
 	{
-		$query = "SELECT * FROM `invoices_total` WHERE DATE(created_date) = date(NOW())";
+		$query = "SELECT * FROM `invoices_data` WHERE DATE(created_date) = date(NOW())";
+
 		$today_report = $this->db->query($query)->result();
-		if ($today_report) {
-			return $today_report->result()[0];
+		if (count($today_report)) {
+
+			$today_report = $today_report[0];
 		} else {
 			$today_report = (object) array(
 				'created_date' => date('d M, Y'),
@@ -131,7 +133,44 @@ class Reports_model extends MY_Model
 				'dr_shabana_us_doppler_count' => 0,
 				'discount_count' => 0,
 			);
-			return $today_report;
 		}
+		return $today_report;
+	}
+
+	public function this_month_report()
+	{
+		$query = "SELECT * FROM invoices_current_month";
+
+		$today_report = $this->db->query($query)->result();
+		if (count($today_report)) {
+
+			$today_report = $today_report[0];
+		} else {
+			$today_report = (object) array(
+				'created_date' => date('d M, Y'),
+				'lab' => 0,
+				'ecg' => 0,
+				'ultrasound' => 0,
+				'x_ray' => 0,
+				'opd' => 0,
+				'dr_naila' => 0,
+				'dr_shabana' => 0,
+				'dr_shabana_us_doppler' => 0,
+				'discount' => 0,
+				'other_deleted' => 0,
+				'opd_deleted' => 0,
+				'alkhidmat_total' => 0,
+				'lab_count' => 0,
+				'ecg_count' => 0,
+				'ultrasound_count' => 0,
+				'x_ray_count' => 0,
+				'opd_count' => 0,
+				'dr_naila_count' => 0,
+				'dr_shabana_count' => 0,
+				'dr_shabana_us_doppler_count' => 0,
+				'discount_count' => 0,
+			);
+		}
+		return $today_report;
 	}
 }

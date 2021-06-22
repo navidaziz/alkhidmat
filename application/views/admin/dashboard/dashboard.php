@@ -8,45 +8,402 @@
         <div class="box-body">
           <div class="row">
 
+
+            <div class="col-md-6">
+              <div class="box border blue" id="messenger">
+                <div class="box-title">
+                  <h4><i class="fa fa-bar-chart"></i>Today Catagories Wise Report</h4>
+                </div>
+                <div class="box-body">
+                  <?php
+                  $total = 0;
+                  $cancelled = 0;
+                  $confirmed = 0;
+                  $discount_count = 0;
+                  $discount = 0;
+                  $total_rs = 0;
+                  ?>
+                  <h6>
+                    <table class="table table-bordered" id="today_categories_wise_report">
+                      <thead>
+
+                        <tr>
+                          <th>#</th>
+                          <th>Catagories</th>
+                          <th>Total</th>
+                          <th>Cancelled</th>
+                          <th>Confirmed</th>
+                          <th>Discounts</th>
+                          <th>Total Rs</th>
+                        </tr>
+
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <th>LAB</th>
+                          <td><?php
+                              $total += $today_report->lab_cancelled + $today_report->lab_count;
+                              echo $today_report->lab_cancelled + $today_report->lab_count ?></td>
+                          <td><?php
+                              $cancelled += $today_report->lab_cancelled;
+                              echo $today_report->lab_cancelled ?></td>
+                          <td><?php
+                              $confirmed += $today_report->lab_count;
+                              echo $today_report->lab_count ?></td>
+                          <td><?php
+                              $discount_count += $today_report->lab_discount_count;
+                              $discount += $today_report->lab_discount;
+                              echo $today_report->lab_discount_count ?>
+                            -<?php echo $today_report->lab_discount ?></td>
+                          <td><?php
+                              $total_rs += $today_report->lab;
+                              echo $today_report->lab ?></td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <th>ECG</th>
+                          <td><?php
+                              $total += $today_report->ecg_cancelled + $today_report->ecg_count;
+                              echo $today_report->ecg_cancelled + $today_report->ecg_count ?></td>
+                          <td><?php
+                              $cancelled += $today_report->ecg_cancelled;
+                              echo $today_report->ecg_cancelled ?></td>
+                          <td><?php
+                              $confirmed += $today_report->ecg_count;
+                              echo $today_report->ecg_count ?></td>
+                          <td><?php
+                              $discount_count += $today_report->ecg_discount_count;
+                              $discount += $today_report->ecg_discount;
+                              echo $today_report->ecg_discount_count ?>
+                            -<?php echo $today_report->ecg_discount ?></td>
+                          <td><?php
+                              $total_rs += $today_report->ecg;
+                              echo $today_report->ecg ?></td>
+                        </tr>
+                        <tr>
+                          <td>3</td>
+                          <th>X-RAY</th>
+                          <td><?php
+                              $total += $today_report->x_ray_cancelled + $today_report->x_ray_count;
+                              echo $today_report->x_ray_cancelled + $today_report->x_ray_count ?></td>
+                          <td><?php
+                              $cancelled += $today_report->x_ray_cancelled;
+                              echo $today_report->x_ray_cancelled ?></td>
+                          <td><?php
+                              $confirmed += $today_report->x_ray_count;
+                              echo $today_report->x_ray_count ?></td>
+                          <td><?php
+                              $discount_count += $today_report->x_ray_discount_count;
+                              $discount += $today_report->x_ray_discount;
+                              echo $today_report->x_ray_discount_count ?>
+                            -<?php echo $today_report->x_ray_discount ?></td>
+                          <td><?php
+                              $total_rs += $today_report->x_ray;
+                              echo $today_report->x_ray ?></td>
+                        </tr>
+                        <tr>
+                          <td>4</td>
+                          <th>ULTRASOUND</th>
+                          <td><?php
+                              $total += $today_report->ultrasound_cancelled + $today_report->ultrasound_count;
+                              echo $today_report->ultrasound_cancelled + $today_report->ultrasound_count ?></td>
+                          <td><?php
+                              $cancelled += $today_report->ultrasound_cancelled;
+                              echo $today_report->ultrasound_cancelled ?></td>
+                          <td><?php
+                              $confirmed += $today_report->ultrasound_count;
+                              echo $today_report->ultrasound_count ?></td>
+                          <td><?php
+                              $discount_count += $today_report->ultrasound_discount_count;
+                              $discount += $today_report->ultrasound_discount;
+                              echo $today_report->ultrasound_discount_count ?>
+                            -<?php echo $today_report->ultrasound_discount ?></td>
+                          <td><?php
+                              $total_rs += $today_report->ultrasound;
+                              echo $today_report->ultrasound ?></td>
+                        </tr>
+
+                        <tr>
+                          <td>5</td>
+                          <th>Dr. Naila</th>
+                          <td><?php
+                              $total += $today_report->dr_naila_cancelled + $today_report->dr_naila_count;
+                              echo $today_report->dr_naila_cancelled + $today_report->dr_naila_count ?></td>
+                          <td><?php
+                              $cancelled += $today_report->dr_naila_cancelled;
+                              echo $today_report->dr_naila_cancelled ?></td>
+                          <td><?php
+                              $confirmed += $today_report->dr_naila_count;
+                              echo $today_report->dr_naila_count ?></td>
+                          <td><?php
+                              $discount_count += $today_report->dr_naila_discount_count;
+                              $discount += $today_report->dr_naila_discount;
+                              echo $today_report->dr_naila_discount_count ?>
+                            -<?php echo $today_report->dr_naila_discount ?></td>
+                          <td><?php
+                              $total_rs += $today_report->dr_naila;
+                              echo $today_report->dr_naila ?></td>
+                        </tr>
+                        <tr>
+                          <td>6</td>
+                          <th>Dr. Shabana</th>
+                          <td><?php
+                              $total += $today_report->dr_shabana_cancelled + $today_report->dr_shabana_count;
+                              echo $today_report->dr_shabana_cancelled + $today_report->dr_shabana_count ?></td>
+                          <td><?php
+                              $cancelled += $today_report->dr_shabana_cancelled;
+                              echo $today_report->dr_shabana_cancelled ?></td>
+                          <td><?php
+                              $confirmed += $today_report->dr_shabana_count;
+                              echo $today_report->dr_shabana_count ?></td>
+                          <td><?php
+                              $discount_count += $today_report->dr_shabana_discount_count;
+                              $discount += $today_report->dr_shabana_discount;
+                              echo $today_report->dr_shabana_discount_count ?>
+                            -<?php echo $today_report->dr_shabana_discount ?></td>
+                          <td><?php
+                              $total_rs += $today_report->dr_shabana;
+                              echo $today_report->dr_shabana ?></td>
+                        </tr>
+                        <tr>
+                          <td>7</td>
+                          <th>US-Doppler (Dr.Shabana)</th>
+                          <td><?php
+                              $total += $today_report->dr_shabana_us_doppler_cancelled + $today_report->dr_shabana_us_doppler_count;
+                              echo $today_report->dr_shabana_us_doppler_cancelled + $today_report->dr_shabana_us_doppler_count ?></td>
+                          <td><?php
+                              $cancelled += $today_report->dr_shabana_us_doppler_cancelled;
+                              echo $today_report->dr_shabana_us_doppler_cancelled ?></td>
+                          <td><?php
+                              $confirmed += $today_report->dr_shabana_us_doppler_count;
+                              echo $today_report->dr_shabana_us_doppler_count ?></td>
+                          <td><?php
+                              $discount_count += $today_report->dr_shabana_us_doppler_discount_count;
+                              $discount += $today_report->dr_shabana_us_doppler_discount;
+                              echo $today_report->dr_shabana_us_doppler_discount_count ?>
+                            -<?php echo $today_report->dr_shabana_us_doppler_discount ?></td>
+                          <td><?php
+                              $total_rs += $today_report->dr_shabana_us_doppler;
+                              echo $today_report->dr_shabana_us_doppler ?></td>
+                        </tr>
+                        <tr>
+                          <th colspan="2" style="text-align: right;">Total</th>
+                          <th> <?php echo $total; ?></th>
+                          <th><?php echo $cancelled ?></th>
+                          <td><?php echo $confirmed ?></td>
+                          <td><?php echo $discount_count ?>
+                            -<?php echo $discount ?></td>
+                          <td><?php echo number_format($total_rs); ?></td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </h6>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-md-6">
+              <div class="box border blue" id="messenger">
+                <div class="box-title">
+                  <h4><i class="fa fa-bar-chart"></i>This Month Catagories Wise Report</h4>
+                </div>
+                <div class="box-body">
+                  <?php
+                  $total = 0;
+                  $cancelled = 0;
+                  $confirmed = 0;
+                  $discount_count = 0;
+                  $discount = 0;
+                  $total_rs = 0;
+                  ?>
+                  <h6>
+                    <table class="table table-bordered" id="today_categories_wise_report">
+                      <thead>
+
+                        <tr>
+                          <th>#</th>
+                          <th>Catagories</th>
+                          <th>Total</th>
+                          <th>Cancelled</th>
+                          <th>Confirmed</th>
+                          <th>Discounts</th>
+                          <th>Total Rs</th>
+                        </tr>
+
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <th>LAB</th>
+                          <td><?php
+                              $total += $this_month_report->lab_cancelled + $this_month_report->lab_count;
+                              echo $this_month_report->lab_cancelled + $this_month_report->lab_count ?></td>
+                          <td><?php
+                              $cancelled += $this_month_report->lab_cancelled;
+                              echo $this_month_report->lab_cancelled ?></td>
+                          <td><?php
+                              $confirmed += $this_month_report->lab_count;
+                              echo $this_month_report->lab_count ?></td>
+                          <td><?php
+                              $discount_count += $this_month_report->lab_discount_count;
+                              $discount += $this_month_report->lab_discount;
+                              echo $this_month_report->lab_discount_count ?>
+                            -<?php echo $this_month_report->lab_discount ?></td>
+                          <td><?php
+                              $total_rs += $this_month_report->lab;
+                              echo $this_month_report->lab ?></td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <th>ECG</th>
+                          <td><?php
+                              $total += $this_month_report->ecg_cancelled + $this_month_report->ecg_count;
+                              echo $this_month_report->ecg_cancelled + $this_month_report->ecg_count ?></td>
+                          <td><?php
+                              $cancelled += $this_month_report->ecg_cancelled;
+                              echo $this_month_report->ecg_cancelled ?></td>
+                          <td><?php
+                              $confirmed += $this_month_report->ecg_count;
+                              echo $this_month_report->ecg_count ?></td>
+                          <td><?php
+                              $discount_count += $this_month_report->ecg_discount_count;
+                              $discount += $this_month_report->ecg_discount;
+                              echo $this_month_report->ecg_discount_count ?>
+                            -<?php echo $this_month_report->ecg_discount ?></td>
+                          <td><?php
+                              $total_rs += $this_month_report->ecg;
+                              echo $this_month_report->ecg ?></td>
+                        </tr>
+                        <tr>
+                          <td>3</td>
+                          <th>X-RAY</th>
+                          <td><?php
+                              $total += $this_month_report->x_ray_cancelled + $this_month_report->x_ray_count;
+                              echo $this_month_report->x_ray_cancelled + $this_month_report->x_ray_count ?></td>
+                          <td><?php
+                              $cancelled += $this_month_report->x_ray_cancelled;
+                              echo $this_month_report->x_ray_cancelled ?></td>
+                          <td><?php
+                              $confirmed += $this_month_report->x_ray_count;
+                              echo $this_month_report->x_ray_count ?></td>
+                          <td><?php
+                              $discount_count += $this_month_report->x_ray_discount_count;
+                              $discount += $this_month_report->x_ray_discount;
+                              echo $this_month_report->x_ray_discount_count ?>
+                            -<?php echo $this_month_report->x_ray_discount ?></td>
+                          <td><?php
+                              $total_rs += $this_month_report->x_ray;
+                              echo $this_month_report->x_ray ?></td>
+                        </tr>
+                        <tr>
+                          <td>4</td>
+                          <th>ULTRASOUND</th>
+                          <td><?php
+                              $total += $this_month_report->ultrasound_cancelled + $this_month_report->ultrasound_count;
+                              echo $this_month_report->ultrasound_cancelled + $this_month_report->ultrasound_count ?></td>
+                          <td><?php
+                              $cancelled += $this_month_report->ultrasound_cancelled;
+                              echo $this_month_report->ultrasound_cancelled ?></td>
+                          <td><?php
+                              $confirmed += $this_month_report->ultrasound_count;
+                              echo $this_month_report->ultrasound_count ?></td>
+                          <td><?php
+                              $discount_count += $this_month_report->ultrasound_discount_count;
+                              $discount += $this_month_report->ultrasound_discount;
+                              echo $this_month_report->ultrasound_discount_count ?>
+                            -<?php echo $this_month_report->ultrasound_discount ?></td>
+                          <td><?php
+                              $total_rs += $this_month_report->ultrasound;
+                              echo $this_month_report->ultrasound ?></td>
+                        </tr>
+
+                        <tr>
+                          <td>5</td>
+                          <th>Dr. Naila</th>
+                          <td><?php
+                              $total += $this_month_report->dr_naila_cancelled + $this_month_report->dr_naila_count;
+                              echo $this_month_report->dr_naila_cancelled + $this_month_report->dr_naila_count ?></td>
+                          <td><?php
+                              $cancelled += $this_month_report->dr_naila_cancelled;
+                              echo $this_month_report->dr_naila_cancelled ?></td>
+                          <td><?php
+                              $confirmed += $this_month_report->dr_naila_count;
+                              echo $this_month_report->dr_naila_count ?></td>
+                          <td><?php
+                              $discount_count += $this_month_report->dr_naila_discount_count;
+                              $discount += $this_month_report->dr_naila_discount;
+                              echo $this_month_report->dr_naila_discount_count ?>
+                            -<?php echo $this_month_report->dr_naila_discount ?></td>
+                          <td><?php
+                              $total_rs += $this_month_report->dr_naila;
+                              echo $this_month_report->dr_naila ?></td>
+                        </tr>
+                        <tr>
+                          <td>6</td>
+                          <th>Dr. Shabana</th>
+                          <td><?php
+                              $total += $this_month_report->dr_shabana_cancelled + $this_month_report->dr_shabana_count;
+                              echo $this_month_report->dr_shabana_cancelled + $this_month_report->dr_shabana_count ?></td>
+                          <td><?php
+                              $cancelled += $this_month_report->dr_shabana_cancelled;
+                              echo $this_month_report->dr_shabana_cancelled ?></td>
+                          <td><?php
+                              $confirmed += $this_month_report->dr_shabana_count;
+                              echo $this_month_report->dr_shabana_count ?></td>
+                          <td><?php
+                              $discount_count += $this_month_report->dr_shabana_discount_count;
+                              $discount += $this_month_report->dr_shabana_discount;
+                              echo $this_month_report->dr_shabana_discount_count ?>
+                            -<?php echo $this_month_report->dr_shabana_discount ?></td>
+                          <td><?php
+                              $total_rs += $this_month_report->dr_shabana;
+                              echo $this_month_report->dr_shabana ?></td>
+                        </tr>
+                        <tr>
+                          <td>7</td>
+                          <th>US-Doppler (Dr.Shabana)</th>
+                          <td><?php
+                              $total += $this_month_report->dr_shabana_us_doppler_cancelled + $this_month_report->dr_shabana_us_doppler_count;
+                              echo $this_month_report->dr_shabana_us_doppler_cancelled + $this_month_report->dr_shabana_us_doppler_count ?></td>
+                          <td><?php
+                              $cancelled += $this_month_report->dr_shabana_us_doppler_cancelled;
+                              echo $this_month_report->dr_shabana_us_doppler_cancelled ?></td>
+                          <td><?php
+                              $confirmed += $this_month_report->dr_shabana_us_doppler_count;
+                              echo $this_month_report->dr_shabana_us_doppler_count ?></td>
+                          <td><?php
+                              $discount_count += $this_month_report->dr_shabana_us_doppler_discount_count;
+                              $discount += $this_month_report->dr_shabana_us_doppler_discount;
+                              echo $this_month_report->dr_shabana_us_doppler_discount_count ?>
+                            -<?php echo $this_month_report->dr_shabana_us_doppler_discount ?></td>
+                          <td><?php
+                              $total_rs += $this_month_report->dr_shabana_us_doppler;
+                              echo $this_month_report->dr_shabana_us_doppler ?></td>
+                        </tr>
+                        <tr>
+                          <th colspan="2" style="text-align: right;">Total</th>
+                          <th> <?php echo $total; ?></th>
+                          <th><?php echo $cancelled ?></th>
+                          <td><?php echo $confirmed ?></td>
+                          <td><?php echo $discount_count ?>
+                            -<?php echo $discount ?></td>
+                          <td><?php echo number_format($total_rs); ?></td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </h6>
+                </div>
+              </div>
+            </div>
+
+
             <div class="col-md-6">
               <h5>
                 <table class="table table-bordered">
-                  <tr>
-                    <th>LAB</th>
-                    <td><?php echo $today_report->lab_count ?></td>
-                    <td><?php echo $today_report->lab ?></td>
-                  </tr>
-                  <tr>
-                    <th>ECG</th>
-                    <td><?php echo $today_report->ecg_count ?></td>
-                    <td><?php echo $today_report->ecg ?></td>
-                  </tr>
-                  <tr>
-                    <th>ULTRASOUND</th>
-                    <td><?php echo $today_report->ultrasound_count ?></td>
-                    <td><?php echo $today_report->ultrasound ?></td>
-                  </tr>
-                  <tr>
-                    <th>X-RAY</th>
-                    <td><?php echo $today_report->x_ray_count ?></td>
-                    <td><?php echo $today_report->x_ray ?></td>
-                  </tr>
-                  <tr>
-
-                    <th>Dr. Naila</th>
-                    <td><?php echo $today_report->dr_naila_count ?></td>
-                    <td><?php echo $today_report->dr_naila ?></td>
-                  </tr>
-                  <tr>
-                    <th>Dr. Shabana</th>
-                    <td><?php echo $today_report->dr_shabana_count ?></td>
-                    <td><?php echo $today_report->dr_shabana ?></td>
-                  </tr>
-                  <tr>
-                    <th>US-Doppler (Dr.Shabana)</th>
-                    <td><?php echo $today_report->dr_shabana_us_doppler_count ?></td>
-                    <td><?php echo $today_report->dr_shabana_us_doppler ?></td>
-                  </tr>
                   <tr>
                     <th>Discounts</th>
                     <td><?php echo $today_report->discount_count ?></td>
