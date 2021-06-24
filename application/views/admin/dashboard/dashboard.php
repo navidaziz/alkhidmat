@@ -1,4 +1,4 @@
-<div class="container" style="margin-top:5px !important; font-size:10px;">
+<div class="container" style="margin-top:5px !important; font-size:11px;">
   <div class="row">
     <div class="col-md-12">
       <div class="box border blue" id="messenger">
@@ -204,6 +204,49 @@
               </div>
             </div>
 
+            <div class="col-md-6">
+              <div class="box border blue" id="messenger" style="min-height: 432px;">
+                <div class="box-title">
+                  <h4><i class="fa fa-user-md"></i>Today OPD Wise Report</h4>
+                </div>
+                <div class="box-body">
+                  <table class="table table-bordered">
+                    <tr>
+                      <th>#</th>
+                      <th>Doctor Name</th>
+                      <th>Total Appointments</th>
+                      <th>Cancelled</th>
+                      <th>Confirmed</th>
+                      <th>Discount</th>
+                      <th>Total RS</th>
+                    </tr>
+                    <?php
+                    $count = 1;
+                    foreach ($today_OPD_reports as $report) { ?>
+                      <tr>
+                        <td><?php echo $count++; ?></td>
+                        <td><?php echo $report->test_group_name; ?></td>
+                        <td><?php echo $report->total_count + $report->total_receipt_cancelled; ?></td>
+                        <td><?php echo $report->total_receipt_cancelled; ?></td>
+                        <td><?php echo $report->total_count; ?></td>
+                        <td><?php echo $report->total_dis_count; ?> - <?php echo $report->total_discount; ?></td>
+
+                        <td><?php echo $report->total_sum; ?></td>
+                      </tr>
+                    <?php } ?>
+                    <tr>
+                      <th colspan="2" style="text-align: right;">OPD Total</th>
+                      <th style="text-align: center;"><?php echo $today_total_OPD_reports[0]->total_count + $today_total_OPD_reports[0]->total_receipt_cancelled ?></th>
+                      <th style="text-align: center;"><?php echo $today_total_OPD_reports[0]->total_receipt_cancelled; ?></th>
+                      <th style="text-align: center;"><?php echo $today_total_OPD_reports[0]->total_count ?></th>
+                      <td><?php echo $today_total_OPD_reports[0]->total_dis_count; ?> - <?php echo $today_total_OPD_reports[0]->total_discount; ?></td>
+
+                      <th style="text-align: center;"><?php echo $today_total_OPD_reports[0]->total_sum ?></th>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
 
             <div class="col-md-6">
               <div class="box border blue" id="messenger">
@@ -400,7 +443,49 @@
               </div>
             </div>
 
+            <div class="col-md-6">
+              <div class="box border blue" id="messenger" style="min-height: 432px;">
+                <div class="box-title">
+                  <h4><i class="fa fa-user-md"></i>This Month OPD Wise Report</h4>
+                </div>
+                <div class="box-body">
+                  <table class="table table-bordered">
+                    <tr>
+                      <th>#</th>
+                      <th>Doctor Name</th>
+                      <th>Total Appointments</th>
+                      <th>Cancelled</th>
+                      <th>Confirmed</th>
+                      <th>Discount</th>
+                      <th>Total RS</th>
+                    </tr>
+                    <?php
+                    $count = 1;
+                    foreach ($this_month_OPD_reports as $report) { ?>
+                      <tr>
+                        <td><?php echo $count++; ?></td>
+                        <td><?php echo $report->test_group_name; ?></td>
+                        <td><?php echo $report->total_count + $report->total_receipt_cancelled; ?></td>
+                        <td><?php echo $report->total_receipt_cancelled; ?></td>
+                        <td><?php echo $report->total_count; ?></td>
+                        <td><?php echo $report->total_dis_count; ?> - <?php echo $report->total_discount; ?></td>
 
+                        <td><?php echo $report->total_sum; ?></td>
+                      </tr>
+                    <?php } ?>
+                    <tr>
+                      <th colspan="2" style="text-align: right;">OPD Total</th>
+                      <th style="text-align: center;"><?php echo $this_month_total_OPD_reports[0]->total_count + $this_month_total_OPD_reports[0]->total_receipt_cancelled ?></th>
+                      <th style="text-align: center;"><?php echo $this_month_total_OPD_reports[0]->total_receipt_cancelled; ?></th>
+                      <th style="text-align: center;"><?php echo $this_month_total_OPD_reports[0]->total_count ?></th>
+                      <td><?php echo $this_month_total_OPD_reports[0]->total_dis_count; ?> - <?php echo $this_month_total_OPD_reports[0]->total_discount; ?></td>
+
+                      <th style="text-align: center;"><?php echo $this_month_total_OPD_reports[0]->total_sum ?></th>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
             <div class="col-md-6">
               <h5>
                 <table class="table table-bordered">

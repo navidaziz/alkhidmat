@@ -33,6 +33,10 @@ class Dashboard extends Admin_Controller
 		//get today data......
 		$this->data['today_report'] = $this->reports_model->today_report();
 		$this->data['this_month_report'] = $this->reports_model->this_month_report();
+		$this->data["today_OPD_reports"] = $this->reports_model->today_opd_report();
+		$this->data["today_total_OPD_reports"] = $this->reports_model->today_total_opd_report();
+		$this->data["this_month_OPD_reports"] = $this->reports_model->this_month_opd_report();
+		$this->data["this_month_total_OPD_reports"] = $this->reports_model->this_month_total_opd_report();
 		//end today data
 
 		//Yearly report 

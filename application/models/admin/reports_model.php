@@ -137,6 +137,82 @@ class Reports_model extends MY_Model
 		return $today_report;
 	}
 
+	public function today_opd_report()
+	{
+		$query = "SELECT
+					`test_groups`.`test_group_name`
+					, SUM(IF(`invoices`.`is_deleted`=0,`invoices`.`total_price`,NULL)) AS total_sum
+					, COUNT(IF(`invoices`.`is_deleted`=0,1,NULL)) AS total_count
+					, COUNT(IF(`invoices`.`is_deleted`=1,1,NULL)) AS total_receipt_cancelled
+					, SUM(IF(`invoices`.`is_deleted`=0,`invoices`.`discount`,NULL)) AS total_discount
+		            , COUNT(IF((`invoices`.`is_deleted`=0 AND `invoices`.`discount` > 0) ,1,NULL)) AS total_dis_count
+				FROM
+				`test_groups`,
+				`invoices` 
+				WHERE `test_groups`.`test_group_id` = `invoices`.`opd_doctor`
+				AND `invoices`.`category_id`=5
+				AND DATE(`invoices`.`created_date`) = DATE(NOW())
+				GROUP BY `test_groups`.`test_group_name`";
+		$today_OPD_report = $this->db->query($query)->result();
+		return $today_OPD_report;
+	}
+
+	public function today_total_opd_report()
+	{
+		$query = "SELECT SUM(IF(`invoices`.`is_deleted`=0,`invoices`.`total_price`,NULL)) AS total_sum
+		, COUNT(IF(`invoices`.`is_deleted`=0,1,NULL)) AS total_count
+		, COUNT(IF(`invoices`.`is_deleted`=1,1,NULL)) AS total_receipt_cancelled
+		, SUM(IF(`invoices`.`is_deleted`=0,`invoices`.`discount`,NULL)) AS total_discount
+		            , COUNT(IF((`invoices`.`is_deleted`=0 AND `invoices`.`discount` > 0) ,1,NULL)) AS total_dis_count
+				FROM
+				`test_groups`,
+				`invoices` 
+				WHERE `test_groups`.`test_group_id` = `invoices`.`opd_doctor`
+				AND `invoices`.`category_id`=5
+				AND DATE(`invoices`.`created_date`) = DATE(NOW())";
+		$today_OPD_report = $this->db->query($query)->result();
+		return $today_OPD_report;
+	}
+
+	public function this_month_opd_report()
+	{
+		$query = "SELECT
+					`test_groups`.`test_group_name`
+					, SUM(IF(`invoices`.`is_deleted`=0,`invoices`.`total_price`,NULL)) AS total_sum
+					, COUNT(IF(`invoices`.`is_deleted`=0,1,NULL)) AS total_count
+					, COUNT(IF(`invoices`.`is_deleted`=1,1,NULL)) AS total_receipt_cancelled
+					, SUM(IF(`invoices`.`is_deleted`=0,`invoices`.`discount`,NULL)) AS total_discount
+		            , COUNT(IF((`invoices`.`is_deleted`=0 AND `invoices`.`discount` > 0) ,1,NULL)) AS total_dis_count
+				FROM
+				`test_groups`,
+				`invoices` 
+				WHERE `test_groups`.`test_group_id` = `invoices`.`opd_doctor`
+				AND `invoices`.`category_id`=5
+				AND YEAR(`invoices`.`created_date`) = YEAR(NOW())
+				AND MONTH(`invoices`.`created_date`) = MONTH(NOW())
+				GROUP BY `test_groups`.`test_group_name`";
+		$today_OPD_report = $this->db->query($query)->result();
+		return $today_OPD_report;
+	}
+
+	public function this_month_total_opd_report()
+	{
+		$query = "SELECT SUM(IF(`invoices`.`is_deleted`=0,`invoices`.`total_price`,NULL)) AS total_sum
+		, COUNT(IF(`invoices`.`is_deleted`=0,1,NULL)) AS total_count
+		, COUNT(IF(`invoices`.`is_deleted`=1,1,NULL)) AS total_receipt_cancelled
+		, SUM(IF(`invoices`.`is_deleted`=0,`invoices`.`discount`,NULL)) AS total_discount
+		            , COUNT(IF((`invoices`.`is_deleted`=0 AND `invoices`.`discount` > 0) ,1,NULL)) AS total_dis_count
+				FROM
+				`test_groups`,
+				`invoices` 
+				WHERE `test_groups`.`test_group_id` = `invoices`.`opd_doctor`
+				AND `invoices`.`category_id`=5
+				AND YEAR(`invoices`.`created_date`) = YEAR(NOW())
+				AND MONTH(`invoices`.`created_date`) = MONTH(NOW())";
+		$today_OPD_report = $this->db->query($query)->result();
+		return $today_OPD_report;
+	}
+
 	public function this_month_report()
 	{
 		$query = "SELECT * FROM invoices_current_month";
