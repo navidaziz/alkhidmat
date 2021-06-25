@@ -12,7 +12,7 @@
             <div class="col-md-6">
               <div class="box border blue" id="messenger">
                 <div class="box-title">
-                  <h4><i class="fa fa-bar-chart"></i>Today Catagories Wise Report</h4>
+                  <h4><i class="fa fa-bar-chart"></i>Today Summary Report</h4>
                 </div>
                 <div class="box-body">
                   <?php
@@ -43,149 +43,149 @@
                           <td>1</td>
                           <th>LAB</th>
                           <td><?php
-                              $total += $today_report->lab_cancelled + $today_report->lab_count;
-                              echo $today_report->lab_cancelled + $today_report->lab_count ?></td>
+                              $total += @$today_report->lab_cancelled + $today_report->lab_count;
+                              echo @$today_report->lab_cancelled + $today_report->lab_count ?></td>
                           <td><?php
-                              $cancelled += $today_report->lab_cancelled;
-                              echo $today_report->lab_cancelled ?></td>
+                              $cancelled += @$today_report->lab_cancelled;
+                              echo @$today_report->lab_cancelled ?></td>
                           <td><?php
-                              $confirmed += $today_report->lab_count;
-                              echo $today_report->lab_count ?></td>
+                              $confirmed += @$today_report->lab_count;
+                              echo @$today_report->lab_count ?></td>
                           <td><?php
-                              $discount_count += $today_report->lab_discount_count;
-                              $discount += $today_report->lab_discount;
-                              echo $today_report->lab_discount_count ?>
-                            -<?php echo $today_report->lab_discount ?></td>
+                              $discount_count += @$today_report->lab_discount_count;
+                              $discount += @$today_report->lab_discount;
+                              echo @$today_report->lab_discount_count ?>
+                            -<?php echo @$today_report->lab_discount ?></td>
                           <td><?php
-                              $total_rs += $today_report->lab;
-                              echo $today_report->lab ?></td>
+                              $total_rs += @$today_report->lab;
+                              echo @$today_report->lab ?></td>
                         </tr>
                         <tr>
                           <td>2</td>
                           <th>ECG</th>
                           <td><?php
-                              $total += $today_report->ecg_cancelled + $today_report->ecg_count;
-                              echo $today_report->ecg_cancelled + $today_report->ecg_count ?></td>
+                              $total += @$today_report->ecg_cancelled + $today_report->ecg_count;
+                              echo @$today_report->ecg_cancelled + $today_report->ecg_count ?></td>
                           <td><?php
-                              $cancelled += $today_report->ecg_cancelled;
-                              echo $today_report->ecg_cancelled ?></td>
+                              $cancelled += @$today_report->ecg_cancelled;
+                              echo @$today_report->ecg_cancelled ?></td>
                           <td><?php
-                              $confirmed += $today_report->ecg_count;
-                              echo $today_report->ecg_count ?></td>
+                              $confirmed += @$today_report->ecg_count;
+                              echo @$today_report->ecg_count ?></td>
                           <td><?php
-                              $discount_count += $today_report->ecg_discount_count;
-                              $discount += $today_report->ecg_discount;
-                              echo $today_report->ecg_discount_count ?>
-                            -<?php echo $today_report->ecg_discount ?></td>
+                              $discount_count += @$today_report->ecg_discount_count;
+                              $discount += @$today_report->ecg_discount;
+                              echo @$today_report->ecg_discount_count ?>
+                            -<?php echo @$today_report->ecg_discount ?></td>
                           <td><?php
-                              $total_rs += $today_report->ecg;
-                              echo $today_report->ecg ?></td>
+                              $total_rs += @$today_report->ecg;
+                              echo @$today_report->ecg ?></td>
                         </tr>
                         <tr>
                           <td>3</td>
                           <th>X-RAY</th>
                           <td><?php
-                              $total += $today_report->x_ray_cancelled + $today_report->x_ray_count;
-                              echo $today_report->x_ray_cancelled + $today_report->x_ray_count ?></td>
+                              $total += @$today_report->x_ray_cancelled + $today_report->x_ray_count;
+                              echo @$today_report->x_ray_cancelled + $today_report->x_ray_count ?></td>
                           <td><?php
-                              $cancelled += $today_report->x_ray_cancelled;
-                              echo $today_report->x_ray_cancelled ?></td>
+                              $cancelled += @$today_report->x_ray_cancelled;
+                              echo @$today_report->x_ray_cancelled ?></td>
                           <td><?php
-                              $confirmed += $today_report->x_ray_count;
-                              echo $today_report->x_ray_count ?></td>
+                              $confirmed += @$today_report->x_ray_count;
+                              echo @$today_report->x_ray_count ?></td>
                           <td><?php
-                              $discount_count += $today_report->x_ray_discount_count;
-                              $discount += $today_report->x_ray_discount;
-                              echo $today_report->x_ray_discount_count ?>
-                            -<?php echo $today_report->x_ray_discount ?></td>
+                              $discount_count += @$today_report->x_ray_discount_count;
+                              $discount += @$today_report->x_ray_discount;
+                              echo @$today_report->x_ray_discount_count ?>
+                            -<?php echo @$today_report->x_ray_discount ?></td>
                           <td><?php
-                              $total_rs += $today_report->x_ray;
-                              echo $today_report->x_ray ?></td>
+                              $total_rs += @$today_report->x_ray;
+                              echo @$today_report->x_ray ?></td>
                         </tr>
                         <tr>
                           <td>4</td>
                           <th>ULTRASOUND</th>
                           <td><?php
-                              $total += $today_report->ultrasound_cancelled + $today_report->ultrasound_count;
-                              echo $today_report->ultrasound_cancelled + $today_report->ultrasound_count ?></td>
+                              $total += @$today_report->ultrasound_cancelled + $today_report->ultrasound_count;
+                              echo @$today_report->ultrasound_cancelled + $today_report->ultrasound_count ?></td>
                           <td><?php
-                              $cancelled += $today_report->ultrasound_cancelled;
-                              echo $today_report->ultrasound_cancelled ?></td>
+                              $cancelled += @$today_report->ultrasound_cancelled;
+                              echo @$today_report->ultrasound_cancelled ?></td>
                           <td><?php
-                              $confirmed += $today_report->ultrasound_count;
-                              echo $today_report->ultrasound_count ?></td>
+                              $confirmed += @$today_report->ultrasound_count;
+                              echo @$today_report->ultrasound_count ?></td>
                           <td><?php
-                              $discount_count += $today_report->ultrasound_discount_count;
-                              $discount += $today_report->ultrasound_discount;
-                              echo $today_report->ultrasound_discount_count ?>
-                            -<?php echo $today_report->ultrasound_discount ?></td>
+                              $discount_count += @$today_report->ultrasound_discount_count;
+                              $discount += @$today_report->ultrasound_discount;
+                              echo @$today_report->ultrasound_discount_count ?>
+                            -<?php echo @$today_report->ultrasound_discount ?></td>
                           <td><?php
-                              $total_rs += $today_report->ultrasound;
-                              echo $today_report->ultrasound ?></td>
+                              $total_rs += @$today_report->ultrasound;
+                              echo @$today_report->ultrasound ?></td>
                         </tr>
 
                         <tr>
                           <td>5</td>
                           <th>Dr. Naila</th>
                           <td><?php
-                              $total += $today_report->dr_naila_cancelled + $today_report->dr_naila_count;
-                              echo $today_report->dr_naila_cancelled + $today_report->dr_naila_count ?></td>
+                              $total += @$today_report->dr_naila_cancelled + $today_report->dr_naila_count;
+                              echo @$today_report->dr_naila_cancelled + $today_report->dr_naila_count ?></td>
                           <td><?php
-                              $cancelled += $today_report->dr_naila_cancelled;
-                              echo $today_report->dr_naila_cancelled ?></td>
+                              $cancelled += @$today_report->dr_naila_cancelled;
+                              echo @$today_report->dr_naila_cancelled ?></td>
                           <td><?php
-                              $confirmed += $today_report->dr_naila_count;
-                              echo $today_report->dr_naila_count ?></td>
+                              $confirmed += @$today_report->dr_naila_count;
+                              echo @$today_report->dr_naila_count ?></td>
                           <td><?php
-                              $discount_count += $today_report->dr_naila_discount_count;
-                              $discount += $today_report->dr_naila_discount;
-                              echo $today_report->dr_naila_discount_count ?>
-                            -<?php echo $today_report->dr_naila_discount ?></td>
+                              $discount_count += @$today_report->dr_naila_discount_count;
+                              $discount += @$today_report->dr_naila_discount;
+                              echo @$today_report->dr_naila_discount_count ?>
+                            -<?php echo @$today_report->dr_naila_discount ?></td>
                           <td><?php
-                              $total_rs += $today_report->dr_naila;
-                              echo $today_report->dr_naila ?></td>
+                              $total_rs += @$today_report->dr_naila;
+                              echo @$today_report->dr_naila ?></td>
                         </tr>
                         <tr>
                           <td>6</td>
                           <th>Dr. Shabana</th>
                           <td><?php
-                              $total += $today_report->dr_shabana_cancelled + $today_report->dr_shabana_count;
-                              echo $today_report->dr_shabana_cancelled + $today_report->dr_shabana_count ?></td>
+                              $total += @$today_report->dr_shabana_cancelled + $today_report->dr_shabana_count;
+                              echo @$today_report->dr_shabana_cancelled + $today_report->dr_shabana_count ?></td>
                           <td><?php
-                              $cancelled += $today_report->dr_shabana_cancelled;
-                              echo $today_report->dr_shabana_cancelled ?></td>
+                              $cancelled += @$today_report->dr_shabana_cancelled;
+                              echo @$today_report->dr_shabana_cancelled ?></td>
                           <td><?php
-                              $confirmed += $today_report->dr_shabana_count;
-                              echo $today_report->dr_shabana_count ?></td>
+                              $confirmed += @$today_report->dr_shabana_count;
+                              echo @$today_report->dr_shabana_count ?></td>
                           <td><?php
-                              $discount_count += $today_report->dr_shabana_discount_count;
-                              $discount += $today_report->dr_shabana_discount;
-                              echo $today_report->dr_shabana_discount_count ?>
-                            -<?php echo $today_report->dr_shabana_discount ?></td>
+                              $discount_count += @$today_report->dr_shabana_discount_count;
+                              $discount += @$today_report->dr_shabana_discount;
+                              echo @$today_report->dr_shabana_discount_count ?>
+                            -<?php echo @$today_report->dr_shabana_discount ?></td>
                           <td><?php
-                              $total_rs += $today_report->dr_shabana;
-                              echo $today_report->dr_shabana ?></td>
+                              $total_rs += @$today_report->dr_shabana;
+                              echo @$today_report->dr_shabana ?></td>
                         </tr>
                         <tr>
                           <td>7</td>
                           <th>US-Doppler (Dr.Shabana)</th>
                           <td><?php
-                              $total += $today_report->dr_shabana_us_doppler_cancelled + $today_report->dr_shabana_us_doppler_count;
-                              echo $today_report->dr_shabana_us_doppler_cancelled + $today_report->dr_shabana_us_doppler_count ?></td>
+                              $total += @$today_report->dr_shabana_us_doppler_cancelled + $today_report->dr_shabana_us_doppler_count;
+                              echo @$today_report->dr_shabana_us_doppler_cancelled + $today_report->dr_shabana_us_doppler_count ?></td>
                           <td><?php
-                              $cancelled += $today_report->dr_shabana_us_doppler_cancelled;
-                              echo $today_report->dr_shabana_us_doppler_cancelled ?></td>
+                              $cancelled += @$today_report->dr_shabana_us_doppler_cancelled;
+                              echo @$today_report->dr_shabana_us_doppler_cancelled ?></td>
                           <td><?php
-                              $confirmed += $today_report->dr_shabana_us_doppler_count;
-                              echo $today_report->dr_shabana_us_doppler_count ?></td>
+                              $confirmed += @$today_report->dr_shabana_us_doppler_count;
+                              echo @$today_report->dr_shabana_us_doppler_count ?></td>
                           <td><?php
-                              $discount_count += $today_report->dr_shabana_us_doppler_discount_count;
-                              $discount += $today_report->dr_shabana_us_doppler_discount;
-                              echo $today_report->dr_shabana_us_doppler_discount_count ?>
-                            -<?php echo $today_report->dr_shabana_us_doppler_discount ?></td>
+                              $discount_count += @$today_report->dr_shabana_us_doppler_discount_count;
+                              $discount += @$today_report->dr_shabana_us_doppler_discount;
+                              echo @$today_report->dr_shabana_us_doppler_discount_count ?>
+                            -<?php echo @$today_report->dr_shabana_us_doppler_discount ?></td>
                           <td><?php
-                              $total_rs += $today_report->dr_shabana_us_doppler;
-                              echo $today_report->dr_shabana_us_doppler ?></td>
+                              $total_rs += @$today_report->dr_shabana_us_doppler;
+                              echo @$today_report->dr_shabana_us_doppler ?></td>
                         </tr>
                         <tr>
                           <th colspan="2" style="text-align: right;">Total</th>
@@ -199,54 +199,88 @@
 
                       </tbody>
                     </table>
-                  </h6>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <div class="box border blue" id="messenger" style="min-height: 432px;">
-                <div class="box-title">
-                  <h4><i class="fa fa-user-md"></i>Today OPD Wise Report</h4>
-                </div>
-                <div class="box-body">
-                  <table class="table table-bordered">
-                    <tr>
-                      <th>#</th>
-                      <th>Doctor Name</th>
-                      <th>Total Appointments</th>
-                      <th>Cancelled</th>
-                      <th>Confirmed</th>
-                      <th>Discount</th>
-                      <th>Total RS</th>
-                    </tr>
-                    <?php
-                    $count = 1;
-                    foreach ($today_OPD_reports as $report) { ?>
+                    <table class="table table-bordered">
                       <tr>
-                        <td><?php echo $count++; ?></td>
-                        <td><?php echo $report->test_group_name; ?></td>
-                        <td><?php echo $report->total_count + $report->total_receipt_cancelled; ?></td>
-                        <td><?php echo $report->total_receipt_cancelled; ?></td>
-                        <td><?php echo $report->total_count; ?></td>
-                        <td><?php echo $report->total_dis_count; ?> - <?php echo $report->total_discount; ?></td>
-
-                        <td><?php echo $report->total_sum; ?></td>
+                        <td>
+                          <h5>Total Expense</h5>
+                        </td>
+                        <td>
+                          <h5><strong><?php echo "Rs " . $total_expenses; ?></h5></strong>
+                        </td>
                       </tr>
-                    <?php } ?>
-                    <tr>
-                      <th colspan="2" style="text-align: right;">OPD Total</th>
-                      <th style="text-align: center;"><?php echo $today_total_OPD_reports[0]->total_count + $today_total_OPD_reports[0]->total_receipt_cancelled ?></th>
-                      <th style="text-align: center;"><?php echo $today_total_OPD_reports[0]->total_receipt_cancelled; ?></th>
-                      <th style="text-align: center;"><?php echo $today_total_OPD_reports[0]->total_count ?></th>
-                      <td><?php echo $today_total_OPD_reports[0]->total_dis_count; ?> - <?php echo $today_total_OPD_reports[0]->total_discount; ?></td>
+                    </table>
+                    <h4>Today Expenses</h4>
+                    <div>
+                      <table class="table table-bordered">
+                        <tr>
+                          <td>#</td>
+                          <td>Expense Type</td>
+                          <td>Total Expense</td>
+                        </tr>
+                        <?php
+                        $total_expense = 0;
+                        $count = 1;
+                        foreach ($today_expenses as $expense_type) {
+                          $total_expense += $expense_type->expense_total;
+                        ?>
+                          <tr>
+                            <td><?php echo $count++; ?></td>
+                            <td><?php echo ucwords(strtolower($expense_type->expense_type)); ?></td>
+                            <td><?php echo $expense_type->expense_total ?></td>
+                          </tr>
+                        <?php } ?>
+                        <tr>
+                          <th colspan="2">Total</th>
+                          <th><?php echo $total_expense ?></th>
+                        </tr>
+                      </table>
+                    </div>
 
-                      <th style="text-align: center;"><?php echo $today_total_OPD_reports[0]->total_sum ?></th>
-                    </tr>
-                  </table>
+
+                    <table class="table table-bordered">
+                      <tr>
+                        <th>#</th>
+                        <th>Doctor Name</th>
+                        <th>Total Appointments</th>
+                        <th>Cancelled</th>
+                        <th>Confirmed</th>
+                        <th>Discount</th>
+                        <th>Total RS</th>
+                      </tr>
+                      <?php
+                      $count = 1;
+                      foreach ($today_OPD_reports as $report) { ?>
+                        <tr>
+                          <td><?php echo $count++; ?></td>
+                          <td><?php echo $report->test_group_name; ?></td>
+                          <td><?php echo $report->total_count + $report->total_receipt_cancelled; ?></td>
+                          <td><?php echo $report->total_receipt_cancelled; ?></td>
+                          <td><?php echo $report->total_count; ?></td>
+                          <td><?php echo $report->total_dis_count; ?> - <?php echo $report->total_discount; ?></td>
+
+                          <td><?php echo $report->total_sum; ?></td>
+                        </tr>
+                      <?php } ?>
+                      <tr>
+                        <th colspan="2" style="text-align: right;">OPD Total</th>
+                        <th style="text-align: center;"><?php echo $today_total_OPD_reports[0]->total_count + $today_total_OPD_reports[0]->total_receipt_cancelled ?></th>
+                        <th style="text-align: center;"><?php echo $today_total_OPD_reports[0]->total_receipt_cancelled; ?></th>
+                        <th style="text-align: center;"><?php echo $today_total_OPD_reports[0]->total_count ?></th>
+                        <td><?php echo $today_total_OPD_reports[0]->total_dis_count; ?> - <?php echo $today_total_OPD_reports[0]->total_discount; ?></td>
+
+                        <th style="text-align: center;"><?php echo $today_total_OPD_reports[0]->total_sum ?></th>
+                      </tr>
+                    </table>
+
+                  </h6>
+
                 </div>
               </div>
             </div>
+
+
+
+
 
             <div class="col-md-6">
               <div class="box border blue" id="messenger">
@@ -438,6 +472,76 @@
 
                       </tbody>
                     </table>
+                    <table class="table table-bordered">
+                      <tr>
+                        <td>
+                          <h5>This Month Expense</h5>
+                        </td>
+                        <td>
+                          <h5><strong><?php echo "Rs " . $this_month_total_expenses; ?></h5></strong>
+                        </td>
+                      </tr>
+                    </table>
+                    <h4>This Month Expenses</h4>
+                    <div>
+                      <table class="table table-bordered">
+                        <tr>
+                          <td>#</td>
+                          <td>Expense Type</td>
+                          <td>Total Expense</td>
+                        </tr>
+                        <?php
+                        $this_month_total_expense = 0;
+                        $count = 1;
+                        foreach ($this_month_expenses as $expense_type) {
+                          $total_expense += $expense_type->expense_total;
+                        ?>
+                          <tr>
+                            <td><?php echo $count++; ?></td>
+                            <td><?php echo ucwords(strtolower($expense_type->expense_type)); ?></td>
+                            <td><?php echo $expense_type->expense_total ?></td>
+                          </tr>
+                        <?php } ?>
+                        <tr>
+                          <th colspan="2">Total</th>
+                          <th><?php echo $this_month_total_expense ?></th>
+                        </tr>
+                      </table>
+                    </div>
+                    <table class="table table-bordered">
+                      <tr>
+                        <th>#</th>
+                        <th>Doctor Name</th>
+                        <th>Total Appointments</th>
+                        <th>Cancelled</th>
+                        <th>Confirmed</th>
+                        <th>Discount</th>
+                        <th>Total RS</th>
+                      </tr>
+                      <?php
+                      $count = 1;
+                      foreach ($this_month_OPD_reports as $report) { ?>
+                        <tr>
+                          <td><?php echo $count++; ?></td>
+                          <td><?php echo $report->test_group_name; ?></td>
+                          <td><?php echo $report->total_count + $report->total_receipt_cancelled; ?></td>
+                          <td><?php echo $report->total_receipt_cancelled; ?></td>
+                          <td><?php echo $report->total_count; ?></td>
+                          <td><?php echo $report->total_dis_count; ?> - <?php echo $report->total_discount; ?></td>
+
+                          <td><?php echo $report->total_sum; ?></td>
+                        </tr>
+                      <?php } ?>
+                      <tr>
+                        <th colspan="2" style="text-align: right;">OPD Total</th>
+                        <th style="text-align: center;"><?php echo $this_month_total_OPD_reports[0]->total_count + $this_month_total_OPD_reports[0]->total_receipt_cancelled ?></th>
+                        <th style="text-align: center;"><?php echo $this_month_total_OPD_reports[0]->total_receipt_cancelled; ?></th>
+                        <th style="text-align: center;"><?php echo $this_month_total_OPD_reports[0]->total_count ?></th>
+                        <td><?php echo $this_month_total_OPD_reports[0]->total_dis_count; ?> - <?php echo $this_month_total_OPD_reports[0]->total_discount; ?></td>
+
+                        <th style="text-align: center;"><?php echo $this_month_total_OPD_reports[0]->total_sum ?></th>
+                      </tr>
+                    </table>
                   </h6>
                 </div>
               </div>
@@ -449,162 +553,12 @@
                   <h4><i class="fa fa-user-md"></i>This Month OPD Wise Report</h4>
                 </div>
                 <div class="box-body">
-                  <table class="table table-bordered">
-                    <tr>
-                      <th>#</th>
-                      <th>Doctor Name</th>
-                      <th>Total Appointments</th>
-                      <th>Cancelled</th>
-                      <th>Confirmed</th>
-                      <th>Discount</th>
-                      <th>Total RS</th>
-                    </tr>
-                    <?php
-                    $count = 1;
-                    foreach ($this_month_OPD_reports as $report) { ?>
-                      <tr>
-                        <td><?php echo $count++; ?></td>
-                        <td><?php echo $report->test_group_name; ?></td>
-                        <td><?php echo $report->total_count + $report->total_receipt_cancelled; ?></td>
-                        <td><?php echo $report->total_receipt_cancelled; ?></td>
-                        <td><?php echo $report->total_count; ?></td>
-                        <td><?php echo $report->total_dis_count; ?> - <?php echo $report->total_discount; ?></td>
 
-                        <td><?php echo $report->total_sum; ?></td>
-                      </tr>
-                    <?php } ?>
-                    <tr>
-                      <th colspan="2" style="text-align: right;">OPD Total</th>
-                      <th style="text-align: center;"><?php echo $this_month_total_OPD_reports[0]->total_count + $this_month_total_OPD_reports[0]->total_receipt_cancelled ?></th>
-                      <th style="text-align: center;"><?php echo $this_month_total_OPD_reports[0]->total_receipt_cancelled; ?></th>
-                      <th style="text-align: center;"><?php echo $this_month_total_OPD_reports[0]->total_count ?></th>
-                      <td><?php echo $this_month_total_OPD_reports[0]->total_dis_count; ?> - <?php echo $this_month_total_OPD_reports[0]->total_discount; ?></td>
-
-                      <th style="text-align: center;"><?php echo $this_month_total_OPD_reports[0]->total_sum ?></th>
-                    </tr>
-                  </table>
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
-              <h5>
-                <table class="table table-bordered">
-                  <tr>
-                    <th>Discounts</th>
-                    <td><?php echo $today_report->discount_count ?></td>
-                    <td><?php echo $today_report->discount ?></td>
-                  </tr>
-                  <tr>
-                    <th>Cancelled</th>
-                    <td><?php echo $today_report->other_deleted ?></td>
-                    <td></td>
-                  </tr>
-                  <tr>
 
-                    <th>Total</th>
-                    <td></td>
-                    <td><?php echo $today_report->alkhidmat_total ?></td>
-                  </tr>
 
-                </table>
-              </h5>
-            </div>
-            <div class="col-md-6">
-              <h5>
-                <table class="table table-bordered">
-                  <th>OPDs</th>
-                  <td><?php echo $today_report->opd ?></td>
-                  <th>OPD Cancelled</th>
-                  <td><?php echo $today_report->opd_deleted ?></td>
-
-                  </tr>
-                </table>
-              </h5>
-            </div>
-            <div class="col-md-3">
-
-              <h4>Today</h4>
-              <table class="table table-bordered">
-                <th>
-                  Total Test
-                </th>
-                <th>
-                  <strong><?php echo $total_test; ?></strong>
-                </th>
-                </tr>
-                <tr>
-                  <th>
-                    Price
-                  </th>
-                  <th>
-                    <strong><?php echo $price; ?></strong>
-                  </th>
-                </tr>
-                <tr>
-                  <th>
-                    Discount
-                  </th>
-                  <th>
-                    <strong><?php echo $discount; ?></strong>
-                  </th>
-                </tr>
-                <tr>
-                  <th>
-                    Income
-                  </th>
-                  <th>
-                    <strong><?php echo $total_income; ?></strong>
-                  </th>
-                </tr>
-                <tr>
-                  <th>
-                    Expense
-                  </th>
-                  <th>
-                    <strong><?php echo $total_expenses; ?></strong>
-                  </th>
-                </tr>
-                <tr>
-                  <th>
-                    Net Income
-                  </th>
-                  <th>
-                    <strong><?php echo ($total_income - $total_expenses); ?></strong>
-                  </th>
-                </tr>
-              </table>
-            </div>
-            <div class="col-md-3">
-              <h4>Today Expenses</h4>
-              <div>
-                <table class="table table-bordered">
-                  <tr>
-                    <td>Expense Type</td>
-                    <td>Total Expense</td>
-                  </tr>
-                  <?php
-                  $total_expense = 0;
-                  foreach ($today_expenses as $expense_type) {
-                    $total_expense += $expense_type->expense_total;
-                  ?>
-                    <tr>
-                      <td><?php echo ucwords(strtolower($expense_type->expense_type)); ?></td>
-                      <td><?php echo $expense_type->expense_total ?></td>
-                    </tr>
-                  <?php } ?>
-                </table>
-              </div>
-              <table class="table table-bordered">
-                <tr>
-                  <td>
-                    <h5>Total Expense</h5>
-                  </td>
-                  <td>
-                    <h5><strong><?php echo "Rs " . $total_expense; ?></h5></strong>
-                  </td>
-                </tr>
-              </table>
-            </div>
 
             <div class="col-md-6">
               <table class="table table-bordered">

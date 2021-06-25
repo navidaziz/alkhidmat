@@ -95,7 +95,7 @@ class Dashboard extends Admin_Controller
 		//today expense 
 		$query = "SELECT sum(`expense_amount`) as total_expenses 
 					FROM `expenses` WHERE `expenses`.`status` IN (0, 1) 
-					AND DATE(`expenses`.`created_date`) = '" . $today . "'";
+					AND DATE(`expenses`.`created_date`) = DATE(NOW())";
 		$result = $this->db->query($query);
 		$total_expenses = $result->result()[0]->total_expenses;
 		if ($total_expenses) {
@@ -104,8 +104,7 @@ class Dashboard extends Admin_Controller
 			$this->data['total_expenses'] = 0;
 		}
 
-		$this->data['total_net_income'] = $total_income - $total_expenses;
-
+		// today expense types
 		$query = "SELECT 
 				 `expense_types`.`expense_type`,
 				 SUM(`expenses`.`expense_amount`) as expense_total 
@@ -113,10 +112,37 @@ class Dashboard extends Admin_Controller
 				 `expense_types`,
 				 `expenses` 
 				 WHERE `expense_types`.`expense_type_id` = `expenses`.`expense_type_id`
-				 AND DATE(`expenses`.`created_date`) = '" . $today . "' 
+				 AND DATE(`expenses`.`created_date`) = DATE(NOW())
 				 GROUP BY `expense_types`.`expense_type` ";
 		$query_result = $this->db->query($query);
 		$this->data['today_expenses'] = $query_result->result();
+
+		//this expense 
+		$query = "SELECT sum(`expense_amount`) as total_expenses 
+					FROM `expenses` WHERE `expenses`.`status` IN (0, 1) 
+					AND YEAR(`expenses`.`created_date`) = YEAR(NOW())
+					AND MONTH(`expenses`.`created_date`) = MONTH(NOW())";
+		$result = $this->db->query($query);
+		$total_expenses = $result->result()[0]->total_expenses;
+		if ($total_expenses) {
+			$this->data['this_month_total_expenses'] = $total_expenses;
+		} else {
+			$this->data['this_month_total_expenses'] = 0;
+		}
+
+		// today expense types
+		$query = "SELECT 
+				 `expense_types`.`expense_type`,
+				 SUM(`expenses`.`expense_amount`) as expense_total 
+				 FROM
+				 `expense_types`,
+				 `expenses` 
+				 WHERE `expense_types`.`expense_type_id` = `expenses`.`expense_type_id`
+				 AND YEAR(`expenses`.`created_date`) = YEAR(NOW())
+				AND MONTH(`expenses`.`created_date`) = MONTH(NOW())
+				 GROUP BY `expense_types`.`expense_type` ";
+		$query_result = $this->db->query($query);
+		$this->data['this_month_expenses'] = $query_result->result();
 
 		//Monthly report
 
