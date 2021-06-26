@@ -547,16 +547,6 @@
               </div>
             </div>
 
-            <div class="col-md-6">
-              <div class="box border blue" id="messenger" style="min-height: 432px;">
-                <div class="box-title">
-                  <h4><i class="fa fa-user-md"></i>This Month OPD Wise Report</h4>
-                </div>
-                <div class="box-body">
-
-                </div>
-              </div>
-            </div>
 
 
 
@@ -599,15 +589,25 @@
         </div>
         <div class="box-body">
           <div class="row">
-            <div class="hidden-xs col-md-6">
+            <div class="hidden-xs col-md-12">
               <div id="current_month_report"></div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
               <h2>Current Month Day Wise Report</h2>
               <div style=" width:100%; height:350px !important; overflow:scroll; overflow-x: hidden;">
                 <table class="table table-bordered">
+
+                  <tr>
+                    <th></th>
+                    <th colspan="5">LAB</th>
+                  </tr>
                   <tr>
                     <th>Date</th>
+                    <td>Total</td>
+                    <td>Canc</td>
+                    <td>Conf</td>
+                    <td>Dis</td>
+                    <td>Total</td>
                     <th>Total Tests</th>
                     <th>Test Price</th>
                     <th>Discount</th>
@@ -618,19 +618,26 @@
                   <?php
                   $count = 0;
                   $total_income = 0;
+
                   $income_expence_reportarray = $income_expence_report;
                   krsort($income_expence_reportarray);
                   foreach ($income_expence_reportarray as $date => $report) {
-                    $total_income += $report['income']; ?>
+                    $total_income += @$report->total; ?>
                     <tr <?php if ($count == 0) { ?> style="background-color:#9F9 !important; " <?php $count++;
                                                                                               } ?>>
                       <td><?php echo $date; ?></td>
-                      <td><?php echo $report['total_test']; ?></td>
-                      <td><?php echo $report['price']; ?></td>
-                      <td><?php echo $report['discount']; ?></td>
-                      <td><?php echo $report['income']; ?></td>
-                      <td><?php echo $report['expense']; ?></td>
-                      <td><?php echo ($report['income'] - $report['expense']); ?></td>
+                      <td><?php echo @$report->lab_cancelled + @$report->lab_count ?></td>
+                      <td><?php echo @$report->lab_cancelled ?></td>
+                      <td><?php echo @$report->lab_count ?></td>
+                      <td><?php echo @$report->lab_discount_count ?>-<?php echo @$report->lab_discount ?></td>
+                      <td><?php echo @$report->lab ?></td>
+
+                      <td></td>
+                      <td></td>
+                      <td><?php echo @$report->discount_count; ?> - <?php echo @$report->discount; ?></td>
+                      <td><?php echo @$report->total; ?></td>
+                      <td><?php echo @$report->expense; ?></td>
+                      <td><?php echo @($report->total - $report->expense); ?></td>
                     </tr>
                   <?php } ?>
                 </table>
@@ -834,7 +841,12 @@
           <?php
           $income = "";
           foreach ($income_expence_report as $date => $report) {
-            $income .= $report['income'] . ", ";
+            if (@$report->total) {
+              $income .= @$report->total . ", ";
+            } else {
+              $income .= "0, ";
+            }
+
           ?> '<?php echo $date; ?>',
           <?php } ?>
         ]

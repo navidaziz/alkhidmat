@@ -216,30 +216,19 @@ class Dashboard extends Admin_Controller
 
 		$month = date("m", time());
 		$year = date("Y", time());
+		error_reporting(14);
 
 		for ($day = 1; $day <= $today; $day++) {
 			$date_query = $year . "-" . $month . "-" . $day;
 
-			//Get income 
-			$query = "SELECT sum(`total_price`) as `total_income`,
-			sum(`discount`) as `discount`,
-			sum(`price`) as `price`,
-			COUNT(`invoice_id`) as `total_test`
-					  FROM `invoices`
-					  WHERE   DATE(`invoices`.`created_date`) = '" . $date_query . "'
-					  AND `status` = 3";
+
+			$query = "SELECT *, (`i`.`lab` + `i`.`ecg` + `i`.`ultrasound` + `i`.`x_ray` + `i`.`dr_naila` + `i`.`dr_shabana` + `i`.`dr_shabana_us_doppler`) as total, 
+			        `i`.`discount` FROM `invoices_data` as i WHERE   DATE(`i`.`created_date`) = '" . $date_query . "'";
 			$query_result = $this->db->query($query);
 			$DateQuery = date("d M, Y", strtotime($date_query));
-			if ($query_result->result()[0]->total_income) {
-				$income_expence_report[$DateQuery]['income'] = $query_result->result()[0]->total_income;
-				$income_expence_report[$DateQuery]['discount'] = $query_result->result()[0]->discount;
-				$income_expence_report[$DateQuery]['price'] = $query_result->result()[0]->price;
-				$income_expence_report[$DateQuery]['total_test'] = $query_result->result()[0]->total_test;
-			} else {
-				$income_expence_report[$DateQuery]['income'] = 0;
-				$income_expence_report[$DateQuery]['discount'] = 0;
-				$income_expence_report[$DateQuery]['price'] = 0;
-				$income_expence_report[$DateQuery]['total_test'] = 0;
+			$result = $query_result->result();
+			if ($result) {
+				$income_expence_report[$DateQuery] = $result[0];
 			}
 
 			//get Expences 	
@@ -247,15 +236,15 @@ class Dashboard extends Admin_Controller
 					  WHERE `expenses`.`status` IN (0, 1) 
 					  AND DATE(`expenses`.`created_date`) = '" . $date_query . "'";
 			$query_result = $this->db->query($query);
+			$result = $query_result->result();
 
-			if ($query_result->result()[0]->total_expense) {
-				$income_expence_report[$DateQuery]['expense'] = $query_result->result()[0]->total_expense;
+			if ($result) {
+				@$income_expence_report[$DateQuery]->expense = $result[0]->total_expense;
 			} else {
-				$income_expence_report[$DateQuery]['expense'] = 0;
+				$income_expence_report[$DateQuery]->expense = 0;
 			}
-			$this->data['income_expence_report'] = $income_expence_report;
+			//$this->data['income_expence_report'] = $income_expence_report;
 		}
-
 
 
 		$this->data['income_expence_report'] = $income_expence_report;

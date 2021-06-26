@@ -215,7 +215,7 @@ class Reports_model extends MY_Model
 
 	public function this_month_report()
 	{
-		$query = "SELECT * FROM invoices_current_month";
+		$query = "SELECT * FROM invoices_current_month WHERE YEAR(`created_date`) = YEAR(NOW()) AND MONTH(`created_date`) = MONTH(NOW())";
 
 		$today_report = $this->db->query($query)->result();
 		if (count($today_report)) {
