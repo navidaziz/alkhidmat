@@ -608,8 +608,6 @@
                     <td>Conf</td>
                     <td>Dis</td>
                     <td>Total</td>
-                    <th>Total Tests</th>
-                    <th>Test Price</th>
                     <th>Discount</th>
                     <th>Total</th>
                     <th>Expense</th>
@@ -631,9 +629,6 @@
                       <td><?php echo @$report->lab_count ?></td>
                       <td><?php echo @$report->lab_discount_count ?>-<?php echo @$report->lab_discount ?></td>
                       <td><?php echo @$report->lab ?></td>
-
-                      <td></td>
-                      <td></td>
                       <td><?php echo @$report->discount_count; ?> - <?php echo @$report->discount; ?></td>
                       <td><?php echo @$report->total; ?></td>
                       <td><?php echo @$report->expense; ?></td>
