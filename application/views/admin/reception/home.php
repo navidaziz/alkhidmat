@@ -332,10 +332,20 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
         <h4><i class="fa fa-file"></i>Receipt / LAB Tests Status / LAB Test Reports</h4>
       </div>
       <div class="box-body" style="font-size: 12px !important;">
+        <div style="border-radius: 5px; border: 1px solid gray; padding:5px; margin-bottom: 5px;">
+          <table width="100%">
+            <tr>
+              <td><span style="cursor: pointer;" class="pull-left" onclick="get_today_progress_report()">
+                  <i class="fa fa-bar-chart" aria-hidden="true"></i> Today Report</span></td>
+              <td><span class="pull-right">
+                  <strong> Search Old Records</strong> <input onkeyup="get_patient_search_result()" type="text" name="search" id="search" class="f orm-control" placeholder="Search by ID or Name" style="width: 150px; display: inline;" />
 
-        <span style="cursor: pointer;" class="pull-left" onclick="get_today_progress_report()">
-          <i class="fa fa-bar-chart" aria-hidden="true"></i> Today Report</span>
+                </span></td>
+            </tr>
+          </table>
 
+          <div id="search_result"></div>
+        </div>
         <script>
           function get_today_progress_report() {
             $.ajax({
@@ -373,10 +383,7 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
           }
         </script>
 
-        <!-- Search Test <input onkeyup="get_patient_search_result()" type="text" name="search" id="search" class="form-control" style="width: 200px; display: inline;" /> 
-        <div style="padding: 1px; text-align: right;">
-        </div>
-        <div id="search_result"></div>-->
+
         <table class="table table-bordered" id="receipts_table" style="margin-top: -10px;">
           <thead>
             <tr>
