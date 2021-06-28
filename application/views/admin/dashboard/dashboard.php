@@ -594,12 +594,18 @@
             </div>
             <div class="col-md-12">
               <h2>Current Month Day Wise Report</h2>
-              <div style=" width:100%; height:350px !important; overflow:scroll; overflow-x: hidden;">
+              <div style="overflow-x:auto;">
                 <table class="table table-bordered">
 
                   <tr>
                     <th></th>
                     <th colspan="5">LAB</th>
+                    <th colspan="5">ECG</th>
+                    <th colspan="5">X-RAY</th>
+                    <th colspan="5">ULTRASOUND</th>
+                    <th colspan="5">Dr. Naila</th>
+                    <th colspan="5">Dr. Shabana</th>
+                    <th colspan="5">US-Doppler (Dr.Shabana)</th>
                   </tr>
                   <tr>
                     <th>Date</th>
@@ -608,10 +614,49 @@
                     <td>Conf</td>
                     <td>Dis</td>
                     <td>Total</td>
+
+                    <td>Total</td>
+                    <td>Canc</td>
+                    <td>Conf</td>
+                    <td>Dis</td>
+                    <td>Total</td>
+
+                    <td>Total</td>
+                    <td>Canc</td>
+                    <td>Conf</td>
+                    <td>Dis</td>
+                    <td>Total</td>
+
+                    <td>Total</td>
+                    <td>Canc</td>
+                    <td>Conf</td>
+                    <td>Dis</td>
+                    <td>Total</td>
+
+                    <td>Total</td>
+                    <td>Canc</td>
+                    <td>Conf</td>
+                    <td>Dis</td>
+                    <td>Total</td>
+
+                    <td>Total</td>
+                    <td>Canc</td>
+                    <td>Conf</td>
+                    <td>Dis</td>
+                    <td>Total</td>
+
+                    <td>Total</td>
+                    <td>Canc</td>
+                    <td>Conf</td>
+                    <td>Dis</td>
+                    <td>Total</td>
+
+
                     <th>Discount</th>
                     <th>Total</th>
                     <th>Expense</th>
                     <th>Income</th>
+
                   </tr>
                   <?php
                   $count = 0;
@@ -629,10 +674,60 @@
                       <td><?php echo @$report->lab_count ?></td>
                       <td><?php echo @$report->lab_discount_count ?>-<?php echo @$report->lab_discount ?></td>
                       <td><?php echo @$report->lab ?></td>
+
+
+                      <td><?php echo @$report->ecg_cancelled + @$report->ecg_count ?></td>
+                      <td><?php echo @$report->ecg_cancelled ?></td>
+                      <td><?php echo @$report->ecg_count ?></td>
+                      <td><?php echo @$report->ecg_discount_count ?> - <?php echo @$report->ecg_discount ?></td>
+                      <td><?php echo @$report->ecg ?></td>
+
+                      <td><?php @$report->x_ray_cancelled + @$report->x_ray_count ?></td>
+                      <td><?php echo @$report->x_ray_cancelled ?></td>
+                      <td><?php echo @$report->x_ray_count ?></td>
+                      <td><?php echo @$report->x_ray_discount_count ?> - <?php echo @$report->x_ray_discount ?></td>
+                      <td><?php echo @$report->x_ray ?></td>
+
+
+                      <td><?php echo @$report->ultrasound_cancelled + @$report->ultrasound_count ?></td>
+                      <td><?php echo @$report->ultrasound_cancelled ?></td>
+                      <td><?php echo @$report->ultrasound_count ?></td>
+                      <td><?php echo @$report->ultrasound_discount_count ?> - <?php echo @$report->ultrasound_discount ?></td>
+                      <td><?php echo @$report->ultrasound ?></td>
+
+
+
+                      <td><?php echo @$report->dr_naila_cancelled + @$report->dr_naila_count ?></td>
+                      <td><?php echo @$report->dr_naila_cancelled ?></td>
+                      <td><?php echo @$report->dr_naila_count ?></td>
+                      <td><?php echo @$report->dr_naila_discount_count ?> - <?php echo @$report->dr_naila_discount ?></td>
+                      <td><?php echo @$report->dr_naila ?></td>
+
+
+
+                      <td><?php echo @$report->dr_shabana_cancelled + @$report->dr_shabana_count ?></td>
+                      <td><?php echo @$report->dr_shabana_cancelled ?></td>
+                      <td><?php echo @$report->dr_shabana_count ?></td>
+                      <td><?php echo @$report->dr_shabana_discount_count ?> - <?php echo @$report->dr_shabana_discount ?></td>
+                      <td><?php echo @$report->dr_shabana ?></td>
+
+
+
+                      <td><?php echo @$report->dr_shabana_us_doppler_cancelled + @$report->dr_shabana_us_doppler_count ?></td>
+                      <td><?php echo @$report->dr_shabana_us_doppler_cancelled ?></td>
+                      <td><?php echo @$report->dr_shabana_us_doppler_count ?></td>
+                      <td><?php echo @$report->dr_shabana_us_doppler_discount_count ?> - <?php echo @$report->dr_shabana_us_doppler_discount ?></td>
+                      <td><?php echo @$report->dr_shabana_us_doppler ?></td>
+
+
+
                       <td><?php echo @$report->discount_count; ?> - <?php echo @$report->discount; ?></td>
                       <td><?php echo @$report->total; ?></td>
                       <td><?php echo @$report->expense; ?></td>
                       <td><?php echo @($report->total - $report->expense); ?></td>
+
+
+
                     </tr>
                   <?php } ?>
                 </table>
