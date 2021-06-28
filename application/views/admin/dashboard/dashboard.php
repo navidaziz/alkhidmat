@@ -556,6 +556,7 @@
         <div class="box-body">
           <div class="row">
             <div class="col-md-8">
+              <div id="current_month_report"></div>
               <h2>Current Month Day Wise Report</h2>
               <div style="overflow-x:auto;">
                 <table class="table table-bordered">
@@ -613,7 +614,7 @@
 
             </div>
             <div class="hidden-xs col-md-4">
-              <div id="current_month_report"></div>
+
               <h4>All Lab Tests</h4>
               <table class="table table-bordered">
                 <tr>
