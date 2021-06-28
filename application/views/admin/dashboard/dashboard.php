@@ -616,24 +616,29 @@
             <div class="hidden-xs col-md-4">
 
               <h4>All Lab Tests</h4>
-              <table class="table table-bordered">
-                <tr>
-                  <th>#</th>
-                  <th>Test Name</th>
-                  <th>Test Total</th>
-                  <th>Total Rs</th>
-                </tr>
-                <?php
-                $count = 1;
-                foreach ($this_month_tests as $this_month_test) { ?>
+
+              <?php
+              foreach ($this_month_tests as $test_category) { ?>
+                <h5><?php echo $test_category->test_category; ?> </h5>
+                <table class="table table-bordered">
                   <tr>
-                    <td><?php echo $count++; ?></td>
-                    <td><?php echo $this_month_test->test_name  ?></td>
-                    <td><?php echo $this_month_test->test_total ?></td>
-                    <td><?php echo $this_month_test->total_rs ?></td>
+                    <th>#</th>
+                    <th>Test Name</th>
+                    <th>Test Total</th>
+                    <th>Total Rs</th>
                   </tr>
-                <?php } ?>
-              </table>
+                  <?php $count = 1;
+                  foreach ($test_category->test_total as $this_month_test) { ?>
+                    <tr>
+                      <td><?php echo $count++; ?></td>
+                      <td><?php echo $this_month_test->test_name  ?></td>
+                      <td><?php echo $this_month_test->test_total ?></td>
+                      <td><?php echo $this_month_test->total_rs ?></td>
+                    </tr>
+                  <?php } ?>
+
+                </table>
+              <?php } ?>
             </div>
 
 
