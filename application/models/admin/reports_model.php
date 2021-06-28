@@ -423,7 +423,7 @@ class Reports_model extends MY_Model
 		$query = "SELECT * FROM `test_categories` WHERE `test_category_id` IN (1,2,3,4)";
 		$test_categories = $this->db->query($query)->result();
 		foreach ($test_categories as $test_categorie) {
-			$query = "SELECT tg.`test_group_name` AS test_name, 
+			echo $query = "SELECT tg.`test_group_name` AS test_name, 
 			COUNT(tg.`test_group_id`) AS test_total,
 			SUM(itg.`price`) AS total_rs 
 			FROM `invoice_test_groups` AS itg, 
