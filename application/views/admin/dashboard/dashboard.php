@@ -619,8 +619,8 @@
                 <tr>
                   <th>#</th>
                   <th>Test Name</th>
-                  </th>Test Total</th>
-                  </th>Total Rs</th>
+                  <th>Test Total</th>
+                  <th>Total Rs</th>
                 </tr>
                 <?php
                 $count = 1;
