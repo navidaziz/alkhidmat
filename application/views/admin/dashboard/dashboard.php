@@ -620,6 +620,7 @@
                   <th>#</th>
                   <th>Test Name</th>
                   </th>Test Total</th>
+                  </th>Total Rs</th>
                 </tr>
                 <?php
                 $count = 1;
@@ -628,6 +629,7 @@
                     <td><?php echo $count++; ?></td>
                     <td><?php echo $this_month_test->test_name  ?></td>
                     <td><?php echo $this_month_test->test_total ?></td>
+                    <td><?php echo $this_month_test->total_rs ?></td>
                   </tr>
                 <?php } ?>
               </table>
