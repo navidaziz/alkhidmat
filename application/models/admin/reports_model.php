@@ -418,7 +418,22 @@ class Reports_model extends MY_Model
 		return $month_income_expence_report;
 	}
 
-	public function monthly_tests()
+	public function this_month_tests()
 	{
+		$query = "SELECT tg.test_group_name as test_name, count(pt.test_group_id) as test_total
+		FROM patient_tests as pt, 
+		test_groups as tg 
+		WHERE pt.test_group_id = tg.test_group_id
+		AND MONTH(pt.created_date) = MONTH(NOW())
+		AND YEAR(pt.created_date) = YEAR(NOW())
+		GROUP BY pt.test_group_id
+		ORDER BY test_total DESC";
+		$result = $this->db->query($query);
+		$test_total = $result->result();
+		if ($test_total) {
+			return $test_total;
+		} else {
+			return NULL;
+		}
 	}
 }

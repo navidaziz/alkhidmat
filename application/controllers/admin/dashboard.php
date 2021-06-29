@@ -43,6 +43,8 @@ class Dashboard extends Admin_Controller
 		$this->data['day_wise_monthly_report'] = $this->reports_model->day_wise_monthly_report();
 		$this->data['month_wise_yearly_report'] = $this->reports_model->month_wise_yearly_report();
 		$this->data['yearly_report'] = $this->reports_model->yearly_report();
+		$this->data['this_month_tests'] = $this->reports_model->this_month_tests();
+
 
 
 

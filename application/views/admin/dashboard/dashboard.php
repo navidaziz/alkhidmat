@@ -587,7 +587,7 @@
                   krsort($day_wise_monthly_report_array);
                   foreach ($day_wise_monthly_report_array as $date => $report) {
                     $total_income += @$report->total; ?>
-                    <tr <?php if ($count == 0) { ?> style="background-color:#9F9 !important; " <?php $count++;
+                    <tr <?php if ($count == 0) { ?> style="back ground-color:#9F9 !important; " <?php $count++;
                                                                                               } ?>>
                       <td><?php echo $date; ?></td>
                       <td><?php echo @$report->lab ?></td>
@@ -614,6 +614,23 @@
             </div>
             <div class="hidden-xs col-md-4">
               <div id="current_month_report"></div>
+              <h4>All Lab Tests</h4>
+              <table class="table table-bordered">
+                <tr>
+                  <th>#</th>
+                  <th>Test Name</th>
+                  </th>Test Total</th>
+                </tr>
+                <?php
+                $count = 1;
+                foreach ($this_month_tests as $this_month_test) { ?>
+                  <tr>
+                    <td><?php echo $count++; ?></td>
+                    <td><?php echo $this_month_test->test_name  ?></td>
+                    <td><?php echo $this_month_test->test_total ?></td>
+                  </tr>
+                <?php } ?>
+              </table>
             </div>
 
 
@@ -666,7 +683,7 @@
 
                   foreach ($month_wise_yearly_report as $date => $report) {
                     $total_income += @$report->total; ?>
-                    <tr <?php if ($count == 0) { ?> style="background-color:#9F9 !important; " <?php $count++;
+                    <tr <?php if ($count == 0) { ?> style="back ground-color:#9F9 !important; " <?php $count++;
                                                                                               } ?>>
                       <td><?php echo $date; ?></td>
                       <td><?php echo @$report->lab ?></td>
@@ -743,7 +760,7 @@
 
                   foreach ($yearly_report as $date => $report) {
                     $total_income += @$report->total; ?>
-                    <tr <?php if ($count == 0) { ?> style="background-color:#9F9 !important; " <?php $count++;
+                    <tr <?php if ($count == 0) { ?> style="back ground-color:#9F9 !important; " <?php $count++;
                                                                                               } ?>>
                       <td><?php echo $date; ?></td>
                       <td><?php echo @$report->lab ?></td>
