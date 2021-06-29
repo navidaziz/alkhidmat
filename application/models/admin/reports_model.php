@@ -249,4 +249,176 @@ class Reports_model extends MY_Model
 		}
 		return $today_report;
 	}
+
+	public function today_expense_types()
+	{
+		$query = "SELECT 
+		 `expense_types`.`expense_type`,
+		 SUM(`expenses`.`expense_amount`) as expense_total 
+		 FROM
+		 `expense_types`,
+		 `expenses` 
+		 WHERE `expense_types`.`expense_type_id` = `expenses`.`expense_type_id`
+		 AND DATE(`expenses`.`created_date`) = DATE(NOW())
+		 GROUP BY `expense_types`.`expense_type` ";
+		$query_result = $this->db->query($query);
+		return $query_result->result();
+	}
+	public function today_total_expense()
+	{
+		$query = "SELECT sum(`expense_amount`) as total_expenses 
+			FROM `expenses` WHERE  DATE(`expenses`.`created_date`) = DATE(NOW())";
+		$result = $this->db->query($query);
+		$total_expenses = $result->result()[0]->total_expenses;
+		if ($total_expenses) {
+			return $total_expenses;
+		} else {
+			return 0;
+		}
+	}
+	public function this_months_expense_types()
+	{
+		$query = "SELECT 
+		 `expense_types`.`expense_type`,
+		 SUM(`expenses`.`expense_amount`) as expense_total 
+		 FROM
+		 `expense_types`,
+		 `expenses` 
+		 WHERE `expense_types`.`expense_type_id` = `expenses`.`expense_type_id`
+		 AND YEAR(`expenses`.`created_date`) = YEAR(NOW())
+		 AND MONTH(`expenses`.`created_date`) = MONTH(NOW())
+		 GROUP BY `expense_types`.`expense_type` ";
+		$query_result = $this->db->query($query);
+		return $query_result->result();
+	}
+	public function this_month_total_expense()
+	{
+		$query = "SELECT sum(`expense_amount`) as total_expenses 
+			FROM `expenses` WHERE  YEAR(`expenses`.`created_date`) = YEAR(NOW())
+			AND MONTH(`expenses`.`created_date`) = MONTH(NOW())";
+		$result = $this->db->query($query);
+		$total_expenses = $result->result()[0]->total_expenses;
+		if ($total_expenses) {
+			return $total_expenses;
+		} else {
+			return 0;
+		}
+	}
+
+	public function day_wise_monthly_report($month = NULL, $year = NULL)
+	{
+
+		if ($month == NULL and $year == NULL) {
+			$month = date("m", time());
+			$year = date("Y", time());
+			$mont_last_day = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+		} else {
+			$month = $month;
+			$year = $year;
+			$mont_last_day = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+		}
+
+
+		for ($day = 1; $day <= $mont_last_day; $day++) {
+			$date_query = $year . "-" . $month . "-" . $day;
+
+
+			$query = "SELECT *, (`i`.`lab` + `i`.`ecg` + `i`.`ultrasound` + `i`.`x_ray` + `i`.`dr_naila` + `i`.`dr_shabana` + `i`.`dr_shabana_us_doppler`) as total, 
+			        `i`.`discount`, `i`.`discount_count` FROM `invoices_data` as i WHERE   DATE(`i`.`created_date`) = '" . $date_query . "'";
+			$query_result = $this->db->query($query);
+			$DateQuery = date("d M, Y", strtotime($date_query));
+			$result = $query_result->result();
+			if ($result) {
+				$income_expence_report[$DateQuery] = $result[0];
+			}
+
+			//get Expences 	
+			$query = "SELECT SUM(`expense_amount`) as total_expense FROM `expenses` 
+					  WHERE  DATE(`expenses`.`created_date`) = '" . $date_query . "'";
+			$query_result = $this->db->query($query);
+			$result = $query_result->result();
+
+			if ($result) {
+				@$income_expence_report[$DateQuery]->expense = $result[0]->total_expense;
+			} else {
+				$income_expence_report[$DateQuery]->expense = 0;
+			}
+		}
+		return $income_expence_report;
+	}
+	public function month_wise_yearly_report($year = NULL)
+	{
+		if ($year == NULL) {
+			$year = date("Y", time());
+		} else {
+			$year = $year;
+		}
+		$month_income_expence_report = array();
+
+		for ($month = 1; $month <= 12; $month++) {
+			$date_query = $year . "-" . $month . "-1";
+
+			$query = "SELECT *, (`i`.`lab` + `i`.`ecg` + `i`.`ultrasound` + `i`.`x_ray` + `i`.`dr_naila` + `i`.`dr_shabana` + `i`.`dr_shabana_us_doppler`) as total, 
+			        `i`.`discount`, `i`.`discount_count` FROM `invoice_data_monthly` as i 
+					WHERE   `i`.`month` ='" . $month . "'
+					AND `i`.`year` ='" . $year . "'";
+			$query_result = $this->db->query($query);
+			$DateQuery = date("M, Y", strtotime($date_query));
+			$result = $query_result->result();
+			if ($result) {
+				$month_income_expence_report[$DateQuery] = $result[0];
+			}
+
+			//get Expences 	
+			$query = "SELECT SUM(`expense_amount`) as total_expense 
+			          FROM `expenses` 
+					  WHERE  YEAR(`expenses`.`created_date`) = '" . $year . "' 
+					  AND  MONTH(`expenses`.`created_date`) = '" . $month . "'";
+			$query_result = $this->db->query($query);
+			$result = $query_result->result();
+
+			if ($result) {
+				@$month_income_expence_report[$DateQuery]->expense = $result[0]->total_expense;
+			} else {
+				$month_income_expence_report[$DateQuery]->expense = 0;
+			}
+		}
+		return $month_income_expence_report;
+	}
+
+	public function yearly_report($year = NULL)
+	{
+
+		for ($year = 2020; $year <= 2025; $year++) {
+			$date_query = $year . "-01-1";
+
+			$query = "SELECT *, (`i`.`lab` + `i`.`ecg` + `i`.`ultrasound` + `i`.`x_ray` + `i`.`dr_naila` + `i`.`dr_shabana` + `i`.`dr_shabana_us_doppler`) as total, 
+			        `i`.`discount`, `i`.`discount_count` FROM `invoice_data_yearly` as i 
+					WHERE    `i`.`year` ='" . $year . "'";
+			$query_result = $this->db->query($query);
+			$DateQuery = date("M, Y", strtotime($date_query));
+			$result = $query_result->result();
+			if ($result) {
+				$month_income_expence_report[$DateQuery] = $result[0];
+			}
+
+			//get Expences 	
+			$query = "SELECT SUM(`expense_amount`) as total_expense 
+			          FROM `expenses` 
+					  WHERE  YEAR(`expenses`.`created_date`) = '" . $year . "' ";
+			$query_result = $this->db->query($query);
+			$result = $query_result->result();
+
+			if ($result) {
+				@$month_income_expence_report[$DateQuery]->expense = $result[0]->total_expense;
+			} else {
+				$month_income_expence_report[$DateQuery]->expense = 0;
+			}
+		}
+		return $month_income_expence_report;
+	}
+
+	public function monthly_tests()
+	{
+	}
 }
