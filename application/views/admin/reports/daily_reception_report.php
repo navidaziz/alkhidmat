@@ -92,7 +92,7 @@
 
 <body>
   <page size='A4'>
-    <div style="padding: 40px;" contenteditable="true">
+    <div style="padding: 5px;  padding-left:20px; padding-right:20px; " contenteditable="true">
       <h3 style="text-align: center;"> Alkhidmat Diagnostic Center Chitral </h3>
       <h4 style="text-align: center;">Daily Receipt Report ( Date: <?php echo date("d F, Y ", time()) ?>)</h4>
 
@@ -224,6 +224,46 @@
         </tr>
       </table>
 
+
+
+      <br />
+      <h5>Countersigned By</h5>
+      <table class="table table-bordered">
+        <tr>
+          <th>LAB INC</th>
+          <th>ECG INC</th>
+          <th>X-RAY INC</th>
+          <th>ULTRASOUND INC</th>
+          <th>Admin Alkhidmat</th>
+          <th>Reception</th>
+        </tr>
+        <tr>
+          <td>
+
+            <br />
+          </td>
+          <td>
+
+            <br />
+          </td>
+          <td>
+
+            <br />
+          </td>
+          <td>
+
+            <br />
+          </td>
+          <td>
+
+            <br />
+          </td>
+          <td>
+
+            <br />
+          </td>
+        </tr>
+      </table>
       <br />
       <?php
 
@@ -237,9 +277,8 @@
       $user_data = $this->db->query($query)->result()[0];
       ?> </p>
 
-      <p class="divFooter" style="text-align: right;"><b><?php echo $user_data->user_title; ?><br />
-          <?php echo $user_data->role_title; ?></b>
-        <br />Alkhidmat Diagnostic Center<br /> Chitral City <br />
+      <p class="divFooter" style="text-align: right;"><b><?php echo $user_data->user_title; ?> <?php echo $user_data->role_title; ?></b>
+        <br />Alkhidmat Diagnostic Center Chitral City <br />
         <strong>Printed at: <?php echo date("d, F, Y h:i:s A", time()); ?></strong>
       </p>
 
