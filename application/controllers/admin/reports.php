@@ -32,4 +32,11 @@ class reports extends Admin_Controller
 		$this->data = $this->reports_model->daily_reception_report();
 		$this->load->view(ADMIN_DIR . "reports/daily_reception_report", $this->data);
 	}
+
+	public function monthly_report()
+	{
+
+		$this->data['day_wise_monthly_report'] = $this->reports_model->day_wise_monthly_report();
+		$this->load->view(ADMIN_DIR . "reports/monthly_report", $this->data);
+	}
 }
