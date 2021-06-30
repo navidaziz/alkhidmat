@@ -420,20 +420,25 @@ class Reports_model extends MY_Model
 
 	public function this_month_tests()
 	{
-		$query = "SELECT tg.test_group_name as test_name, count(pt.test_group_id) as test_total
-		FROM patient_tests as pt, 
-		test_groups as tg 
-		WHERE pt.test_group_id = tg.test_group_id
-		AND MONTH(pt.created_date) = MONTH(NOW())
-		AND YEAR(pt.created_date) = YEAR(NOW())
-		GROUP BY pt.test_group_id
-		ORDER BY test_total DESC";
-		$result = $this->db->query($query);
-		$test_total = $result->result();
-		if ($test_total) {
-			return $test_total;
-		} else {
-			return NULL;
+		$query = "SELECT * FROM `test_categories` WHERE `test_category_id` IN (1,2,3,4)";
+		$test_categories = $this->db->query($query)->result();
+		foreach ($test_categories as $test_categorie) {
+			$query = "SELECT tg.`test_group_name` AS test_name, 
+			COUNT(tg.`test_group_id`) AS test_total,
+			SUM(itg.`price`) AS total_rs 
+			FROM `invoice_test_groups` AS itg, 
+			`test_groups` AS tg,
+			`invoices` AS i
+			WHERE itg.`test_group_id` = tg.`test_group_id`
+			AND itg.`invoice_id` = i.`invoice_id`
+			AND i.`is_deleted` = 0
+			AND tg.`category_id`= '" . $test_categorie->test_category_id . "'
+			GROUP BY tg.`test_group_id`
+			ORDER BY test_total DESC";
+			$result = $this->db->query($query);
+			$test_categorie->test_total = $result->result();
 		}
+
+		return $test_categories;
 	}
 }
