@@ -299,6 +299,187 @@
           <?php } ?>
         </table>
       </div>
+      </br />
+      <table class="table1" style="width: 99%;">
+        <tr>
+          <?php foreach ($categories_wise_cancellations as $category_name => $cancellation_reasons) { ?>
+            <th><?php echo $category_name; ?></th>
+          <?php } ?>
+        </tr>
+        <tr>
+          <?php foreach ($categories_wise_cancellations as $category_name => $cancellation_reasons) { ?>
+            <td style="text-align: left;">
+              <?php foreach ($cancellation_reasons as $reason => $reason_total) { ?>
+                <?php echo $reason . " - " . $reason_total . '<br />'; ?>
+              <?php } ?>
+            </td>
+          <?php } ?>
+        </tr>
+      </table>
+      <br />
+      <table class="ta ble1" style="width: 99%;">
+        <tr>
+          <td>
+            <table class="table1" style="width: 99% !important; ">
+              <tr>
+                <th colspan="7">
+                  <h4 style="text-align: center;">Month <?php echo $month ?> Dr. OPDs Report</h4>
+                </th>
+              </tr>
+              <tr>
+                <th>#</th>
+                <th>Doctor Name</th>
+                <th>Total Appointments</th>
+                <th>Cancelled</th>
+                <th>Confirmed</th>
+                <th>Discount</th>
+                <th>Total RS</th>
+              </tr>
+              <?php
+              $count = 1;
+              foreach ($this_month_OPD_reports as $report) { ?>
+                <tr>
+                  <td><?php echo $count++; ?></td>
+                  <td style="text-align: left;"><?php echo $report->test_group_name; ?></td>
+                  <td><?php echo $report->total_count + $report->total_receipt_cancelled; ?></td>
+                  <td><?php echo $report->total_receipt_cancelled; ?></td>
+                  <td><?php echo $report->total_count; ?></td>
+                  <td><?php echo $report->total_dis_count; ?> - <?php echo $report->total_discount; ?></td>
+
+                  <td><?php echo $report->total_sum; ?></td>
+                </tr>
+              <?php } ?>
+              <tr>
+                <th colspan="2" style="text-align: right;">OPD Total</th>
+                <th style="text-align: center;"><?php echo $this_month_total_OPD_reports[0]->total_count + $this_month_total_OPD_reports[0]->total_receipt_cancelled ?></th>
+                <th style="text-align: center;"><?php echo $this_month_total_OPD_reports[0]->total_receipt_cancelled; ?></th>
+                <th style="text-align: center;"><?php echo $this_month_total_OPD_reports[0]->total_count ?></th>
+                <td><?php echo $this_month_total_OPD_reports[0]->total_dis_count; ?> - <?php echo $this_month_total_OPD_reports[0]->total_discount; ?></td>
+
+                <th style="text-align: center;"><?php echo $this_month_total_OPD_reports[0]->total_sum ?></th>
+              </tr>
+            </table>
+          </td>
+          <td>
+            <table class="table1" style="width: 99% !important; ">
+              <tr>
+                <th colspan="7">
+                  <h4 style="text-align: center;">Month <?php echo $month ?> Dr. Referred After OPD Report</h4>
+                </th>
+              </tr>
+              <tr>
+                <th>#</th>
+                <th>Doctor Name</th>
+                <th>OPDs</th>
+                <th>LAB</th>
+                <th>ECG</th>
+                <th>Ultrasound</th>
+                <th>X-RAY</th>
+              </tr>
+              <?php
+              $count = 1;
+              foreach ($dr_refers as $report) { ?>
+                <tr>
+                  <td><?php echo $count++; ?></td>
+                  <td style="text-align: left;"><?php echo $report->dr_name; ?></td>
+                  <td><?php echo $report->opd; ?></td>
+                  <td><?php echo $report->lab; ?></td>
+                  <td><?php echo $report->ecg; ?></td>
+                  <td><?php echo $report->ultrasound; ?></td>
+
+                  <td><?php echo $report->x_ray; ?></td>
+                </tr>
+              <?php } ?>
+
+            </table>
+          </td>
+        </tr>
+      </table>
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+    <br />
+
+
+    <div style="padding: 5px;  padding-right:20px; " contenteditable="true">
+
+
+    </div>
+
+
+
+    <br />
+    <div style="padding: 5px;  padding-right:20px; " contenteditable="true">
+      <table class="table1" style="width: 20%; display: inline;">
+        <th colspan="7">
+          <h4 style="text-align: center;">Month <?php echo $month ?> Expenses Report</h4>
+        </th>
+        <tr>
+          <td>#</td>
+          <td>Expense Type</td>
+          <td>Total Expense</td>
+        </tr>
+        <?php
+        $total_expense = 0;
+        $count = 1;
+        foreach ($this_month_expenses as $expense_type) {
+          $total_expense += $expense_type->expense_total;
+        ?>
+          <tr>
+            <td><?php echo $count++; ?></td>
+            <td><?php echo ucwords(strtolower($expense_type->expense_type)); ?></td>
+            <td><?php echo $expense_type->expense_total ?></td>
+          </tr>
+        <?php } ?>
+        <tr>
+          <th colspan="2">Total</th>
+          <th><?php echo $total_expense ?></th>
+        </tr>
+      </table>
+
+      <table class="table1" style="width: 100%; display: inline;">
+        <th colspan="7">
+          <h4 style="text-align: center;">Month <?php echo $month ?> Expenses Report</h4>
+        </th>
+        <tr>
+          <td>Date</td>
+          <td></td>
+          <td>Total Expense</td>
+        </tr>
+        <?php foreach ($monthly_expenses as $date => $reports) { ?>
+          <tr>
+            <td><?php echo $date; ?></td>
+            <td><?php
+                if ($reports) { ?>
+                <table class="table1" style="width: 100%;">
+                  <tr>
+                    <th>Expense</th>
+                    <th>Expense Total</th>
+                  </tr> <?php foreach ($reports as $report) { ?>
+                    <tr>
+                      <td><?php echo $report->expense_title; ?></td>
+                      <td><?php echo $report->expense_total; ?></td>
+                    </tr>
+                  <?php } ?>
+                </table>
+              <?php } ?>
+            </td>
+            <td>100</td>
+          </tr>
+        <?php } ?>
+
+
+      </table>
+
 
 
 
@@ -308,12 +489,12 @@
       <?php
 
       $query = "SELECT
-                  `roles`.`role_title`,
-                  `users`.`user_title`  
-              FROM `roles`,
-              `users` 
-              WHERE `roles`.`role_id` = `users`.`role_id`
-              AND `users`.`user_id`='" . $this->session->userdata('user_id') . "'";
+            `roles`.`role_title`,
+            `users`.`user_title`  
+        FROM `roles`,
+        `users` 
+        WHERE `roles`.`role_id` = `users`.`role_id`
+        AND `users`.`user_id`='" . $this->session->userdata('user_id') . "'";
       $user_data = $this->db->query($query)->result()[0];
       ?> </p>
 
@@ -321,54 +502,24 @@
         <br />Alkhidmat Diagnostic Center Chitral City <br />
         <strong>Printed at: <?php echo date("d, F, Y h:i:s A", time()); ?></strong>
       </p>
-
-
     </div>
 
-  </page>
 
-  <page size='A4'>
-    <div style="padding: 5px;  padding-left:20px; padding-right:20px; " contenteditable="true">
 
-      <table class="table1">
-        <tr>
-          <th colspan="7">
-            <h4 style="text-align: center;">Month <?php echo $month ?> OPDs Report</h4>
-          </th>
-        </tr>
-        <tr>
-          <th>#</th>
-          <th>Doctor Name</th>
-          <th>Total Appointments</th>
-          <th>Cancelled</th>
-          <th>Confirmed</th>
-          <th>Discount</th>
-          <th>Total RS</th>
-        </tr>
-        <?php
-        $count = 1;
-        foreach ($this_month_OPD_reports as $report) { ?>
-          <tr>
-            <td><?php echo $count++; ?></td>
-            <td style="text-align: left;"><?php echo $report->test_group_name; ?></td>
-            <td><?php echo $report->total_count + $report->total_receipt_cancelled; ?></td>
-            <td><?php echo $report->total_receipt_cancelled; ?></td>
-            <td><?php echo $report->total_count; ?></td>
-            <td><?php echo $report->total_dis_count; ?> - <?php echo $report->total_discount; ?></td>
 
-            <td><?php echo $report->total_sum; ?></td>
-          </tr>
-        <?php } ?>
-        <tr>
-          <th colspan="2" style="text-align: right;">OPD Total</th>
-          <th style="text-align: center;"><?php echo $this_month_total_OPD_reports[0]->total_count + $this_month_total_OPD_reports[0]->total_receipt_cancelled ?></th>
-          <th style="text-align: center;"><?php echo $this_month_total_OPD_reports[0]->total_receipt_cancelled; ?></th>
-          <th style="text-align: center;"><?php echo $this_month_total_OPD_reports[0]->total_count ?></th>
-          <td><?php echo $this_month_total_OPD_reports[0]->total_dis_count; ?> - <?php echo $this_month_total_OPD_reports[0]->total_discount; ?></td>
 
-          <th style="text-align: center;"><?php echo $this_month_total_OPD_reports[0]->total_sum ?></th>
-        </tr>
-      </table>
+
+
+
+
+
+
+
+
+
+
+
+
   </page>
 </body>
 

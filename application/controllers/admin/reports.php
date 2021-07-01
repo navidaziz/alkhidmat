@@ -43,7 +43,14 @@ class reports extends Admin_Controller
 		$this->data['day_wise_monthly_report'] = $this->reports_model->day_wise_monthly_report($month, $year);
 		$this->data['monthly_total_report'] = $this->reports_model->monthly_total_report($month, $year);
 		$this->data["this_month_OPD_reports"] = $this->reports_model->this_month_opd_report($month, $year);
-		$this->data["this_month_total_OPD_reports"] = $this->reports_model->this_month_total_opd_report();
+		$this->data["this_month_total_OPD_reports"] = $this->reports_model->this_month_total_opd_report($month, $year);
+
+		$this->data['this_month_expenses'] = $this->reports_model->this_months_expense_types($month, $year);
+		$this->data['this_month_total_expenses'] = $this->reports_model->this_month_total_expense();
+		$this->data['monthly_expenses'] = $this->reports_model->monthly_expenses($month, $year);
+		$this->data['categories_wise_cancellations'] = $this->reports_model->categories_wise_cancellations();
+		$this->data['dr_refers'] = $this->reports_model->dr_refers($month, $year);
+
 
 		$this->load->view(ADMIN_DIR . "reports/monthly_report", $this->data);
 	}

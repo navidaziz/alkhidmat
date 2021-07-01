@@ -202,8 +202,16 @@ class Reports_model extends MY_Model
 		return $today_OPD_report;
 	}
 
-	public function this_month_total_opd_report()
+	public function this_month_total_opd_report($month = NULL, $year = NULL)
 	{
+		if ($month == NULL and $year == NULL) {
+			$month = date("m", time());
+			$year = date("Y", time());
+		} else {
+			$month = $month;
+			$year = $year;
+		}
+
 		$query = "SELECT SUM(IF(`invoices`.`is_deleted`=0,`invoices`.`total_price`,NULL)) AS total_sum
 		, COUNT(IF(`invoices`.`is_deleted`=0,1,NULL)) AS total_count
 		, COUNT(IF(`invoices`.`is_deleted`=1,1,NULL)) AS total_receipt_cancelled
@@ -214,8 +222,8 @@ class Reports_model extends MY_Model
 				`invoices` 
 				WHERE `test_groups`.`test_group_id` = `invoices`.`opd_doctor`
 				AND `invoices`.`category_id`=5
-				AND YEAR(`invoices`.`created_date`) = YEAR(NOW())
-				AND MONTH(`invoices`.`created_date`) = MONTH(NOW())";
+				AND YEAR(`invoices`.`created_date`) = '" . $year . "'
+				AND MONTH(`invoices`.`created_date`) = '" . $month . "'";
 		$today_OPD_report = $this->db->query($query)->result();
 		return $today_OPD_report;
 	}
@@ -283,8 +291,16 @@ class Reports_model extends MY_Model
 			return 0;
 		}
 	}
-	public function this_months_expense_types()
+	public function this_months_expense_types($month = NULL, $year = NULL)
 	{
+
+		if ($month == NULL and $year == NULL) {
+			$month = date("m", time());
+			$year = date("Y", time());
+		} else {
+			$month = $month;
+			$year = $year;
+		}
 		$query = "SELECT 
 		 `expense_types`.`expense_type`,
 		 SUM(`expenses`.`expense_amount`) as expense_total 
@@ -292,17 +308,25 @@ class Reports_model extends MY_Model
 		 `expense_types`,
 		 `expenses` 
 		 WHERE `expense_types`.`expense_type_id` = `expenses`.`expense_type_id`
-		 AND YEAR(`expenses`.`created_date`) = YEAR(NOW())
-		 AND MONTH(`expenses`.`created_date`) = MONTH(NOW())
+		 AND YEAR(`expenses`.`created_date`) = '" . $year . "'
+		 AND MONTH(`expenses`.`created_date`) = '" . $month . "'
 		 GROUP BY `expense_types`.`expense_type` ";
 		$query_result = $this->db->query($query);
 		return $query_result->result();
 	}
-	public function this_month_total_expense()
+	public function this_month_total_expense($month = NULL, $year = NULL)
 	{
+
+		if ($month == NULL and $year == NULL) {
+			$month = date("m", time());
+			$year = date("Y", time());
+		} else {
+			$month = $month;
+			$year = $year;
+		}
 		$query = "SELECT sum(`expense_amount`) as total_expenses 
-			FROM `expenses` WHERE  YEAR(`expenses`.`created_date`) = YEAR(NOW())
-			AND MONTH(`expenses`.`created_date`) = MONTH(NOW())";
+			FROM `expenses` WHERE  YEAR(`expenses`.`created_date`) = '" . $year . "'
+		 AND MONTH(`expenses`.`created_date`) = '" . $month . "'";
 		$result = $this->db->query($query);
 		$total_expenses = $result->result()[0]->total_expenses;
 		if ($total_expenses) {
@@ -310,6 +334,43 @@ class Reports_model extends MY_Model
 		} else {
 			return 0;
 		}
+	}
+	public function monthly_expenses($month = NULL, $year = NULL)
+	{
+		if ($month == NULL and $year == NULL) {
+			$month = date("m", time());
+			$year = date("Y", time());
+			$mont_last_day = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+		} else {
+			$month = $month;
+			$year = $year;
+			$mont_last_day = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+		}
+
+		$monthly_expenses = array();
+		for ($day = 1; $day <= $mont_last_day; $day++) {
+			$date_query = $year . "-" . $month . "-" . $day;
+			$query = "SELECT 
+		`expense_types`.`expense_type`,
+		SUM(`expenses`.`expense_amount`) AS expense_total,
+		`expenses`.`expense_title`,
+		 `expenses`.`expense_description`,
+		 IF(`expenses`.`expense_attachment` != NULL, 'yes', 'no') AS expense_attachment,
+		 DATE(`expenses`.`created_date`) AS created_date
+	  FROM
+		`expense_types`,
+		`expenses` 
+	  WHERE `expense_types`.`expense_type_id` = `expenses`.`expense_type_id`
+		 AND DATE(`expenses`.`created_date`) = '" . $date_query . "'
+		 GROUP BY `expense_types`.`expense_type` ";
+			$query_result = $this->db->query($query);
+			if ($query_result->result()) {
+				$monthly_expenses[$date_query] = $query_result->result();
+			} else {
+				$monthly_expenses[$date_query] = NULL;
+			}
+		}
+		return $monthly_expenses;
 	}
 
 	public function day_wise_monthly_report($month = NULL, $year = NULL)
@@ -490,5 +551,48 @@ class Reports_model extends MY_Model
 		}
 
 		return $test_categories;
+	}
+
+
+	function categories_wise_cancellations()
+	{
+
+		$query = "SELECT cancel_reason 
+		          FROM `deleted_receipts` GROUP BY cancel_reason";
+		$cancel_reasons = $this->db->query($query)->result();
+		$query = "SELECT `test_category_id`,`test_category` FROM `test_categories` ";
+		$categories = $this->db->query($query)->result();
+		$canceled_invoices = array();
+		foreach ($categories as $category) {
+			foreach ($cancel_reasons as $cancel_reason) {
+				$query = "SELECT COUNT(*) AS total  FROM `invoices` AS `i` 
+				WHERE `i`.cancel_reason = '" . $cancel_reason->cancel_reason . "'
+				AND `i`.`category_id` = '" . $category->test_category_id . "'";
+				$canceled_invoices[$category->test_category][$cancel_reason->cancel_reason] = $this->db->query($query)->result()[0]->total;
+			}
+		}
+		return $canceled_invoices;
+	}
+
+	function dr_refers($month = NULL, $year = NULL)
+	{
+		if ($month == NULL and $year == NULL) {
+			$month = date("m", time());
+			$year = date("Y", time());
+		} else {
+			$month = $month;
+			$year = $year;
+		}
+
+		$query = "SELECT IF(opd_dr, (SELECT `test_group_name` FROM `test_groups` WHERE `test_group_id`=opd_dr), 'SELF') AS dr_name,
+		SUM(opd) AS opd,
+		SUM(lab) AS lab, SUM(ecg) AS ecg, SUM(ultrasound) AS ultrasound, SUM(x_ray) AS x_ray
+		FROM `doctors_patients`
+		WHERE  YEAR(`created_date`) = '" . $year . "' 
+		AND  MONTH(`created_date`) = '" . $month . "'
+		GROUP BY opd_dr
+		ORDER BY opd DESC";
+		$dr_referred = $this->db->query($query)->result();
+		return $dr_referred;
 	}
 }
