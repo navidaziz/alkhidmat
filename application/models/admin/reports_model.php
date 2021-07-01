@@ -303,6 +303,7 @@ class Reports_model extends MY_Model
 		}
 		$query = "SELECT 
 		 `expense_types`.`expense_type`,
+		 `expense_types`.`expense_type_id`,
 		 SUM(`expenses`.`expense_amount`) as expense_total 
 		 FROM
 		 `expense_types`,
@@ -312,7 +313,18 @@ class Reports_model extends MY_Model
 		 AND MONTH(`expenses`.`created_date`) = '" . $month . "'
 		 GROUP BY `expense_types`.`expense_type` ";
 		$query_result = $this->db->query($query);
-		return $query_result->result();
+		$expense_types = $query_result->result();
+		foreach ($expense_types as $expense_type) {
+			$query = "SELECT *, `expenses`.`created_date` as created_date FROM expenses 
+			         WHERE expense_type_id = '" . $expense_type->expense_type_id . "'
+					 AND YEAR(`expenses`.`created_date`) = '" . $year . "'
+					 AND MONTH(`expenses`.`created_date`) = '" . $month . "'
+					 GROUP BY `expenses`.`created_date`
+					 ";
+			$expense_type->expense_detail = $this->db->query($query)->result();
+		}
+
+		return $expense_types;
 	}
 	public function this_month_total_expense($month = NULL, $year = NULL)
 	{
@@ -527,8 +539,17 @@ class Reports_model extends MY_Model
 		return $month_income_expence_report;
 	}
 
-	public function this_month_tests()
+	public function this_month_tests($month = NULL, $year = NULL)
 	{
+		if ($month == NULL and $year == NULL) {
+			$month = date("m", time());
+			$year = date("Y", time());
+		} else {
+			$month = $month;
+			$year = $year;
+		}
+		$date_query = $year . "-" . $month . "-1";
+
 		$query = "SELECT * FROM `test_categories` WHERE `test_category_id` IN (1,2,3,4)";
 		$test_categories = $this->db->query($query)->result();
 		foreach ($test_categories as $test_categorie) {
@@ -542,8 +563,8 @@ class Reports_model extends MY_Model
 			AND itg.`invoice_id` = i.`invoice_id`
 			AND i.`is_deleted` = 0
 			AND tg.`category_id`= '" . $test_categorie->test_category_id . "'
-			AND MONTH(`itg`.`created_date`)  = MONTH(NOW())
-			AND YEAR(`itg`.`created_date`)  = YEAR(NOW())
+			AND MONTH(`itg`.`created_date`)  = '" . $month . "'
+			AND YEAR(`itg`.`created_date`)  = '" . $year . "'
 			GROUP BY tg.`test_group_id`
 			ORDER BY test_total DESC";
 			$result = $this->db->query($query);

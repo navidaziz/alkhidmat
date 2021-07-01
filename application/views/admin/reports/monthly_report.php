@@ -395,56 +395,117 @@
           </td>
         </tr>
       </table>
+      <br />
 
-
-
-
-
-
-
-
-
-
-    </div>
-
-    <br />
-
-
-    <div style="padding: 5px;  padding-right:20px; " contenteditable="true">
-
-
-    </div>
-
-
-
-    <br />
-    <div style="padding: 5px;  padding-right:20px; " contenteditable="true">
-      <table class="table1" style="width: 20%; display: inline;">
-        <th colspan="7">
-          <h4 style="text-align: center;">Month <?php echo $month ?> Expenses Report</h4>
-        </th>
+      <table style="width: 100%;">
         <tr>
-          <td>#</td>
-          <td>Expense Type</td>
-          <td>Total Expense</td>
-        </tr>
-        <?php
-        $total_expense = 0;
-        $count = 1;
-        foreach ($this_month_expenses as $expense_type) {
-          $total_expense += $expense_type->expense_total;
-        ?>
-          <tr>
-            <td><?php echo $count++; ?></td>
-            <td><?php echo ucwords(strtolower($expense_type->expense_type)); ?></td>
-            <td><?php echo $expense_type->expense_total ?></td>
-          </tr>
-        <?php } ?>
-        <tr>
-          <th colspan="2">Total</th>
-          <th><?php echo $total_expense ?></th>
+          <td style="width: 50%;">
+
+            <?php
+            foreach ($this_month_tests as $test_category) { ?>
+
+              <table class="table1" style="width: 100%;">
+                <tr>
+                  <th colspan="4">
+                    <h4 style="text-align: center;">Month <?php echo $month ?> <?php echo $test_category->test_category; ?> Report</h4>
+
+                  </th>
+                </tr>
+                <tr>
+                  <th>#</th>
+                  <th>Test Name</th>
+                  <th>Test Total</th>
+                  <th>Total Rs</th>
+                </tr>
+                <?php $count = 1;
+                foreach ($test_category->test_total as $this_month_test) { ?>
+                  <tr>
+                    <td><?php echo $count++; ?></td>
+                    <td style="text-align: left;"><?php echo $this_month_test->test_name  ?></td>
+                    <td><?php echo $this_month_test->test_total ?></td>
+                    <td><?php echo $this_month_test->total_rs ?></td>
+                  </tr>
+                <?php } ?>
+
+              </table>
+              <br />
+            <?php } ?>
+          </td>
+          <td style="width: 50%; vertical-align: top;">
+            <table class="table1" style="width: 100%;">
+              <th colspan="7">
+                <h4 style="text-align: center;">Month <?php echo $month ?> Expenses Report</h4>
+              </th>
+              <tr>
+                <td>#</td>
+                <td>Expense Type - Total</td>
+                <td>Expense Type Total</td>
+                <td>Expense Detail</td>
+              </tr>
+              <?php
+              $total_expense = 0;
+              $count = 1;
+              foreach ($this_month_expenses as $expense_type) {
+                $total_expense += $expense_type->expense_total;
+              ?>
+                <tr>
+                  <td><?php echo $count++; ?></td>
+                  <td><?php echo ucwords(strtolower($expense_type->expense_type)); ?></td>
+
+                  <td>
+                    <?php echo $expense_type->expense_total ?>
+                  </td>
+                  <td>
+                    <table class="table1" style="width: 100%; font-size: 10px;">
+                      <?php foreach ($expense_type->expense_detail as $expense) { ?>
+                        <tr>
+                          <td><?php echo date("d m,Y", strtotime($expense->created_date)); ?></td>
+                          <td><?php echo $expense->expense_title; ?></td>
+                          <td><?php echo $expense->expense_description; ?></td>
+                          <td><?php echo $expense->expense_amount; ?></td>
+                        </tr>
+                      <?php } ?>
+                    </table>
+
+                  </td>
+                </tr>
+              <?php } ?>
+              <tr>
+                <th colspan="2">Total</th>
+                <th colspan="3"><?php echo $total_expense ?></th>
+              </tr>
+            </table>
+          </td>
         </tr>
       </table>
+
+
+
+
+
+
+
+
+
+    </div>
+
+    <br />
+
+
+    <div style="padding: 5px;  padding-right:20px; " contenteditable="true">
+
+
+
+
+
+
+    </div>
+
+
+
+    <br />
+    <div style="padding: 5px;  padding-right:20px; " contenteditable="true">
+
 
       <table class="table1" style="width: 100%; display: inline;">
         <th colspan="7">

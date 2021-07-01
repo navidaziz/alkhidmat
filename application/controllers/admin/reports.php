@@ -50,6 +50,7 @@ class reports extends Admin_Controller
 		$this->data['monthly_expenses'] = $this->reports_model->monthly_expenses($month, $year);
 		$this->data['categories_wise_cancellations'] = $this->reports_model->categories_wise_cancellations();
 		$this->data['dr_refers'] = $this->reports_model->dr_refers($month, $year);
+		$this->data['this_month_tests'] = $this->reports_model->this_month_tests($month, $year);
 
 
 		$this->load->view(ADMIN_DIR . "reports/monthly_report", $this->data);
