@@ -174,8 +174,15 @@ class Reports_model extends MY_Model
 		return $today_OPD_report;
 	}
 
-	public function this_month_opd_report()
+	public function this_month_opd_report($month = NULL, $year = NULL)
 	{
+		if ($month == NULL and $year == NULL) {
+			$month = date("m", time());
+			$year = date("Y", time());
+		} else {
+			$month = $month;
+			$year = $year;
+		}
 		$query = "SELECT
 					`test_groups`.`test_group_name`
 					, SUM(IF(`invoices`.`is_deleted`=0,`invoices`.`total_price`,NULL)) AS total_sum
@@ -188,8 +195,8 @@ class Reports_model extends MY_Model
 				`invoices` 
 				WHERE `test_groups`.`test_group_id` = `invoices`.`opd_doctor`
 				AND `invoices`.`category_id`=5
-				AND YEAR(`invoices`.`created_date`) = YEAR(NOW())
-				AND MONTH(`invoices`.`created_date`) = MONTH(NOW())
+				AND YEAR(`invoices`.`created_date`) = '" . $year . "'
+				AND MONTH(`invoices`.`created_date`) = '" . $month . "'
 				GROUP BY `test_groups`.`test_group_name`";
 		$today_OPD_report = $this->db->query($query)->result();
 		return $today_OPD_report;
@@ -346,6 +353,47 @@ class Reports_model extends MY_Model
 		}
 		return $income_expence_report;
 	}
+
+
+	public function monthly_total_report($month = NULL, $year = NULL)
+	{
+		if ($month == NULL and $year == NULL) {
+			$month = date("m", time());
+			$year = date("Y", time());
+		} else {
+			$month = $month;
+			$year = $year;
+		}
+		$date_query = $year . "-" . $month . "-1";
+		$month_income_expence_report = array();
+
+		$query = "SELECT *, (`i`.`lab` + `i`.`ecg` + `i`.`ultrasound` + `i`.`x_ray` + `i`.`dr_naila` + `i`.`dr_shabana` + `i`.`dr_shabana_us_doppler`) as total, 
+			        `i`.`discount`, `i`.`discount_count` FROM `invoice_data_monthly` as i 
+					WHERE   `i`.`month` ='" . $month . "'
+					AND `i`.`year` ='" . $year . "'";
+		$query_result = $this->db->query($query);
+		$DateQuery = date("M, Y", strtotime($date_query));
+		$result = $query_result->result();
+		if ($result) {
+			$month_income_expence_report[$DateQuery] = $result[0];
+		}
+
+		//get Expences 	
+		$query = "SELECT SUM(`expense_amount`) as total_expense 
+			          FROM `expenses` 
+					  WHERE  YEAR(`expenses`.`created_date`) = '" . $year . "' 
+					  AND  MONTH(`expenses`.`created_date`) = '" . $month . "'";
+		$query_result = $this->db->query($query);
+		$result = $query_result->result();
+
+		if ($result) {
+			@$month_income_expence_report[$DateQuery]->expense = $result[0]->total_expense;
+		} else {
+			$month_income_expence_report[$DateQuery]->expense = 0;
+		}
+		return $month_income_expence_report;
+	}
+
 	public function month_wise_yearly_report($year = NULL)
 	{
 		if ($year == NULL) {
@@ -433,6 +481,8 @@ class Reports_model extends MY_Model
 			AND itg.`invoice_id` = i.`invoice_id`
 			AND i.`is_deleted` = 0
 			AND tg.`category_id`= '" . $test_categorie->test_category_id . "'
+			AND MONTH(`itg`.`created_date`)  = MONTH(NOW())
+			AND YEAR(`itg`.`created_date`)  = YEAR(NOW())
 			GROUP BY tg.`test_group_id`
 			ORDER BY test_total DESC";
 			$result = $this->db->query($query);

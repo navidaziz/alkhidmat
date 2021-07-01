@@ -33,10 +33,18 @@ class reports extends Admin_Controller
 		$this->load->view(ADMIN_DIR . "reports/daily_reception_report", $this->data);
 	}
 
-	public function monthly_report()
+	public function monthly_report($month, $year)
 	{
+		$month = (int) $month;
+		$year = (int) $year;
+		$this->data['month'] = date("F, Y ", strtotime($year . "-" . $month . "-1"));
 
-		$this->data['day_wise_monthly_report'] = $this->reports_model->day_wise_monthly_report();
+
+		$this->data['day_wise_monthly_report'] = $this->reports_model->day_wise_monthly_report($month, $year);
+		$this->data['monthly_total_report'] = $this->reports_model->monthly_total_report($month, $year);
+		$this->data["this_month_OPD_reports"] = $this->reports_model->this_month_opd_report($month, $year);
+		$this->data["this_month_total_OPD_reports"] = $this->reports_model->this_month_total_opd_report();
+
 		$this->load->view(ADMIN_DIR . "reports/monthly_report", $this->data);
 	}
 }

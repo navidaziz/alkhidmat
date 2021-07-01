@@ -33,7 +33,7 @@
     }
 
     page[size="A4"] {
-      width: 100%;
+      width: 98%;
       /* height: 29.7cm;  */
       height: auto;
     }
@@ -91,7 +91,7 @@
   <page size='A4'>
     <div style="padding: 5px;  padding-left:20px; padding-right:20px; " contenteditable="true">
       <h3 style="text-align: center;"> Alkhidmat Diagnostic Center Chitral </h3>
-      <h4 style="text-align: center;">Monthly Report ( Date: <?php echo date("d F, Y ", time()) ?>)</h4>
+      <h4 style="text-align: center;">Month <?php echo $month ?> Progress Report</h4>
       <div style="overflow-x:auto;">
         <table class="table1" style="font-size: 9px !important; width:99%; border-collapse: collapse !important; ">
 
@@ -163,7 +163,7 @@
 
           foreach ($day_wise_monthly_report as $date => $report) {
             $total_income += @$report->total; ?>
-            <tr <?php if ($count == 0) { ?> style="background-color:#9F9 !important; " <?php $count++;
+            <tr <?php if ($count == 0) { ?> style="backgro und-color:#9F9 !important; " <?php $count++;
                                                                                       } ?>>
               <td><?php echo $date; ?></td>
               <td><?php echo @$report->lab_cancelled + @$report->lab_count ?></td>
@@ -179,7 +179,7 @@
               <td><?php echo @$report->ecg_discount_count ?> - <?php echo @$report->ecg_discount ?></td>
               <td><?php echo @$report->ecg ?></td>
 
-              <td><?php @$report->x_ray_cancelled + @$report->x_ray_count ?></td>
+              <td><?php echo @$report->x_ray_cancelled + @$report->x_ray_count ?></td>
               <td><?php echo @$report->x_ray_cancelled ?></td>
               <td><?php echo @$report->x_ray_count ?></td>
               <td><?php echo @$report->x_ray_discount_count ?> - <?php echo @$report->x_ray_discount ?></td>
@@ -227,10 +227,78 @@
 
             </tr>
           <?php } ?>
+
+
+
+          <?php
+
+
+          foreach ($monthly_total_report as $date => $report) { ?>
+            <tr>
+              <th>Total</th>
+              <th><?php echo @$report->lab_cancelled + @$report->lab_count ?></th>
+              <th><?php echo @$report->lab_cancelled ?></th>
+              <th><?php echo @$report->lab_count ?></th>
+              <th><?php echo @$report->lab_discount_count ?>-<?php echo @$report->lab_discount ?></th>
+              <th><?php echo @$report->lab ?></th>
+
+
+              <th><?php echo @$report->ecg_cancelled + @$report->ecg_count ?></th>
+              <th><?php echo @$report->ecg_cancelled ?></th>
+              <th><?php echo @$report->ecg_count ?></th>
+              <th><?php echo @$report->ecg_discount_count ?> - <?php echo @$report->ecg_discount ?></th>
+              <th><?php echo @$report->ecg ?></th>
+
+              <th><?php @$report->x_ray_cancelled + @$report->x_ray_count ?></th>
+              <th><?php echo @$report->x_ray_cancelled ?></th>
+              <th><?php echo @$report->x_ray_count ?></th>
+              <th><?php echo @$report->x_ray_discount_count ?> - <?php echo @$report->x_ray_discount ?></th>
+              <th><?php echo @$report->x_ray ?></th>
+
+
+              <th><?php echo @$report->ultrasound_cancelled + @$report->ultrasound_count ?></th>
+              <th><?php echo @$report->ultrasound_cancelled ?></th>
+              <th><?php echo @$report->ultrasound_count ?></th>
+              <th><?php echo @$report->ultrasound_discount_count ?> - <?php echo @$report->ultrasound_discount ?></th>
+              <th><?php echo @$report->ultrasound ?></th>
+
+
+
+              <th><?php echo @$report->dr_naila_cancelled + @$report->dr_naila_count ?></th>
+              <th><?php echo @$report->dr_naila_cancelled ?></th>
+              <th><?php echo @$report->dr_naila_count ?></th>
+              <th><?php echo @$report->dr_naila_discount_count ?> - <?php echo @$report->dr_naila_discount ?></th>
+              <th><?php echo @$report->dr_naila ?></th>
+
+
+
+              <th><?php echo @$report->dr_shabana_cancelled + @$report->dr_shabana_count ?></th>
+              <th><?php echo @$report->dr_shabana_cancelled ?></th>
+              <th><?php echo @$report->dr_shabana_count ?></th>
+              <th><?php echo @$report->dr_shabana_discount_count ?> - <?php echo @$report->dr_shabana_discount ?></th>
+              <th><?php echo @$report->dr_shabana ?></th>
+
+
+
+              <th><?php echo @$report->dr_shabana_us_doppler_cancelled + @$report->dr_shabana_us_doppler_count ?></th>
+              <th><?php echo @$report->dr_shabana_us_doppler_cancelled ?></th>
+              <th><?php echo @$report->dr_shabana_us_doppler_count ?></th>
+              <th><?php echo @$report->dr_shabana_us_doppler_discount_count ?> - <?php echo @$report->dr_shabana_us_doppler_discount ?></th>
+              <th><?php echo @$report->dr_shabana_us_doppler ?></th>
+
+
+
+              <th><?php echo @$report->discount_count; ?> - <?php echo @$report->discount; ?></th>
+              <th><?php echo @$report->total; ?></th>
+              <th><?php echo @$report->expense; ?></th>
+              <th><?php echo @($report->total - $report->expense); ?></th>
+
+
+
+            </tr>
+          <?php } ?>
         </table>
       </div>
-
-
 
 
 
@@ -257,6 +325,50 @@
 
     </div>
 
+  </page>
+
+  <page size='A4'>
+    <div style="padding: 5px;  padding-left:20px; padding-right:20px; " contenteditable="true">
+
+      <table class="table1">
+        <tr>
+          <th colspan="7">
+            <h4 style="text-align: center;">Month <?php echo $month ?> OPDs Report</h4>
+          </th>
+        </tr>
+        <tr>
+          <th>#</th>
+          <th>Doctor Name</th>
+          <th>Total Appointments</th>
+          <th>Cancelled</th>
+          <th>Confirmed</th>
+          <th>Discount</th>
+          <th>Total RS</th>
+        </tr>
+        <?php
+        $count = 1;
+        foreach ($this_month_OPD_reports as $report) { ?>
+          <tr>
+            <td><?php echo $count++; ?></td>
+            <td style="text-align: left;"><?php echo $report->test_group_name; ?></td>
+            <td><?php echo $report->total_count + $report->total_receipt_cancelled; ?></td>
+            <td><?php echo $report->total_receipt_cancelled; ?></td>
+            <td><?php echo $report->total_count; ?></td>
+            <td><?php echo $report->total_dis_count; ?> - <?php echo $report->total_discount; ?></td>
+
+            <td><?php echo $report->total_sum; ?></td>
+          </tr>
+        <?php } ?>
+        <tr>
+          <th colspan="2" style="text-align: right;">OPD Total</th>
+          <th style="text-align: center;"><?php echo $this_month_total_OPD_reports[0]->total_count + $this_month_total_OPD_reports[0]->total_receipt_cancelled ?></th>
+          <th style="text-align: center;"><?php echo $this_month_total_OPD_reports[0]->total_receipt_cancelled; ?></th>
+          <th style="text-align: center;"><?php echo $this_month_total_OPD_reports[0]->total_count ?></th>
+          <td><?php echo $this_month_total_OPD_reports[0]->total_dis_count; ?> - <?php echo $this_month_total_OPD_reports[0]->total_discount; ?></td>
+
+          <th style="text-align: center;"><?php echo $this_month_total_OPD_reports[0]->total_sum ?></th>
+        </tr>
+      </table>
   </page>
 </body>
 
