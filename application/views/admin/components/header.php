@@ -74,9 +74,12 @@
   </header>
   <section id="page">
     <?php
+    
 
-    $this->load->view(ADMIN_DIR . "components/nav.php"); ?>
-    <div id="main-content" <?php if ($this->router->fetch_class() == 'dashboard' or $this->router->fetch_class() == 'riders') { ?> class="margin-left-50" <?php } ?>>
+    $this->load->view(ADMIN_DIR . "components/nav.php"); 
+    
+    ?>
+    <div id="main-content" <?php if (in_array($this->router->fetch_class(),$wide_page)) { ?> class="margin-left-50" <?php } ?>>
       <div class="container">
         <div class="row">
           <div id="content" class="col-lg-12">

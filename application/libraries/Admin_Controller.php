@@ -26,6 +26,7 @@ class Admin_Controller extends MY_Controller{
         $this->data['controller_name'] = $this->controller_name = $this->router->fetch_class();
         $this->data['method_name'] = $this->method_name = $this->router->fetch_method();
         $this->data['menu_arr'] = $this->mr_m->roleMenu($this->session->userdata("role_id"));
+        $this->data['wide_page'] = array("dashboard", "sale_point", 'reception', 'return_point', 'items');
 		
 		$system_global_setting_id = 1;
 		$fields = $fields = array("sytem_admin_logo", "system_title", "system_sub_title", "sytem_public_logo" );

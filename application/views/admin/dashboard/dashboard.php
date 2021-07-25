@@ -968,6 +968,12 @@
     });
   });
 </script>
+<style>
+  .table-bordered {
+    border: 1px solid #ddd;
+    font-size: smaller !important;
+  }
+</style>
 <script src="<?php echo site_url("assets/" . ADMIN_DIR); ?>/Highcharts/js/highcharts.js"></script>
 <script src="<?php echo site_url("assets/" . ADMIN_DIR); ?>/Highcharts/js/highcharts-more.js"></script>
 <script src="<?php echo site_url("assets/" . ADMIN_DIR); ?>/Highcharts/js/modules/exporting.js"></script>

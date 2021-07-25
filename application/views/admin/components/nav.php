@@ -69,7 +69,7 @@ $menu_list .= "</ul>";
 
 
 
-<div id="sidebar" <?php if ($this->router->fetch_class() == 'dashboard' or $this->router->fetch_class() == 'reception') { ?> class="sidebar mini-menu" <?php } else { ?>class="sidebar" <?php } ?>>
+<div id="sidebar" <?php if (in_array($this->router->fetch_class(),$wide_page)) { ?> class="sidebar mini-menu" <?php } else { ?>class="sidebar" <?php } ?>>
 
     <?php if ($this->session->userdata('role_id') == 14) {
 
