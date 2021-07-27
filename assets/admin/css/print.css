@@ -17,7 +17,9 @@
 .footer-tools {
 	display: none;
 }
-
+#page{
+	display: none;
+}
 #content {
 	margin: 0px;
 	padding: 0px;

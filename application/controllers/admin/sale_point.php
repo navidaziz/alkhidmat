@@ -284,6 +284,7 @@ class Sale_point extends Admin_Controller
   public function update_user_item_quantity()
   {
     $id = (int) $this->input->post("user_item_id");
+    
     $quantity = (int) $this->input->post("item_quantity");
     if ($quantity == 0) {
       $query = "DELETE FROM `sales_item_users` 
@@ -300,7 +301,12 @@ class Sale_point extends Admin_Controller
             WHERE `all_items`.`item_id` = `sales_item_users`.`item_id`
             AND `sales_item_users`.`id` ='" . $id . "'";
       $item = $this->db->query($query)->result()[0];
-      if ($item->total_quantity >= $quantity) {
+
+      $query = "SELECT `quantity` FROM `sales_item_users` WHERE id='" . $id . "'";
+
+      $item_session = $this->db->query($query)->result()[0]->quantity;
+      
+      if (($item->total_quantity+$item_session) >= $quantity) {
         $query = "UPDATE `sales_item_users` SET `quantity`='" . $quantity . "'
         WHERE id='" . $id . "' ";
         $this->db->query($query);

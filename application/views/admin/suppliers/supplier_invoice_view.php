@@ -133,7 +133,10 @@
 									<strong>Cost Price</strong>
 									<input style="width: 80px;" type="number" step="any" id="cost_price1" name="cost_price" value="" id="cost_price" class="form - control" required="required" title="Cost Price" placeholder="Cost Price">
 								</td>
-
+								<td>
+                                    <strong>Unit Price</strong>
+                                    <input step="any" type="number" name="unit_price" value="" id="unit_price1" class="for m-control" title="Unit Price" placeholder="Unit Price">
+                                </td>
 								<td>
 									<strong>Total New Stock</strong>
 									<input style="width: 80px;" type="number" name="transaction" value="" id="transaction" class="form - control" title="Unit" placeholder="Transaction">

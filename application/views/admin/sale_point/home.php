@@ -96,7 +96,7 @@
 							<tr>
 								<th>Customer Mobile No <input type="text" class="form-control" name="customer_mobile_no" id="customer_mobile_no" /></th>
 								<th>Customer Name <input type="text" class="form-control" name="customer_name" id="customer_name" /></th>
-								<th><button onclick="save_data()" class="btn btn-success" style="margin-top: 10px; width:100%">Complete <br /> Sale</button>
+								<th><button id="save_sale_button" onclick="save_data()" class="btn btn-success" style="margin-top: 10px; width:100%">Complete <br /> Sale</button>
 								</th>
 
 							</tr>
@@ -187,7 +187,7 @@
 	}
 
 	function save_data() {
-
+		
 		var tax_ids = $("#tax_ids").val();
 		var payment_type = $("input[name='payment_type']:checked").val();
 		remarks = $('#remarks').val();

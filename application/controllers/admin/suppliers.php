@@ -150,11 +150,11 @@ class Suppliers extends Admin_Controller
                                         '" . $remarks . "')";
 
                 $this->db->query($query);
-                $query = "
-                UPDATE `items` SET `cost_price` = '" . $cost_price . "',  
-                `unit_price` = '" . $unit_price . "'
-                WHERE `items`.`item_id` ='" . $item_id . "'";
-                $this->db->query($query);
+                // $query = "
+                // UPDATE `items` SET `cost_price` = '" . $cost_price . "',  
+                // `unit_price` = '" . $unit_price . "'
+                // WHERE `items`.`item_id` ='" . $item_id . "'";
+                // $this->db->query($query);
                 $this->session->set_flashdata("msg_success", "Record Add Successfully");
             } else {
                 if ($query_result[0]->total_quantity) {
