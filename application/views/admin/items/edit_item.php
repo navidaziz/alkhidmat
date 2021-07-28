@@ -215,6 +215,7 @@
                             "class"         =>  "form-control",
                             "style"         =>  "", "required"      => "required", "title"         =>  $this->lang->line('cost_price'),
                             "value"         =>  set_value("cost_price", $item->cost_price),
+                            "step"          => "any",
                             "placeholder"   =>  $this->lang->line('cost_price')
                         );
                         echo  form_input($number);
@@ -245,6 +246,7 @@
                             "class"         =>  "form-control",
                             "style"         =>  "", "required"      => "required", "title"         =>  $this->lang->line('unit_price'),
                             "value"         =>  set_value("unit_price", $item->unit_price),
+                            "step"          => "any",
                             "placeholder"   =>  $this->lang->line('unit_price')
                         );
                         echo  form_input($number);

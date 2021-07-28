@@ -185,7 +185,7 @@ class Items extends Admin_Controller
 
 
                 //update item enventory after first time add 
-                $query = "INSERT INTO `inventory`(`item_id`, `supplier_id`, `item_cost_price`, `item_unit_price`, `transaction_type`, `inventory_transaction`,`created_by`, `date`) 
+                $query = "INSERT INTO `inventory`(`item_id`, `supplier_id`, `item_cost_price`, `item_unit_price`, `transaction_type`, `inventory_transaction`,`created_by`, `expiry_date`) 
                             VALUES ('" . $item_id . "', '" . $supplier_id . "', '" . $cost_price . "', '" . $unit_price . "', 'Item Created','0','" . $created_by . "', '" . $date . "')";
                 $this->db->query($query);
                 $this->session->set_flashdata("msg_success", $this->lang->line("add_msg_success"));
