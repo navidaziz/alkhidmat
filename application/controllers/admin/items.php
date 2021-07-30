@@ -28,6 +28,33 @@ class Items extends Admin_Controller
     }
     //---------------------------------------------------------------
 
+    public function update_cost_price()
+    {
+        $item_id = (int) $this->input->post("item_id");
+        $cost_price =  (float) $this->input->post("cost_price");
+        $profit_percetage = "12";
+        $sale_price = round(($cost_price * (100 + $profit_percetage) / 100), 2);
+        $query = "UPDATE items SET cost_price ='" . $cost_price . "'
+        WHERE item_id = '" . $item_id . "'";
+        if ($this->db->query($query)) {
+
+            echo $cost_price;
+        }
+    }
+
+    public function update_unit_price()
+    {
+        $item_id = (int) $this->input->post("item_id");
+        $unit_price =  (float) $this->input->post("unit_price");
+        $query = "UPDATE items SET unit_price ='" . $unit_price . "'
+        WHERE item_id = '" . $item_id . "'";
+        if ($this->db->query($query)) {
+
+            echo $unit_price;
+        }
+    }
+
+
 
 
     /**

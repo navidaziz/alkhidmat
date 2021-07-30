@@ -1,4 +1,5 @@
 <!-- Modal -->
+
 <script>
     function get_item_detail(item_id) {
         $('#inventory_model_body').html('<p style="text-align:center"><strong>Please Wait...... Loading</strong></p>');
@@ -12,6 +13,40 @@
             $('#inventory_model_body').html(data);
         });
 
+
+    }
+
+    function update_item_unit_price(item_id) {
+        unit_price = $('#unit_price_' + item_id).val();
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url(ADMIN_DIR . "items/update_unit_price") ?>",
+            data: {
+                item_id: item_id,
+                unit_price: unit_price
+            }
+        }).done(function(data) {
+            //alert(data);
+            $('#unitPrice').html(data);
+        });
+
+    }
+
+
+
+    function update_item_cost_price(item_id) {
+        cost_price = $('#cost_price_' + item_id).val();
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url(ADMIN_DIR . "items/update_cost_price") ?>",
+            data: {
+                item_id: item_id,
+                cost_price: cost_price
+            }
+        }).done(function(data) {
+            //alert(data);
+            $('#costPrice').html(data);
+        });
 
     }
 </script>
@@ -97,6 +132,9 @@
                                 <!-- <th><?php echo $this->lang->line('description'); ?></th> -->
                                 <th><?php echo $this->lang->line('cost_price'); ?></th>
                                 <th><?php echo $this->lang->line('unit_price'); ?></th>
+                                <?php if ($this->session->userdata("role_id") == 1) { ?>
+                                    <th>Profit %</th>
+                                <?php } ?>
                                 <th>Discount</th>
                                 <th>Sale Price</th>
                                 <th>In Stock</th>
@@ -116,8 +154,17 @@
                                     <td> <?php echo $item->unit; ?> </td>
                                     <td> <?php echo $item->item_code_no; ?> </td>
                                     <!-- <td> <?php echo $item->description; ?> </td> -->
-                                    <td> <?php echo $item->cost_price; ?> </td>
-                                    <td> <?php echo $item->unit_price; ?> </td>
+                                    <td> <span id="costPrice"><?php echo $item->cost_price; ?></span>
+                                        <br /><input style="width: 60px;" value="<?php echo $item->cost_price; ?>" name="cost_price" id="cost_price_<?php echo $item->item_id; ?>" onkeyup="update_item_cost_price('<?php echo $item->item_id; ?>')" />
+                                    </td>
+                                    <td> <span id="unitPrice"><?php echo $item->unit_price; ?></span>
+                                        <br /><input style="width: 60px;" value="<?php echo $item->unit_price; ?>" name="unit_price" id="unit_price_<?php echo $item->item_id; ?>" onkeyup="update_item_unit_price('<?php echo $item->item_id; ?>')" />
+
+                                        </span>
+                                    </td>
+                                    <?php if ($this->session->userdata("role_id") == 1) { ?>
+                                        <td> <?php echo @round((($item->unit_price - $item->cost_price) * 100 / $item->cost_price), 1) . " %"; ?> </td>
+                                    <?php } ?>
                                     <td> <?php echo $item->discount; ?> </td>
                                     <td> <?php echo $item->sale_price; ?> </td>
                                     <td><?php echo $item->total_quantity ?></td>
