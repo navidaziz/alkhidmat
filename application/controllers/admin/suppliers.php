@@ -28,6 +28,18 @@ class Suppliers extends Admin_Controller
     }
     //---------------------------------------------------------------
 
+    function update_supplier_item_stock()
+    {
+        $inventory_id = (int) $this->input->post("inventory_id");
+        $stock =  (int) $this->input->post("stock");
+        $query = "UPDATE inventory SET inventory_transaction ='" . $stock . "'
+        WHERE inventory_id = '" . $inventory_id . "'";
+        if ($this->db->query($query)) {
+
+            echo $stock;
+        }
+    }
+
     function remove_supplier_item($supplier_id, $supplier_invoice_id, $inventory_id)
     {
         $inventory_id  = (int) $inventory_id;

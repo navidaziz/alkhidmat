@@ -1,4 +1,22 @@
 <!-- PAGE HEADER-->
+<script>
+	function update_stock(id) {
+		stock = $('#stock_' + id).val();
+		$.ajax({
+			type: "POST",
+			url: "<?php echo site_url(ADMIN_DIR . "suppliers/update_supplier_item_stock") ?>",
+			data: {
+				inventory_id: id,
+				stock: stock
+			}
+		}).done(function(data) {
+			//alert(data);
+			$('#stock_view_' + id).html(data);
+		});
+
+	}
+</script>
+
 <div class="row">
 	<div class="col-sm-12">
 		<div class="page-header">
@@ -249,7 +267,14 @@
 											<?php echo date('d M, Y', strtotime($inventory->expiry_date)); ?>
 										<?php } ?>
 									</td>
-									<td><?php echo $inventory->inventory_transaction; ?></td>
+									<td>
+										<span id="stock_view_<?php echo $inventory->inventory_id; ?>">
+											<?php echo $inventory->inventory_transaction; ?>
+										</span>
+
+										<input type="text" name="stock" value="<?php echo $inventory->inventory_transaction; ?>" id="stock_<?php echo $inventory->inventory_id; ?>" onkeyup="update_stock('<?php echo $inventory->inventory_id; ?>')" />
+
+									</td>
 									<td><?php echo $inventory->item_cost_price; ?></td>
 									<td><?php echo $inventory->item_cost_price * $inventory->inventory_transaction; ?></td>
 									<!-- <td><?php echo $inventory->item_unit_price; ?></td> -->
