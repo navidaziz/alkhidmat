@@ -27,7 +27,7 @@
             }
         }).done(function(data) {
             //alert(data);
-            $('#unitPrice').html(data);
+            $('#unitPrice_' + item_id).html(data);
         });
 
     }
@@ -45,7 +45,7 @@
             }
         }).done(function(data) {
             //alert(data);
-            $('#costPrice').html(data);
+            $('#costPrice_' + item_id).html(data);
         });
 
     }
@@ -148,16 +148,16 @@
                         </thead>
                         <tbody>
                             <?php foreach ($items as $item) : ?>
-                                <tr>
+                                <tr <?php if (@round((($item->unit_price - $item->cost_price) * 100 / $item->cost_price), 1) < 12) { ?> style="background-color: #F7D5CA;" <?php } ?>>
                                     <td> <?php echo $item->name; ?> </td>
                                     <td> <?php echo $item->category; ?> </td>
                                     <td> <?php echo $item->unit; ?> </td>
                                     <td> <?php echo $item->item_code_no; ?> </td>
                                     <!-- <td> <?php echo $item->description; ?> </td> -->
-                                    <td> <span id="costPrice"><?php echo $item->cost_price; ?></span>
+                                    <td> <span id="costPrice_<?php echo $item->item_id; ?>"><?php echo $item->cost_price; ?></span>
                                         <br /><input style="width: 60px;" value="<?php echo $item->cost_price; ?>" name="cost_price" id="cost_price_<?php echo $item->item_id; ?>" onkeyup="update_item_cost_price('<?php echo $item->item_id; ?>')" />
                                     </td>
-                                    <td> <span id="unitPrice"><?php echo $item->unit_price; ?></span>
+                                    <td> <span id="unitPrice_<?php echo $item->item_id; ?>"><?php echo $item->unit_price; ?></span>
                                         <br /><input style="width: 60px;" value="<?php echo $item->unit_price; ?>" name="unit_price" id="unit_price_<?php echo $item->item_id; ?>" onkeyup="update_item_unit_price('<?php echo $item->item_id; ?>')" />
 
                                         </span>

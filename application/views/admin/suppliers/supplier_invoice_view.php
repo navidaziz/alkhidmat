@@ -134,9 +134,9 @@
 									<input style="width: 80px;" type="number" step="any" id="cost_price1" name="cost_price" value="" id="cost_price" class="form - control" required="required" title="Cost Price" placeholder="Cost Price">
 								</td>
 								<td>
-                                    <strong>Unit Price</strong>
-                                    <input step="any" type="number" name="unit_price" value="" id="unit_price1" class="for m-control" title="Unit Price" placeholder="Unit Price">
-                                </td>
+									<strong>Unit Price</strong>
+									<input step="any" type="number" name="unit_price" value="" id="unit_price1" class="for m-control" title="Unit Price" placeholder="Unit Price">
+								</td>
 								<td>
 									<strong>Total New Stock</strong>
 									<input style="width: 80px;" type="number" name="transaction" value="" id="transaction" class="form - control" title="Unit" placeholder="Transaction">
@@ -236,7 +236,10 @@
 						<tbody>
 							<?php
 							$count = 1;
-							foreach ($inventories as $inventory) : ?>
+							$net_total = 0;
+							foreach ($inventories as $inventory) :
+								$net_total += $inventory->item_cost_price * $inventory->inventory_transaction;
+							?>
 								<tr>
 									<td><?php echo $count++; ?></td>
 									<td><?php echo $inventory->name; ?></td>
@@ -261,6 +264,11 @@
 								</tr>
 
 							<?php endforeach; ?>
+							<tr>
+								<td colspan="6">Total</td>
+								<th><?php echo $net_total; ?></th>
+								<td colspan="4"></td>
+							</tr>
 						</tbody>
 					</table>
 
