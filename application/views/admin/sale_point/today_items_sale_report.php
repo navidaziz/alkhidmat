@@ -127,8 +127,8 @@
               <td><?php echo $report->item_discount; ?></td>
               <td><?php echo $report->sale_price; ?></td>
               <td><?php echo $report->qty; ?></td>
-              <td><?php echo $report->net_total; ?></td>
-              <td><?php echo $report->net_total - ($report->cost_price * $report->qty); ?></td>
+              <td><?php echo round($report->net_total, 2); ?></td>
+              <td><?php echo round($report->net_total - ($report->cost_price * $report->qty), 2); ?></td>
             </tr>
           <?php } ?>
 
@@ -147,14 +147,14 @@
             <td><?php
 
                 if ($today_items_sale) {
-                  echo $today_items_sale->result()[0]->net_total . " Rs";
+                  echo round($today_items_sale->result()[0]->net_total, 2) . " Rs";
                 }
                 ?></td>
 
             <td><?php
 
                 if ($today_items_sale) {
-                  echo $today_items_sale->result()[0]->net_total - $today_items_sale->result()[0]->cost_items_total . " Rs";
+                  echo round($today_items_sale->result()[0]->net_total - $today_items_sale->result()[0]->cost_items_total, 2) . " Rs";
                 }
                 ?></td>
           </tr>
@@ -162,10 +162,10 @@
 
             <td colspan="9" style="text-align: right;">
               <small>
-                <!-- Total Items Sale Amount: <?php echo $today_sale_summary->items_price; ?><br /> -->
+                <!-- Total Items Sale Amount: <?php echo round($today_sale_summary->items_price, 2); ?><br /> -->
                 Total Taxes: <?php echo $today_sale_summary->total_tax; ?><br />
                 Total Discounts: <?php echo $today_sale_summary->discount; ?></br />
-                Total Sale: <?php echo $today_sale_summary->total_sale; ?>
+                Total Sale: <?php echo round($today_sale_summary->total_sale, 2); ?>
               </small>
             </td>
 
