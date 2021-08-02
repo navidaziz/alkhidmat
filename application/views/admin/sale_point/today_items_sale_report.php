@@ -85,7 +85,7 @@
       line-height: 1;
       vertical-align: top;
       border-top: 1px solid #ddd;
-      font-size: 15px !important;
+      font-size: 12px !important;
     }
   </style>
 </head>
