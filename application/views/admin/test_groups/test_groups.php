@@ -1,3 +1,21 @@
+<script>
+    function update_test_group_order(test_group_id) {
+        test_order = $('#group_order_' + test_group_id).val();
+
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url(ADMIN_DIR . "test_groups/update_test_group_order") ?>",
+            data: {
+                test_group_id: test_group_id,
+                test_order: test_order
+            }
+        }).done(function(data) {
+            //alert(data);
+            $('#groupOrder_' + test_group_id).html(data);
+        });
+    }
+</script>
+
 <!-- PAGE HEADER-->
 <div class="row">
     <div class="col-sm-12">
@@ -106,8 +124,10 @@
                                         <?php echo $test_group->test_time; ?>
                                     </td>
                                     <td>
+                                        <span id="groupOrder_<?php echo $test_group->test_group_id; ?>"><?php echo $test_group->order; ?></span>
                                         <a class="llink llink-orderup" href="<?php echo site_url(ADMIN_DIR . "test_groups/up/" . $test_group->test_group_id . "/" . $this->uri->segment(3)); ?>"><i class="fa fa-arrow-up"></i> </a>
                                         <a class="llink llink-orderdown" href="<?php echo site_url(ADMIN_DIR . "test_groups/down/" . $test_group->test_group_id . "/" . $this->uri->segment(3)); ?>"><i class="fa fa-arrow-down"></i></a>
+                                        <input type="number" onkeyup="update_test_group_order('<?php echo $test_group->test_group_id; ?>')" id="group_order_<?php echo $test_group->test_group_id; ?>" value="<?php echo $test_group->order; ?>" />
                                     </td>
                                     <td>
                                         <?php echo status($test_group->status,  $this->lang); ?>

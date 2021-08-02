@@ -1,3 +1,6 @@
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <!-- PAGE HEADER-->
 <script>
 	function update_stock(id) {
@@ -140,7 +143,7 @@
 								<td>
 									<strong>Items</strong>
 									<?php
-									echo form_dropdown("item_id", $items, "", "id = \"item_id1\" class=\"form - control\" onchange=\"get_item_prices('item_id1')\" required style=\"width:150px\"");
+									echo form_dropdown("item_id", $items, "", "id = \"item_id1\" class=\"js-example-basic-single\" onchange=\"get_item_prices('item_id1')\" required style=\"width:150px\"");
 									?>
 								</td>
 								<td>
@@ -180,7 +183,7 @@
 								<td>
 									<strong>Items</strong>
 									<?php
-									echo form_dropdown("item_id", $items, "", "id = \"item_id2\" class=\"form - control\" onchange=\"get_item_prices2('item_id2')\" required style=\"width:150px\"");
+									echo form_dropdown("item_id", $items, "", "id = \"item_id2\" class=\"js-example-basic-single\" onchange=\"get_item_prices2('item_id2')\" required style=\"width:150px\"");
 									?>
 								</td>
 								<td>
@@ -309,3 +312,11 @@
 	</div>
 	<!-- /MESSENGER -->
 </div>
+<script>
+	$(document).ready(function() {
+		$('.js-example-basic-single').select2();
+	});
+	$(document).ready(function() {
+		$('.js-example-basic-single2').select2();
+	});
+</script>

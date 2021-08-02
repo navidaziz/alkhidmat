@@ -86,6 +86,7 @@
                                      <td> <?php echo $test_group_test->normal_values; ?> </td>
                                      <td><?php echo $test_group_test->test_type; ?></td>
                                      <td>
+
                                          <a class="llink llink-orderup" href="<?php echo site_url(ADMIN_DIR . "test_groups/up_test/" . $test_group_test->test_group_test_id . "/" . $test_groups[0]->test_group_id); ?>"><i class="fa fa-arrow-up"></i> </a>
                                          <a class="llink llink-orderdown" href="<?php echo site_url(ADMIN_DIR . "test_groups/down_test/" . $test_group_test->test_group_test_id . "/" . $test_groups[0]->test_group_id); ?>"><i class="fa fa-arrow-down"></i></a>
                                      </td>

@@ -35,6 +35,18 @@ class Test_groups extends Admin_Controller
     }
     //---------------------------------------------------------------
 
+    public function update_test_group_order()
+    {
+        $test_group_id = (int) $this->input->post("test_group_id");
+        $test_order =  (int) $this->input->post("test_order");
+
+        $query = "UPDATE test_groups SET `order` ='" . $test_order . "'
+        WHERE test_group_id = '" . $test_group_id . "'";
+        if ($this->db->query($query)) {
+
+            echo $test_order;
+        }
+    }
 
 
     /**

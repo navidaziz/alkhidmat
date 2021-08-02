@@ -56,16 +56,13 @@ class Suppliers extends Admin_Controller
     function get_item_prices()
     {
         $item_id = (int) $this->input->post("item_id");
-        $query = "SELECT `item_cost_price`,`item_unit_price` 
-                  FROM `inventory` WHERE item_id = '" . $item_id . "' 
-                  AND `inventory`.`transaction_type` = 'Stock In'
-                  ORDER BY inventory_id DESC
-                  LIMIT 1";
+        $query = "SELECT `cost_price`,`unit_price` 
+                  FROM `items` WHERE item_id = '" . $item_id . "'";
         $item_price_detail['cost_price'] = 0;
-        $item_price_detail['sale_price'] = 0;
+        $item_price_detail['unit_price'] = 0;
         if ($this->db->query($query)->result()) {
-            $item_price_detail['cost_price'] = $this->db->query($query)->result()[0]->item_cost_price;
-            $item_price_detail['sale_price'] = $this->db->query($query)->result()[0]->item_unit_price;
+            $item_price_detail['cost_price'] = $this->db->query($query)->result()[0]->cost_price;
+            $item_price_detail['sale_price'] = $this->db->query($query)->result()[0]->unit_price;
         }
         echo json_encode($item_price_detail);
     }
