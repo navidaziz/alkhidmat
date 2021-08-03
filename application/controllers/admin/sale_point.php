@@ -13,6 +13,8 @@ class Sale_point extends Admin_Controller
     $this->load->model("admin/supplier_model");
     $this->lang->load("suppliers", 'english');
     $this->lang->load("system", 'english');
+    $this->load->model("admin/item_model");
+    $this->lang->load("items", 'english');
     //$this->output->enable_profiler(TRUE);
   }
   //---------------------------------------------------------------
@@ -31,6 +33,14 @@ class Sale_point extends Admin_Controller
     $this->data["items_sale_summary"] = $this->items_sale_summary();
 
     $this->load->view(ADMIN_DIR . "layout", $this->data);
+  }
+
+  public function  print_stock_report()
+  {
+    $query = "SELECT * FROM all_items WHERE `status` IN (0, 1)";
+    $this->data["items"] = $this->db->query($query)->result();
+
+    $this->load->view(ADMIN_DIR . "sale_point/print_stock_report", $this->data);
   }
 
   public function  today_items_sale_report()
@@ -284,7 +294,7 @@ class Sale_point extends Admin_Controller
   public function update_user_item_quantity()
   {
     $id = (int) $this->input->post("user_item_id");
-    
+
     $quantity = (int) $this->input->post("item_quantity");
     if ($quantity == 0) {
       $query = "DELETE FROM `sales_item_users` 
@@ -305,8 +315,8 @@ class Sale_point extends Admin_Controller
       $query = "SELECT `quantity` FROM `sales_item_users` WHERE id='" . $id . "'";
 
       $item_session = $this->db->query($query)->result()[0]->quantity;
-      
-      if (($item->total_quantity+$item_session) >= $quantity) {
+
+      if (($item->total_quantity + $item_session) >= $quantity) {
         $query = "UPDATE `sales_item_users` SET `quantity`='" . $quantity . "'
         WHERE id='" . $id . "' ";
         $this->db->query($query);

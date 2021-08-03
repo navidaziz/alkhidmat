@@ -5,8 +5,11 @@
         <h3>Total Discounts: <?php echo round($today_sale_summary->discount, 2); ?></h3>
         <h3>Total Sale: <?php echo round($today_sale_summary->total_sale, 2); ?></h3>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-4" style="font-size: 15px;">
         <a target="_new" href="<?php echo  site_url(ADMIN_DIR . "sale_point/today_items_sale_report"); ?>">
             Print Today Items Sale Report</a>
+        <br />
+        <a target="_new" href="<?php echo  site_url(ADMIN_DIR . "sale_point/print_stock_report"); ?>">
+            Print Stock Report</a>
     </div>
 </div>
