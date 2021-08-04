@@ -132,9 +132,11 @@
                                 <!-- <th><?php echo $this->lang->line('description'); ?></th> -->
                                 <th><?php echo $this->lang->line('cost_price'); ?></th>
                                 <th><?php echo $this->lang->line('unit_price'); ?></th>
-                                <?php if ($this->session->userdata("role_id") == 1) { ?>
-                                    <th>Profit %</th>
-                                <?php } ?>
+                                <?php //if ($this->session->userdata("role_id") == 1) { 
+                                ?>
+                                <th>Profit %</th>
+                                <?php //} 
+                                ?>
                                 <th>Discount</th>
                                 <th>Sale Price</th>
                                 <th>In Stock</th>
@@ -162,9 +164,11 @@
 
                                         </span>
                                     </td>
-                                    <?php if ($this->session->userdata("role_id") == 1) { ?>
-                                        <td> <?php echo @round((($item->unit_price - $item->cost_price) * 100 / $item->cost_price), 1); ?> </td>
-                                    <?php } ?>
+                                    <?php //if ($this->session->userdata("role_id") == 1) { 
+                                    ?>
+                                    <td> <?php echo @round((($item->unit_price - $item->cost_price) * 100 / $item->cost_price), 1); ?> </td>
+                                    <?php //} 
+                                    ?>
                                     <td> <?php echo $item->discount; ?> </td>
                                     <td> <?php echo $item->sale_price; ?> </td>
                                     <td><?php echo $item->total_quantity ?></td>
