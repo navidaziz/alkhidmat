@@ -163,7 +163,7 @@
                                         </span>
                                     </td>
                                     <?php if ($this->session->userdata("role_id") == 1) { ?>
-                                        <td> <?php echo @round((($item->unit_price - $item->cost_price) * 100 / $item->cost_price), 1) . " %"; ?> </td>
+                                        <td> <?php echo @round((($item->unit_price - $item->cost_price) * 100 / $item->cost_price), 1); ?> </td>
                                     <?php } ?>
                                     <td> <?php echo $item->discount; ?> </td>
                                     <td> <?php echo $item->sale_price; ?> </td>

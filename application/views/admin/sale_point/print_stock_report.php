@@ -124,7 +124,7 @@
           $total_items_price_sale = 0;
           foreach ($items as $item) : ?>
 
-            <tr <?php if (@round((($item->unit_price - $item->cost_price) * 100 / $item->cost_price), 1) < 12) { ?> style="background-color: #F7D5CA;" <?php } ?>>
+            <tr <?php if (@round((($item->unit_price - $item->cost_price) * 100 / $item->cost_price), 1) < 12) { ?> style="background-color: #F7D5CA;" <?php } ?> <?php if (@round((($item->unit_price - $item->cost_price) * 100 / $item->cost_price), 1) > 15) { ?> style="background-color: #90EE90;" <?php } ?>>
               <td><?php echo $count++; ?></td>
               <td> <?php echo $item->name; ?> </td>
               <td><?php echo $item->total_quantity ?></td>
