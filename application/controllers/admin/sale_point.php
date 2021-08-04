@@ -37,7 +37,7 @@ class Sale_point extends Admin_Controller
 
   public function  print_stock_report()
   {
-    $query = "SELECT * FROM all_items WHERE `status` IN (0, 1) LIMIT 20";
+    $query = "SELECT * FROM all_items WHERE `status` IN (0, 1)";
     $this->data["items"] = $this->db->query($query)->result();
 
     $this->load->view(ADMIN_DIR . "sale_point/print_stock_report", $this->data);
