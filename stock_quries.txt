@@ -1,0 +1,4 @@
+SELECT SUM(`cost_price` * `total_quantity`) AS total_stock_price
+    , SUM(`unit_price` * `total_quantity`) AS total_unit_price
+    , SUM(`unit_price` * `total_quantity`) - SUM(`cost_price`*`total_quantity`) AS profit
+FROM `all_items` WHERE `status`=1;

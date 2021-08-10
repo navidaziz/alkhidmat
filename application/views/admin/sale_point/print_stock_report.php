@@ -120,6 +120,7 @@
           <?php
           $count = 1;
           $total_items_price_stock = 0;
+          $total_items_unit_price_stock = 0;
           foreach ($items as $item) : ?>
 
             <tr <?php if (@round((($item->unit_price - $item->cost_price) * 100 / $item->cost_price), 1) < 12) { ?> style="background-color: #F7D5CA;" <?php } ?>>
@@ -130,7 +131,10 @@
               <td> <?php $total_items_price_stock += $item->cost_price * $item->total_quantity;
                     echo $item->cost_price * $item->total_quantity;
                     ?></td>
-              <td> <span id="unitPrice_<?php echo $item->item_id; ?>"><?php echo $item->unit_price; ?></span>
+              <td> <span id="unitPrice_<?php echo $item->item_id; ?>">
+                  <?php
+                  $total_items_unit_price_stock += $item->unit_price * $item->total_quantity;
+                  echo $item->unit_price; ?></span>
                 </span>
               </td>
               <td> <?php echo @round((($item->unit_price - $item->cost_price) * 100 / $item->cost_price), 1) . " %"; ?> </td>
@@ -151,6 +155,12 @@
 
             </tr>
           <?php endforeach; ?>
+          <tr>
+            <th colspan="4" style="text-align: right;">Total</th>
+            <th><?php echo $total_items_price_stock; ?></th>
+            <th colspan="4"><?php echo $total_items_unit_price_stock - $total_items_price_stock; ?> Expected Profit</th>
+
+          </tr>
         </tbody>
       </table>
 
