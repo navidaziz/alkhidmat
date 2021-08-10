@@ -240,6 +240,31 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
                 <th id="payable">00.00 Rs.</th>
               </tr>
             </table>
+            <div id="dicount_options" style="display: none;">
+              <table style="margin-top: 5px;">
+                <tr>
+                  <td>
+                    Discount Type:</td>
+                  <td> <select name="discount_type_id" id="discount_type_id">
+                      <option value="">Select Discount Type</option>
+                      <?php $query = "SELECT * FROM discount_types";
+                      $discount_types = $this->db->query($query)->result();
+                      foreach ($discount_types as $discount_type) {
+                      ?>
+                        <option value="<?php echo $discount_type->discount_type_id; ?>"><?php echo $discount_type->discount_type; ?></option>
+                      <?php } ?>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    On Reference By :</td>
+                  <td> <input type="text" name="discount_ref_by" id="discount_ref_by" value="" />
+
+                  </td>
+                </tr>
+              </table>
+            </div>
             <input type="hidden" name="testGroupIDs" value="" id="testGroupIDs" />
           </div>
           <input type="submit" name="submit" value="Save and Print" class="btn btn-primary" style="width:100%">
@@ -629,10 +654,21 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
     $('#discount_total').html(discount + '.00 Rs.');
     var payable = parseInt(test_total_price) - discount;
     $('#payable').html(payable + '.00 Rs.');
+    if (discount > 0) {
+      $('#dicount_options').show();
+      $('#discount_type_id').attr("required", true);
+      $('#discount_ref_by').attr("required", true);
+    } else {
+      $('#dicount_options').hide();
+      $('#discount_type_id').attr("required", false);
+      $('#discount_ref_by').attr("required", false);
+    }
+
+
   }
 
   function test_price_list_function(test_group_name, values) {
-    alert();
+    //alert();
     //$('#test_price_list').html(price_list);
     console.log(test_group_name);
   }

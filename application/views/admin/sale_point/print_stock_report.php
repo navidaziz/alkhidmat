@@ -108,6 +108,7 @@
             <th>Total</th>
             <th><?php echo $this->lang->line('unit_price'); ?></th>
             <th>Profit %</th>
+            <th>Total</th>
             <th>Dis.</th>
             <th>Sale Price</th>
 
@@ -120,10 +121,14 @@
           <?php
           $count = 1;
           $total_items_price_stock = 0;
+<<<<<<< HEAD
           $total_items_unit_price_stock = 0;
+=======
+          $total_items_price_sale = 0;
+>>>>>>> a2e8e6246f69ca755ecec30c5c9200fadfcb2af1
           foreach ($items as $item) : ?>
 
-            <tr <?php if (@round((($item->unit_price - $item->cost_price) * 100 / $item->cost_price), 1) < 12) { ?> style="background-color: #F7D5CA;" <?php } ?>>
+            <tr <?php if (@round((($item->unit_price - $item->cost_price) * 100 / $item->cost_price), 1) < 12) { ?> style="background-color: #F7D5CA;" <?php } ?> <?php if (@round((($item->unit_price - $item->cost_price) * 100 / $item->cost_price), 1) > 15) { ?> style="background-color: #90EE90;" <?php } ?>>
               <td><?php echo $count++; ?></td>
               <td> <?php echo $item->name; ?> </td>
               <td><?php echo $item->total_quantity ?></td>
@@ -131,13 +136,20 @@
               <td> <?php $total_items_price_stock += $item->cost_price * $item->total_quantity;
                     echo $item->cost_price * $item->total_quantity;
                     ?></td>
+<<<<<<< HEAD
               <td> <span id="unitPrice_<?php echo $item->item_id; ?>">
                   <?php
                   $total_items_unit_price_stock += $item->unit_price * $item->total_quantity;
                   echo $item->unit_price; ?></span>
                 </span>
+=======
+              <td> <?php echo $item->unit_price; ?>
+>>>>>>> a2e8e6246f69ca755ecec30c5c9200fadfcb2af1
               </td>
               <td> <?php echo @round((($item->unit_price - $item->cost_price) * 100 / $item->cost_price), 1) . " %"; ?> </td>
+              <td> <?php $total_items_price_sale += $item->unit_price * $item->total_quantity;
+                    echo $item->unit_price * $item->total_quantity;
+                    ?></td>
               <td> <?php echo $item->discount; ?> </td>
               <td> <?php echo $item->sale_price; ?> </td>
 
@@ -156,9 +168,16 @@
             </tr>
           <?php endforeach; ?>
           <tr>
+<<<<<<< HEAD
             <th colspan="4" style="text-align: right;">Total</th>
             <th><?php echo $total_items_price_stock; ?></th>
             <th colspan="4"><?php echo $total_items_unit_price_stock - $total_items_price_stock; ?> Expected Profit</th>
+=======
+            <th colspan="4"></th>
+            <th><?php echo $total_items_price_stock; ?></th>
+            <th colspan="2"></th>
+            <th><?php echo $total_items_price_sale - $total_items_price_stock; ?></th>
+>>>>>>> a2e8e6246f69ca755ecec30c5c9200fadfcb2af1
 
           </tr>
         </tbody>

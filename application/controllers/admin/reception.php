@@ -113,6 +113,11 @@ class Reception extends Admin_Controller
 		$inputs["created_by"]  =  $this->session->userdata('user_id');
 		$inputs["category_id"]  =  $category_id[0]->category_id;
 		$inputs['alkhidmat_income'] = $inputs["total_price"];
+		if ($discount > 0) {
+			$inputs['discount_type_id'] = $this->input->post("discount_type_id");
+			$inputs['discount_ref_by'] = $this->input->post("discount_ref_by");
+		}
+
 
 		if ($category_id[0]->category_id == 5) {
 			$today_count = $this->db->query("SELECT count(*) as total FROM `invoices` 
