@@ -66,6 +66,8 @@ class Reception extends Admin_Controller
 		$this->load->view(ADMIN_DIR . "reception/home", $this->data);
 	}
 
+
+
 	public function save_data()
 	{
 
@@ -302,5 +304,35 @@ class Reception extends Admin_Controller
 		$query = "SELECT * FROM patients WHERE patient_name = $patient AND DATE(`created_date`)=DATE(NOW())";
 		$patient_detail = $this->db->query($query)->result()[0];
 		echo json_encode($patient_detail);
+	}
+
+	public function get_patient_detail_by_id()
+	{
+		$patient_id = $this->db->escape($this->input->post('patient_id'));
+		$query = "SELECT * FROM patients WHERE patient_id = $patient_id";
+		$this->data['patient'] = $this->db->query($query)->result()[0];
+		$this->load->view(ADMIN_DIR . "reception/update_patient_detail", $this->data);
+	}
+
+	public function update_patient_data()
+	{
+		$patient_id = (int) $this->input->post("patient_id");
+		$patient_name =  $this->db->escape($this->input->post("patient_name"));
+		$patient_address =  $this->db->escape($this->input->post("patient_address"));
+		$patient_age =  $this->db->escape($this->input->post("patient_age"));
+		$patient_gender =  $this->db->escape($this->input->post("patient_gender"));
+		$patient_mobile_no =  $this->db->escape($this->input->post("patient_mobile_no"));
+
+		$query = "UPDATE patients SET patient_name = $patient_name,
+		       patient_address = $patient_address,
+			   patient_age = $patient_age,
+			   patient_gender = $patient_gender,
+			   patient_mobile_no = $patient_mobile_no
+			   WHERE patient_id = '" . $patient_id . "'";
+		$this->db->query($query);
+
+
+		$this->session->set_flashdata("msg_success", "Patient Information Update Successfully.");
+		redirect(ADMIN_DIR . "reception");
 	}
 }
