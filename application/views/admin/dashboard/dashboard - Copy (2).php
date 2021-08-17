@@ -190,38 +190,6 @@
                       -<?php echo $discount ?></td>
                     <td><?php echo number_format($total_rs); ?></td>
                   </tr>
-                  <tr>
-                    <th colspan="7" style="text-align: right;">
-                      <h4 class="pull-left" style="border: 1px solid #5ea5bd; min-width: 10px; display: inline; padding: 5px; line-height: 30px;
-                      border-radius: 5px;
-                      background-color: #F79700;
-                      color: white;
-                      ">
-                        Pharmacy Sale Summary
-                        <?php
-                        $query = "SELECT ROUND(SUM(si.total_price)) AS total_sale,
-                      (ROUND(SUM(si.sale_items*si.unit_price))-ROUND(SUM(si.sale_items*si.cost_price))) AS total_profit
-                      FROM `sales_items` AS si
-                      WHERE DATE(`created_date`) = DATE(NOW())";
-                        $today_sale_summary = $this->db->query($query);
-                        if ($today_sale_summary) {
-                          $today_sale_summary = $today_sale_summary->result()[0];
-                          echo $today_sale_summary->total_sale;
-                        }
-                        ?>
-                        Rs.<br />
-                        Sale Total Profit: <?php echo $today_sale_summary->total_profit; ?> Rs.
-
-
-
-                        <br />
-                        Other Incomes Total: <?php echo number_format($total_rs); ?> Rs.
-                        <hr />
-                        Total Today Income: <?php echo number_format($total_rs + $today_sale_summary->total_profit); ?> Rs.
-                      </h4>
-                    </th>
-
-                  </tr>
 
                 </tbody>
               </table>
@@ -495,41 +463,6 @@
                       -<?php echo $discount ?></td>
                     <td><?php echo number_format($total_rs); ?></td>
                   </tr>
-
-
-                  <tr>
-                    <th colspan="7" style="text-align: right;">
-
-                      <h4 class="pull-right" style="border: 1px solid #5ea5bd; min-width: 10px; display: inline; padding: 5px; line-height: 30px;
-                      border-radius: 5px;
-                      background-color: #F79700;
-                      color: white;
-                      ">
-                        Pharmacy Sale Summary
-                        <?php
-                        $query = "SELECT ROUND(SUM(si.total_price)) AS total_sale,
-                      (ROUND(SUM(si.sale_items*si.unit_price))-ROUND(SUM(si.sale_items*si.cost_price))) AS total_profit
-                      FROM `sales_items` AS si
-                      WHERE MONTH(`created_date`) = MONTH(NOW())
-                      AND YEAR(`created_date`) = YEAR(NOW())
-                      ";
-                        $today_sale_summary = $this->db->query($query);
-                        if ($today_sale_summary) {
-                          $today_sale_summary = $today_sale_summary->result()[0];
-                          echo $today_sale_summary->total_sale;
-                        }
-                        ?>
-                        Rs.<br />
-                        Sale Total Profit: <?php echo $today_sale_summary->total_profit; ?> Rs.
-
-
-
-                        <br />
-                        Other Incomes Total: <?php echo number_format($total_rs); ?> Rs.
-                        <hr />
-                        Total Current Month Income: <?php echo number_format($total_rs + $today_sale_summary->total_profit); ?> Rs.
-                      </h4>
-                    </th>
 
                 </tbody>
               </table>
