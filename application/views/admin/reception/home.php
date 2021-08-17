@@ -453,7 +453,7 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
                     echo $opd_doctor . "-" . $test->today_count;
                   } ?>
               </td>
-              <td><?php echo $test->patient_name; ?></td>
+              <td><a href="#" onclick="update_patient_detail('<?php echo $test->patient_id; ?>')"><?php echo $test->patient_name; ?></a></td>
               <!-- <td><?php echo $test->patient_mobile_no; ?></td> -->
               <td><?php echo $test->patient_gender; ?></td>
               <td>
@@ -545,7 +545,44 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
   </div>
 </div>
 
+<div id="update_patient_detail" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update Patient Detail</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="patient_detail_body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
+  function update_patient_detail(patient_id) {
+    $.ajax({
+      type: "POST",
+      url: "<?php echo site_url(ADMIN_DIR); ?>/reception/get_patient_detail_by_id/",
+      data: {
+        patient_id: patient_id
+      }
+    }).done(function(data) {
+      $('#patient_detail_body').html(data);
+
+      $('#update_patient_detail').modal('show');
+
+    });
+
+
+  }
+
   function test_token(invoice_id, Patient_name, other_info) {
     // $('#information_model_body').html('<div style="padding: 32px; text-align: center;"><img  src="<?php echo site_url('assets/admin/preloader.gif'); ?>" /></div>');
     //alert(invoice_id);
