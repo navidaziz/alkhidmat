@@ -2,3 +2,5 @@ SELECT SUM(`cost_price` * `total_quantity`) AS total_stock_price
     , SUM(`unit_price` * `total_quantity`) AS total_unit_price
     , SUM(`unit_price` * `total_quantity`) - SUM(`cost_price`*`total_quantity`) AS profit
 FROM `all_items` WHERE `status`=1;
+
+ALTER TABLE `suppliers_invoices` ADD `return_receipt` INT NOT NULL DEFAULT '0' AFTER `invoice_date`;
