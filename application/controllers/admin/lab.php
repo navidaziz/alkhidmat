@@ -358,7 +358,7 @@ class Lab extends Admin_Controller
 
 		$query = "UPDATE invoices
 			          SET is_deleted=1, 
-					  cancel_reason='Faluty entry',  
+					  cancel_reason='Fault Entry',  
 					  cancel_reason_detail='Deleted By Reception' 
 					  WHERE invoice_id= $invoice_id";
 		if ($this->db->query($query)) {
