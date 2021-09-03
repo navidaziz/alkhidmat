@@ -38,6 +38,9 @@ class reports extends Admin_Controller
 		$month = (int) $month;
 		$year = (int) $year;
 		$this->data['month'] = date("F, Y ", strtotime($year . "-" . $month . "-1"));
+		$this->data['month_filter'] = $month;
+		$this->data['year_filter'] = $year;
+
 
 
 		$this->data['day_wise_monthly_report'] = $this->reports_model->day_wise_monthly_report($month, $year);

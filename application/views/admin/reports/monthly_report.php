@@ -104,6 +104,7 @@
             <th colspan="5">Dr. Naila</th>
             <th colspan="5">Dr. Shabana</th>
             <th colspan="5">US-Doppler (Dr.Shabana)</th>
+            <th colspan="2">Pharmacy</th>
             <th colspan="4">Total</th>
           </tr>
           <tr>
@@ -149,6 +150,9 @@
             <td>Conf</td>
             <td>Dis</td>
             <td>Total</td>
+
+            <td>Sale</td>
+            <td>Profit</td>
 
 
             <th>Discount</th>
@@ -215,8 +219,17 @@
               <td><?php echo @$report->dr_shabana_us_doppler_count ?></td>
               <td><?php echo @$report->dr_shabana_us_doppler_discount_count ?> - <?php echo @$report->dr_shabana_us_doppler_discount ?></td>
               <td><?php echo @$report->dr_shabana_us_doppler ?></td>
-
-
+              <?php $query = "SELECT ROUND(SUM(si.total_price)) AS total_sale,
+                      (ROUND(SUM(si.sale_items*si.unit_price))-ROUND(SUM(si.sale_items*si.cost_price))) AS total_profit
+                      FROM `sales_items` AS si
+                      WHERE DATE(`created_date`) = '" . date('Y-m-d', strtotime($date)) . "'";
+              $today_sale_summary = $this->db->query($query);
+              if ($today_sale_summary) {
+                $today_sale_summary = $today_sale_summary->result()[0];
+              }
+              ?>
+              <td><?php echo $today_sale_summary->total_sale; ?></td>
+              <td><?php echo $today_sale_summary->total_profit; ?></td>
 
               <td><?php echo @$report->discount_count; ?> - <?php echo @$report->discount; ?></td>
               <td><?php echo @$report->total; ?></td>
@@ -287,6 +300,19 @@
               <th><?php echo @$report->dr_shabana_us_doppler ?></th>
 
 
+              <?php $query = "SELECT ROUND(SUM(si.total_price)) AS total_sale,
+                      (ROUND(SUM(si.sale_items*si.unit_price))-ROUND(SUM(si.sale_items*si.cost_price))) AS total_profit
+                      FROM `sales_items` AS si
+                      WHERE MONTH(`created_date`) = '" . $month_filter . "'
+                      AND YEAR(`created_date`) = '" . $year_filter . "'
+                      ";
+              $today_sale_summary = $this->db->query($query);
+              if ($today_sale_summary) {
+                $today_sale_summary = $today_sale_summary->result()[0];
+              }
+              ?>
+              <td><?php echo $today_sale_summary->total_sale; ?></td>
+              <td><?php echo $today_sale_summary->total_profit; ?></td>
 
               <th><?php echo @$report->discount_count; ?> - <?php echo @$report->discount; ?></th>
               <th><?php echo @$report->total; ?></th>
@@ -297,6 +323,20 @@
 
             </tr>
           <?php } ?>
+          <tr>
+            <td colspan="42">
+              Total Pharmacy Sale: <?php echo $today_sale_summary->total_sale; ?> Rs. <br />
+              Total Pharmacy Profit: <?php echo $today_sale_summary->total_profit; ?> Rs. <br />
+              Other Income Total: <?php echo $report->total; ?> Rs.<br />
+              Total Expenses: <?php echo @$report->expense; ?> Rs. <br />
+              <strong>Grand Total: <?php echo (($report->total + $today_sale_summary->total_profit) - $report->expense); ?> Rs.</strong>
+
+
+
+
+            </td>
+
+          </tr>
         </table>
       </div>
       </br />
