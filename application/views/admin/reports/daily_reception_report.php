@@ -169,6 +169,10 @@
                   $total_income_from_drs += $report->total_count * 200;
                   echo $report->total_count * 200;
                   break;
+                case '114':
+                  $total_income_from_drs += $report->total_count * 500;
+                  echo $report->total_count * 500;
+                  break;
                 default:
                   $total_income_from_drs += $report->total_sum;
                   echo $report->total_sum;
@@ -185,7 +189,35 @@
             <?php echo $total_income_from_drs; ?></th>
         </tr>
       </table>
-      <h4 style="text-align: right;"><?php echo "Total " . $today_total_cat_wise_progress_reports[0]->total_sum . ' + ' . $total_income_from_drs . ' = ' . ($today_total_cat_wise_progress_reports[0]->total_sum + $total_income_from_drs) . ' Rs'; ?></h4>
+      <table class="table ">
+        <tr>
+          <th>Category Income</th>
+          <th>OPD Shared Income</th>
+          <th>Pharmacy Income</th>
+          <th>Today Day Total</th>
+        </tr>
+        <tr>
+          <td><?php echo $today_total_cat_wise_progress_reports[0]->total_sum; ?></td>
+          <td><?php echo $total_income_from_drs; ?></td>
+          <td>
+            <?php
+            $query = "SELECT ROUND(SUM(si.total_price)) AS total_sale,
+                      (ROUND(SUM(si.sale_items*si.unit_price))-ROUND(SUM(si.sale_items*si.cost_price))) AS total_profit
+                      FROM `sales_items` AS si
+                      WHERE DATE(`created_date`) = DATE(NOW())";
+            @$today_sale_summary = $this->db->query($query)->result()[0];
+            ?>
+            Total Sale: <?php echo ($today_sale_summary->total_sale) ? $today_sale_summary->total_sale : 0; ?> Rs.<br />
+            Sale Total Profit: <?php echo ($today_sale_summary->total_profit) ? $today_sale_summary->total_profit : 0; ?> Rs.</td>
+          <td>
+            <h4 style="text-align: center;">
+
+              <?php echo number_format($today_total_cat_wise_progress_reports[0]->total_sum + $total_income_from_drs + $today_sale_summary->total_profit) . ' Rs'; ?>
+
+            </h4>
+          </td>
+        </tr>
+      </table>
 
 
       <h5>Dr's. OPD Wise Report</h5>
@@ -237,32 +269,7 @@
           <th>Admin Alkhidmat</th>
           <th>Reception</th>
         </tr>
-        <tr>
-          <td>
 
-            <br />
-          </td>
-          <td>
-
-            <br />
-          </td>
-          <td>
-
-            <br />
-          </td>
-          <td>
-
-            <br />
-          </td>
-          <td>
-
-            <br />
-          </td>
-          <td>
-
-            <br />
-          </td>
-        </tr>
       </table>
       <br />
       <?php
