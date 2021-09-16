@@ -90,7 +90,7 @@ class Reports_model extends MY_Model
 				`invoices` 
 				WHERE `test_groups`.`test_group_id` = `invoices`.`opd_doctor`
 				AND `invoices`.`category_id`=5
-				AND `test_groups`.`test_group_id` IN (77,86,104)
+				AND `test_groups`.`test_group_id` IN (77,86,104,114)
 				AND DATE(`invoices`.`created_date`) = DATE(NOW())
 				GROUP BY `test_groups`.`test_group_name`";
 		$income_from_drs = $this->db->query($query)->result();

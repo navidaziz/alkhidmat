@@ -79,6 +79,10 @@
                     $total_income_from_drs += $report->total_count * 200;
                     echo $report->total_count * 200;
                     break;
+                  case '114':
+                    $total_income_from_drs += $report->total_count * 500;
+                    echo $report->total_count * 500;
+                    break;
                   default:
                     $total_income_from_drs += $report->total_sum;
                     echo $report->total_sum;

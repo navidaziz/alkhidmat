@@ -137,6 +137,10 @@ class Reception extends Admin_Controller
 			if ($test_group_ids == 104) {
 				$inputs['alkhidmat_income'] = 200;
 			}
+			// for dr Attiq ur Rahman share 
+			if ($test_group_ids == 114) {
+				$inputs['alkhidmat_income'] = 500;
+			}
 			//dr naila opd
 			if ($test_group_ids == 77) {
 				$inputs['alkhidmat_income'] = $inputs["total_price"];
