@@ -127,8 +127,8 @@
 
                                 <th><?php echo $this->lang->line('name'); ?></th>
                                 <th><?php echo $this->lang->line('category'); ?></th>
-                                <th><?php echo $this->lang->line('unit'); ?></th>
-                                <th><?php echo $this->lang->line('item_code_no'); ?></th>
+                                <!-- <th><?php echo $this->lang->line('unit'); ?></th>
+                                <th><?php echo $this->lang->line('item_code_no'); ?></th> -->
                                 <!-- <th><?php echo $this->lang->line('description'); ?></th> -->
                                 <th><?php echo $this->lang->line('cost_price'); ?></th>
                                 <th><?php echo $this->lang->line('unit_price'); ?></th>
@@ -153,14 +153,15 @@
                                 <tr <?php if (@round((($item->unit_price - $item->cost_price) * 100 / $item->cost_price), 1) < 12) { ?> style="background-color: #F7D5CA;" <?php } ?>>
                                     <td> <?php echo $item->name; ?> </td>
                                     <td> <?php echo $item->category; ?> </td>
-                                    <td> <?php echo $item->unit; ?> </td>
-                                    <td> <?php echo $item->item_code_no; ?> </td>
+                                    <!-- <td> <?php echo $item->unit; ?> </td>
+                                    <td> <?php echo $item->item_code_no; ?> </td> -->
                                     <!-- <td> <?php echo $item->description; ?> </td> -->
                                     <td> <span id="costPrice_<?php echo $item->item_id; ?>"><?php echo $item->cost_price; ?></span>
-                                        <br /><input style="width: 60px;" value="<?php echo $item->cost_price; ?>" name="cost_price" id="cost_price_<?php echo $item->item_id; ?>" onkeyup="update_item_cost_price('<?php echo $item->item_id; ?>')" />
-                                    </td>
+                                        <!-- <br />
+                                        <input style="width: 60px;" value="<?php echo $item->cost_price; ?>" name="cost_price" id="cost_price_<?php echo $item->item_id; ?>" onkeyup="update_item_cost_price('<?php echo $item->item_id; ?>')" />
+                                    </td> -->
                                     <td> <span id="unitPrice_<?php echo $item->item_id; ?>"><?php echo $item->unit_price; ?></span>
-                                        <br /><input style="width: 60px;" value="<?php echo $item->unit_price; ?>" name="unit_price" id="unit_price_<?php echo $item->item_id; ?>" onkeyup="update_item_unit_price('<?php echo $item->item_id; ?>')" />
+                                        <!-- <br /><input style="width: 60px;" value="<?php echo $item->unit_price; ?>" name="unit_price" id="unit_price_<?php echo $item->item_id; ?>" onkeyup="update_item_unit_price('<?php echo $item->item_id; ?>')" /> -->
 
                                         </span>
                                     </td>
@@ -222,7 +223,7 @@
     <!-- /MESSENGER -->
 </div>
 
-<link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "other_files/jquery.dataTables.css") ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "other_files/jq uery.dataTables.css") ?>">
 
 <script type="text/javascript" charset="utf8" src="<?php echo site_url("assets/" . ADMIN_DIR . "other_files/jquery.dataTables.js") ?>"></script>
 <!-- <script type="text/javascript" language="javascript" src="<?php echo site_url("assets/" . ADMIN_DIR . "other_files/dataTables.buttons.min.js") ?>"></script>
