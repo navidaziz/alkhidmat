@@ -36,7 +36,7 @@ class Test_types extends Admin_Controller
     public function view()
     {
 
-        $where = "`test_types`.`status` IN (0, 1) ORDER BY `test_types`.`order`";
+        $where = " `test_types`.`status` IN (0, 1) ORDER BY `test_types`.`order`";
         $data = $this->test_type_model->get_test_type_list($where);
         $this->data["test_types"] = $data->test_types;
         $this->data["pagination"] = $data->pagination;

@@ -145,6 +145,22 @@ class Reception extends Admin_Controller
 			if ($test_group_ids == 77) {
 				$inputs['alkhidmat_income'] = $inputs["total_price"];
 			}
+
+			//dr naila opd
+			if ($test_group_ids == 121) {
+				$inputs['alkhidmat_income'] = 150;
+			}
+
+			//dr naila opd
+			if ($test_group_ids == 122) {
+				$inputs['alkhidmat_income'] = 150;
+			}
+
+			//dr naila opd
+			if ($test_group_ids == 123) {
+				$inputs['alkhidmat_income'] = 100;
+			}
+
 		} else {
 			$today_count = $this->db->query("SELECT count(*) as total FROM `invoices` 
 		               WHERE category_id = '" . $category_id[0]->category_id . "'
