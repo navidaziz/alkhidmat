@@ -132,87 +132,88 @@
 							});
 						}
 					</script>
-					<form method="post" action="<?php echo  site_url(ADMIN_DIR . "suppliers/add_item_stocks") ?>">
-						<!-- Stock In: <input type="radio" value="stock_in" name="traction_type" onclick="stock_in()" checked="checked" />
+					<?php if ($suppliers_invoices->supplier_invoice_id != 1) { ?>
+						<form method="post" action="<?php echo  site_url(ADMIN_DIR . "suppliers/add_item_stocks") ?>">
+							<!-- Stock In: <input type="radio" value="stock_in" name="traction_type" onclick="stock_in()" checked="checked" />
 						Stock Return: <input type="radio" value="stock_return" onclick="stock_return()" name="traction_type" />-->
-						<table class="table table-bordered table2" style="line-height: 0.5px; display:no ne" id="stock_in">
-							<input type="hidden" value="<?php echo  $suppliers[0]->supplier_id; ?>" name="supplier_id" />
-							<input type="hidden" value="<?php echo  $suppliers_invoices->supplier_invoice_id; ?>" name="supplier_invoice_id" />
-							<input type="hidden" name="unit_price" value="0" />
-							<tr>
-								<td>
-									<strong>Items</strong>
-									<?php
-									echo form_dropdown("item_id", $items, "", "id = \"item_id1\" class=\"js-example-basic-single\" onchange=\"get_item_prices('item_id1')\" required style=\"width:150px\"");
-									?>
-								</td>
-								<td>
-									<strong>Batch Number</strong>
-									<input style="width: 80px;" type="text" name="batch_number" value="" id="batch_number" class="form - control" required="required" title="Batch Number" placeholder="Batch Number">
-								</td>
-								<td>
-									<strong>Cost Price</strong>
-									<input style="width: 80px;" type="number" step="any" id="cost_price1" name="cost_price" value="" id="cost_price" class="form - control" required="required" title="Cost Price" placeholder="Cost Price">
-								</td>
-								<td>
-									<strong>Unit Price</strong>
-									<input step="any" type="number" name="unit_price" value="" id="unit_price1" class="for m-control" title="Unit Price" placeholder="Unit Price">
-								</td>
-								<td>
-									<strong>Total New Stock</strong>
-									<input style="width: 80px;" type="number" name="transaction" value="" id="transaction" class="form - control" title="Unit" placeholder="Transaction">
-								</td>
-								<td>
-									<strong>Date</strong>
-									<input style="width: 130px;" type="date" name="date" value="" id="date" class="form - control" title="date" placeholder="date" />
-								</td>
+							<table class="table table-bordered table2" style="line-height: 0.5px; display:no ne" id="stock_in">
+								<input type="hidden" value="<?php echo  $suppliers[0]->supplier_id; ?>" name="supplier_id" />
+								<input type="hidden" value="<?php echo  $suppliers_invoices->supplier_invoice_id; ?>" name="supplier_invoice_id" />
+								<input type="hidden" name="unit_price" value="0" />
+								<tr>
+									<td>
+										<strong>Items</strong>
+										<?php
+										echo form_dropdown("item_id", $items, "", "id = \"item_id1\" class=\"js-example-basic-single\" onchange=\"get_item_prices('item_id1')\" required style=\"width:150px\"");
+										?>
+									</td>
+									<td>
+										<strong>Batch Number</strong>
+										<input style="width: 80px;" type="text" name="batch_number" value="" id="batch_number" class="form - control" required="required" title="Batch Number" placeholder="Batch Number">
+									</td>
+									<td>
+										<strong>Cost Price</strong>
+										<input style="width: 80px;" type="number" step="any" id="cost_price1" name="cost_price" value="" id="cost_price" class="form - control" required="required" title="Cost Price" placeholder="Cost Price">
+									</td>
+									<td>
+										<strong>Unit Price</strong>
+										<input step="any" type="number" name="unit_price" value="" id="unit_price1" class="for m-control" title="Unit Price" placeholder="Unit Price">
+									</td>
+									<td>
+										<strong>Total New Stock</strong>
+										<input style="width: 80px;" type="number" name="transaction" value="" id="transaction" class="form - control" title="Unit" placeholder="Transaction">
+									</td>
+									<td>
+										<strong>Date</strong>
+										<input style="width: 130px;" type="date" name="date" value="" id="date" class="form - control" title="date" placeholder="date" />
+									</td>
 
-								<td>
-									<strong>Action</strong>
-									<input class="btn btn-primary btn-sm" type="submit" name="add_stock" value="Add Stock" />
-								</td>
-							</tr>
-						</table>
-					</form>
-					<form method="post" action="<?php echo  site_url(ADMIN_DIR . "suppliers/return_item_stocks") ?>">
-						<table class="table table-bordered table2" style="line-height: 0.5px; display:none" id="stock_return">
-							<input type="hidden" value="<?php echo  $suppliers[0]->supplier_id; ?>" name="supplier_id" />
-							<input type="hidden" value="<?php echo  $suppliers_invoices->supplier_invoice_id; ?>" name="supplier_invoice_id" />
-							<input type="hidden" name="unit_price" value="0" />
-							<tr>
-								<td>
-									<strong>Items</strong>
-									<?php
-									echo form_dropdown("item_id", $items, "", "id = \"item_id2\" class=\"js-example-basic-single\" onchange=\"get_item_prices2('item_id2')\" required style=\"width:150px\"");
-									?>
-								</td>
-								<td>
-									<strong>Total Stock Return</strong>
-									<input type="number" name="transaction" value="" id="transaction" class="form - control" title="Unit" placeholder="Transaction">
-								</td>
-								<td>
-									<strong>Cost Price</strong>
-									<input style="width: 80px;" type="number" step="any" id="cost_price2" name="cost_price" value="" id="cost_price" class="form - control" required="required" title="Cost Price" placeholder="Cost Price">
-								</td>
+									<td>
+										<strong>Action</strong>
+										<input class="btn btn-primary btn-sm" type="submit" name="add_stock" value="Add Stock" />
+									</td>
+								</tr>
+							</table>
+						</form>
+						<form method="post" action="<?php echo  site_url(ADMIN_DIR . "suppliers/return_item_stocks") ?>">
+							<table class="table table-bordered table2" style="line-height: 0.5px; display:none" id="stock_return">
+								<input type="hidden" value="<?php echo  $suppliers[0]->supplier_id; ?>" name="supplier_id" />
+								<input type="hidden" value="<?php echo  $suppliers_invoices->supplier_invoice_id; ?>" name="supplier_invoice_id" />
+								<input type="hidden" name="unit_price" value="0" />
+								<tr>
+									<td>
+										<strong>Items</strong>
+										<?php
+										echo form_dropdown("item_id", $items, "", "id = \"item_id2\" class=\"js-example-basic-single\" onchange=\"get_item_prices2('item_id2')\" required style=\"width:150px\"");
+										?>
+									</td>
+									<td>
+										<strong>Total Stock Return</strong>
+										<input type="number" name="transaction" value="" id="transaction" class="form - control" title="Unit" placeholder="Transaction">
+									</td>
+									<td>
+										<strong>Cost Price</strong>
+										<input style="width: 80px;" type="number" step="any" id="cost_price2" name="cost_price" value="" id="cost_price" class="form - control" required="required" title="Cost Price" placeholder="Cost Price">
+									</td>
 
-								<td>
-									<strong>Date</strong>
-									<input type="date" name="date" value="" id="date" class="form - control" title="date" placeholder="date" />
-								</td>
+									<td>
+										<strong>Date</strong>
+										<input type="date" name="date" value="" id="date" class="form - control" title="date" placeholder="date" />
+									</td>
 
-								<td>
-									<strong>Remarks</strong>
-									<input type="text" name="remarks" value="" id="remarks" class="form - control" title="remarks" placeholder="remarks" />
-								</td>
+									<td>
+										<strong>Remarks</strong>
+										<input type="text" name="remarks" value="" id="remarks" class="form - control" title="remarks" placeholder="remarks" />
+									</td>
 
-								<td>
-									<strong>Action</strong>
-									<input class="btn btn-danger btn-sm" type="submit" name="return_stock" value="Return Stock" />
-								</td>
-							</tr>
-						</table>
-					</form>
-
+									<td>
+										<strong>Action</strong>
+										<input class="btn btn-danger btn-sm" type="submit" name="return_stock" value="Return Stock" />
+									</td>
+								</tr>
+							</table>
+						</form>
+					<?php } ?>
 
 					<?php if ($this->session->flashdata("msg") || $this->session->flashdata("msg_error") || $this->session->flashdata("msg_success")) {
 
@@ -274,9 +275,9 @@
 										<span id="stock_view_<?php echo $inventory->inventory_id; ?>">
 											<?php echo $inventory->inventory_transaction; ?>
 										</span>
-
-										<input type="text" name="stock" value="<?php echo $inventory->inventory_transaction; ?>" id="stock_<?php echo $inventory->inventory_id; ?>" onkeyup="update_stock('<?php echo $inventory->inventory_id; ?>')" />
-
+										<?php if ($suppliers_invoices->supplier_invoice_id != 1) { ?>
+											<input type="text" name="stock" value="<?php echo $inventory->inventory_transaction; ?>" id="stock_<?php echo $inventory->inventory_id; ?>" onkeyup="update_stock('<?php echo $inventory->inventory_id; ?>')" />
+										<?php } ?>
 									</td>
 									<td><?php echo $inventory->item_cost_price; ?></td>
 									<td><?php echo $inventory->item_cost_price * $inventory->inventory_transaction; ?></td>
@@ -288,7 +289,12 @@
 									</td>
 									<td><?php echo $inventory->remarks; ?></td>
 									<td><?php echo $inventory->user_title; ?></td>
-									<td><a href="<?php echo site_url(ADMIN_DIR . "suppliers/remove_supplier_item/" . $inventory->supplier_id . "/" . $inventory->supplier_invoice_id . "/" . $inventory->inventory_id) ?>">Remove</a></td>
+									<td>
+										<?php if ($suppliers_invoices->supplier_invoice_id != 1) { ?>
+											<a href="<?php echo site_url(ADMIN_DIR . "suppliers/remove_supplier_item/" . $inventory->supplier_id . "/" . $inventory->supplier_invoice_id . "/" . $inventory->inventory_id) ?>">Remove</a>
+										<?php } ?>
+									</td>
+
 								</tr>
 
 							<?php endforeach; ?>
