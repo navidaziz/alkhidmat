@@ -75,6 +75,8 @@
                                 <th><?php echo $this->lang->line('supplier_contact_no'); ?></th>
                                 <th><?php echo $this->lang->line('company_name'); ?></th>
                                 <th><?php echo $this->lang->line('account_number'); ?></th>
+                                <th>Total Amount</th>
+                                <th>Print Invoices</th>
                                 <th><?php echo $this->lang->line('Status'); ?></th>
                                 <th><?php echo $this->lang->line('Action'); ?></th>
                             </tr>
@@ -97,6 +99,15 @@
                                     <td>
                                         <?php echo $supplier->account_number; ?>
                                     </td>
+                                    <td><?php
+                                        $query = "SELECT  ROUND(SUM( `inventory`.`item_cost_price`*`inventory`.`inventory_transaction`),2) AS total 
+									        FROM   `inventory` WHERE `inventory`.`supplier_id`='" . $supplier->supplier_id . "';";
+                                        $total_amount = $this->db->query($query)->result()[0]->total;
+                                        echo $total_amount; ?> </td>
+                                    <td><a href="<?php echo site_url(ADMIN_DIR . "suppliers/print_supplier_invoices/" . $supplier->supplier_id); ?>" target="_new">
+                                            <span class="fa fa-print"></span>
+                                            Print </a>
+                                    </td>
                                     <td>
                                         <?php echo status($supplier->status,  $this->lang); ?>
                                         <?php
@@ -115,6 +126,7 @@
                                         }
                                         ?>
                                     </td>
+
                                     <td>
                                         <a class="llink llink-view" href="<?php echo site_url(ADMIN_DIR . "suppliers/view_supplier/" . $supplier->supplier_id . "/" . $this->uri->segment(4)); ?>"><i class="fa fa-eye"></i> </a>
                                         <a class="llink llink-edit" href="<?php echo site_url(ADMIN_DIR . "suppliers/edit/" . $supplier->supplier_id . "/" . $this->uri->segment(4)); ?>"><i class="fa fa-pencil-square-o"></i></a>

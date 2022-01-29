@@ -75,6 +75,83 @@ class Sale_point extends Admin_Controller
 
     $this->load->view(ADMIN_DIR . "sale_point/today_items_sale_report", $this->data);
   }
+  public function  items_sale_report()
+  {
+    $this->data['startdate'] = $this->input->get('start_date');
+    $this->data['enddate'] = $this->input->get('end_date');
+    $this->data['start_date'] = $start_date = $this->db->escape($this->input->get('start_date'));
+    $this->data['end_date'] = $end_date = $this->db->escape($this->input->get('end_date'));
+
+    $query = "SELECT si.item_name, 
+                     si.cost_price, 
+                     si.unit_price, 
+                     si.item_discount, 
+                     si.sale_price, 
+                     SUM(si.sale_items) as qty, 
+                     SUM(si.total_price) as 
+                     net_total, 
+                     si.returned, 
+                     si.created_date
+                     FROM `sales_items` as si 
+                     WHERE DATE(`created_date`) BETWEEN " . $start_date . " and " . $end_date . " GROUP BY `si`.`sale_item_id`";
+    $today_items_sale = $this->db->query($query);
+    if ($today_items_sale) {
+      $this->data['today_items_sales'] = $today_items_sale->result();
+    }
+
+
+    $query = "SELECT SUM(items_total_price) as items_price, 
+                     SUM(total_tax_pay_able) as total_tax, 
+                     SUM(discount) as discount, 
+                     SUM(`total_payable`) as total_sale 
+                     FROM `sales` 
+                     WHERE DATE(`created_date`) BETWEEN " . $start_date . " and " . $end_date . "";
+    $today_sale_summary = $this->db->query($query);
+    if ($today_sale_summary) {
+      $this->data['today_sale_summary'] = $today_sale_summary->result()[0];
+    }
+
+    $this->load->view(ADMIN_DIR . "sale_point/items_sale_report", $this->data);
+  }
+  public function  day_wise_sale_report()
+  {
+    $this->data['startdate'] = $this->input->get('start_date');
+    $this->data['enddate'] = $this->input->get('end_date');
+    $this->data['start_date'] = $start_date = $this->db->escape($this->input->get('start_date'));
+    $this->data['end_date'] = $end_date = $this->db->escape($this->input->get('end_date'));
+
+    $query = "SELECT si.item_name, 
+                     si.cost_price, 
+                     si.unit_price, 
+                     si.item_discount, 
+                     si.sale_price, 
+                     SUM(si.sale_items) as qty, 
+                     SUM(si.total_price) as 
+                     net_total, 
+                     si.returned, 
+                     si.created_date
+                     FROM `sales_items` as si 
+                     WHERE DATE(`created_date`) BETWEEN " . $start_date . " and " . $end_date . " 
+                     GROUP BY DATE(`created_date`)";
+    $today_items_sale = $this->db->query($query);
+    if ($today_items_sale) {
+      $this->data['today_items_sales'] = $today_items_sale->result();
+    }
+
+
+    $query = "SELECT SUM(items_total_price) as items_price, 
+                     SUM(total_tax_pay_able) as total_tax, 
+                     SUM(discount) as discount, 
+                     SUM(`total_payable`) as total_sale 
+                     FROM `sales` 
+                     WHERE DATE(`created_date`) BETWEEN " . $start_date . " and " . $end_date . "";
+    $today_sale_summary = $this->db->query($query);
+    if ($today_sale_summary) {
+      $this->data['today_sale_summary'] = $today_sale_summary->result()[0];
+    }
+
+    $this->load->view(ADMIN_DIR . "sale_point/day_wise_sale_report", $this->data);
+  }
   public function get_sale_reports()
   {
     $query = "SELECT SUM(items_total_price) as items_price, 

@@ -77,8 +77,9 @@
 						<thead>
 							<tr>
 								<th>#</th>
-								<th>Supplier Invoice Number</th>
-								<th>Supplier Invoice Date</th>
+								<th>Invoice Number</th>
+								<th>Invoice Date</th>
+								<th>Total Amount</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -91,8 +92,17 @@
 								<tr>
 									<td><?php echo $count++; ?></td>
 									<td><?php echo $suppliers_invoice->supplier_invoice_number; ?> </td>
-									<td><?php echo $suppliers_invoice->invoice_date; ?> </td>
+									<td><?php echo date('d M, Y', strtotime($suppliers_invoice->invoice_date)); ?> </td>
+									<td><?php
+										$query = "SELECT  ROUND(SUM( `inventory`.`item_cost_price`*`inventory`.`inventory_transaction`),2) AS total 
+									        FROM   `inventory` WHERE `inventory`.`supplier_invoice_id`='" . $suppliers_invoice->supplier_invoice_id . "';";
+										$total_amount = $this->db->query($query)->result()[0]->total;
+										echo $total_amount; ?> </td>
 									<td><a href="<?php echo site_url(ADMIN_DIR . "suppliers/supplier_invoice_view/" . $suppliers_invoice->supplier_id . "/" . $suppliers_invoice->supplier_invoice_id);  ?>">View Invoice Detail</a></td>
+									<td><a href="<?php echo site_url(ADMIN_DIR . "suppliers/print_supplier_item_lists/" . $suppliers_invoice->supplier_id . "/" . $suppliers_invoice->supplier_invoice_id); ?>" target="_new">
+											<span class="fa fa-print"></span>
+											Print </a>
+									</td>
 								</tr>
 
 
@@ -148,6 +158,7 @@
 								<th>#</th>
 								<th>Items Return Number</th>
 								<th>Return Date</th>
+								<th>Total Amount</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -161,6 +172,11 @@
 									<td><?php echo $count++; ?></td>
 									<td><?php echo $suppliers_invoice->supplier_invoice_number; ?> </td>
 									<td><?php echo $suppliers_invoice->invoice_date; ?> </td>
+									<td><?php
+										$query = "SELECT  ROUND(SUM( `inventory`.`item_cost_price`*`inventory`.`inventory_transaction`),2) AS total 
+									        FROM   `inventory` WHERE `inventory`.`supplier_invoice_id`='" . $suppliers_invoice->supplier_invoice_id . "';";
+										$total_amount = $this->db->query($query)->result()[0]->total;
+										echo $total_amount; ?> </td>
 									<td><a href="<?php echo site_url(ADMIN_DIR . "suppliers/supplier_return_view/" . $suppliers_invoice->supplier_id . "/" . $suppliers_invoice->supplier_invoice_id);  ?>">View Returns Detail</a></td>
 									<td><a href="<?php echo site_url(ADMIN_DIR . "suppliers/print_supplier_return_item_lists/" . $suppliers_invoice->supplier_id . "/" . $suppliers_invoice->supplier_invoice_id); ?>" target="_new">
 											<span class="fa fa-print"></span>

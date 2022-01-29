@@ -128,7 +128,10 @@
               <td><?php echo $report->sale_price; ?></td>
               <td><?php echo $report->qty; ?></td>
               <td><?php echo round($report->net_total, 2); ?></td>
-              <td><?php echo round($report->net_total - ($report->cost_price * $report->qty), 2); ?></td>
+              <td><?php
+                  if ($report->qty > 0) {
+                    echo round($report->net_total - ($report->cost_price * $report->qty), 2);
+                  } ?></td>
             </tr>
           <?php } ?>
 

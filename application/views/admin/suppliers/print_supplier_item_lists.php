@@ -98,7 +98,7 @@
 					<td>
 						<h3 style="text-align: center;"> Alkhidmat Diagnostic Center Chitral </h3>
 						<h5 style="text-align: center;">Pharmacy</h5>
-						<h4 style="text-align: center;">Items Return to Supplier </h4>
+						<h4 style="text-align: center;">Item Stock In</h4>
 					</td>
 					<td>
 						<h5 style="margin-top: 30px;">

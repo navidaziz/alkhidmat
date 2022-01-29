@@ -98,74 +98,63 @@
 					<td>
 						<h3 style="text-align: center;"> Alkhidmat Diagnostic Center Chitral </h3>
 						<h5 style="text-align: center;">Pharmacy</h5>
-						<h4 style="text-align: center;">Items Return to Supplier </h4>
+						<h4 style="text-align: center;">
+							<?php echo $title; ?> - Stock In / Return Invoices</h4>
 					</td>
 					<td>
-						<h5 style="margin-top: 30px;">
-							Supplier Name: <?php echo $title; ?>
-							<br /><br />Return Receipt No: <?php echo $suppliers_invoices->supplier_invoice_number; ?>
-							<br /><br />Receipt Dated: <?php echo date("d F, Y ", strtotime($suppliers_invoices->invoice_date))  ?>
-						</h5>
-					</td>
+						< </td>
 				</tr>
 			</table>
 
 			<hr />
 
-			<h4>Return Items List</h4>
 
-			<table class="table table-bordered" style="font-size: 12px;">
+			<table class="table">
 				<thead>
-					<th>#</th>
-					<th>Item Name</th>
-					<!-- <th>Batch Number</th>
-					<th>Expiry Date</th> -->
-					<th>Quantity</th>
-					<th>Trade Price</th>
-					<th>Net Amount</th>
-					<!-- <th>Unit Price</th> -->
-					<!-- <th>Transaction Type</th> -->
-					<th>Remarks</th>
+					<tr>
+						<th>#</th>
+						<th>Type</th>
+						<th>Invoice Number</th>
+						<th>Invoice Date</th>
+						<th>Total Amount</th>
+					</tr>
 				</thead>
 				<tbody>
 					<?php
 					$count = 1;
-					$net_total = 0;
-					foreach ($inventories as $inventory) :
-						$net_total += $inventory->item_cost_price * $inventory->inventory_transaction;
-					?>
+					foreach ($suppliers_invoices as $suppliers_invoice) : ?>
+
+
 						<tr>
 							<td><?php echo $count++; ?></td>
-							<td><?php echo $inventory->name; ?></td>
-							<!--<td><?php echo $inventory->batch_number; ?></td> 
 							<td>
-								<?php if ($inventory->expiry_date) { ?>
-									<?php echo date('d M, Y', strtotime($inventory->expiry_date)); ?>
-								<?php } ?>
-							</td>-->
-							<td>
-								<span id="stock_view_<?php echo $inventory->inventory_id; ?>">
-									<?php echo $inventory->inventory_transaction; ?>
-								</span>
-
-								<!-- <input type="text" name="stock" value="<?php echo $inventory->inventory_transaction; ?>" id="stock_<?php echo $inventory->inventory_id; ?>" onkeyup="update_stock('<?php echo $inventory->inventory_id; ?>')" /> -->
-
+								<?php if ($suppliers_invoice->return_receipt == 1) {
+									echo "Return";
+								}
+								?>
 							</td>
-							<td><?php echo $inventory->item_cost_price; ?></td>
-							<td><?php echo $inventory->item_cost_price * $inventory->inventory_transaction; ?></td>
-							<!-- <td><?php echo $inventory->item_unit_price; ?></td> -->
-							<!-- <td><strong><?php echo $inventory->transaction_type; ?></strong>
-								<?php if ($inventory->return_date) { ?>
-									<small><?php echo date('d M, Y', strtotime($inventory->return_date)); ?></small>
-								<?php } ?>
-							</td> -->
-							<td><?php echo $inventory->remarks; ?></td>
+							<td><?php echo $suppliers_invoice->supplier_invoice_number; ?> </td>
+							<td><?php echo date('d M, Y', strtotime($suppliers_invoice->invoice_date)); ?> </td>
+							<td><?php
+								$query = "SELECT  ROUND(SUM( `inventory`.`item_cost_price`*`inventory`.`inventory_transaction`),2) AS total 
+									        FROM   `inventory` WHERE `inventory`.`supplier_invoice_id`='" . $suppliers_invoice->supplier_invoice_id . "';";
+								$total_amount = $this->db->query($query)->result()[0]->total;
+								echo $total_amount; ?> </td>
+
+
 						</tr>
+
 
 					<?php endforeach; ?>
 					<tr>
-						<td colspan="4" style="text-align: right;">Total</td>
-						<th colspan="2"><?php echo $net_total; ?> Rs.</th>
+						<th colspan="4" style="text-align: right;">Total</th>
+						<th>
+							<?php
+							$query = "SELECT  ROUND(SUM( `inventory`.`item_cost_price`*`inventory`.`inventory_transaction`),2) AS total 
+									        FROM   `inventory` WHERE `inventory`.`supplier_id`='" . $suppliers_invoice->supplier_id . "';";
+							$total_amount = $this->db->query($query)->result()[0]->total;
+							echo $total_amount; ?>
+						</th>
 					</tr>
 				</tbody>
 			</table>
