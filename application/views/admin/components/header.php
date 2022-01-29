@@ -29,22 +29,22 @@
 </head>
 
 <body>
-<div class="printDiv">
+  <div class="printDiv">
     <div id="print_area"></div>
 
   </div>
   <style>
-	.printDiv {
-		display: none;
-	}
+    .printDiv {
+      display: none;
+    }
 
-	@media print {
+    @media print {
 
-		.printDiv {
-			display: block;
-		}
-	}
-</style>
+      .printDiv {
+        display: block;
+      }
+    }
+  </style>
   <div class="modal" id="edit_order" data-backdrop="static">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -92,12 +92,12 @@
   </header>
   <section id="page">
     <?php
-    
 
-    $this->load->view(ADMIN_DIR . "components/nav.php"); 
-    
+
+    $this->load->view(ADMIN_DIR . "components/nav.php");
+
     ?>
-    <div id="main-content" <?php if (in_array($this->router->fetch_class(),$wide_page)) { ?> class="margin-left-50" <?php } ?>>
+    <div id="main-content" <?php if (in_array($this->router->fetch_class(), $wide_page)) { ?> class="margin-left-50" <?php } ?>>
       <div class="container">
         <div class="row">
           <div id="content" class="col-lg-12">
