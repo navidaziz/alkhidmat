@@ -471,7 +471,10 @@ echo form_open_multipart(ADMIN_DIR . "reception/save_data", $add_form_attr);
                   <input id="patient_group_test_ids_<?php echo $test->invoice_id; ?>" type="hidden" value="<?php echo @$patient_group_test_ids; ?>" />
                   <a href="#" onclick="test_token('<?php echo $test->invoice_id; ?>')">New</a> -->
                     New
-                    <a href="<?php echo site_url(ADMIN_DIR . "lab/delete_invoice/$test->invoice_id") ?>" class="pull-right"><i class="fa fa-times" style="color:red"></i> Delete</a>
+                    <?php if ($this->session->userdata('user_id') == 3) { ?>
+                      <a href="<?php echo site_url(ADMIN_DIR . "lab/delete_invoice/$test->invoice_id") ?>" class="pull-right"><i class="fa fa-times" style="color:red"></i> Delete</a>
+                    <?php } ?>
+
 
                   <?php
 

@@ -51,6 +51,7 @@ class Patient_model extends MY_Model
     {
         $inputs = array();
 
+
         $inputs["patient_name"]  =  ucwords(strtolower($this->input->post("patient_name")));
         $inputs["patient_age"]  =  $this->input->post("patient_age");
         $inputs["patient_mobile_no"]  =  preg_replace("/[^0-9,.]/", "", $this->input->post('patient_mobile_no'));

@@ -72,7 +72,7 @@ class Reception extends Admin_Controller
 	{
 
 		//save patient data and get pacient id ....
-		if ($this->input->post('patientID')) {
+		if ($this->input->post('patientID') and $this->input->post('patient_name') != "Dr Ref") {
 			$patient_id = (int) $this->input->post('patientID');
 		} else {
 			$patient_id = $this->patient_model->save_data();
@@ -160,7 +160,6 @@ class Reception extends Admin_Controller
 			if ($test_group_ids == 123) {
 				$inputs['alkhidmat_income'] = 100;
 			}
-
 		} else {
 			$today_count = $this->db->query("SELECT count(*) as total FROM `invoices` 
 		               WHERE category_id = '" . $category_id[0]->category_id . "'
