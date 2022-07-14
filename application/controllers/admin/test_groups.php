@@ -60,7 +60,7 @@ class Test_groups extends Admin_Controller
         // $this->data["test_groups"] = $data->test_groups;
         //$this->data["pagination"] = $data->pagination;
         $this->data["pagination"] = '';
-        $this->data["title"] = $this->lang->line('Test Groups');
+        $this->data["title"] = "Services";
         $this->data["view"] = ADMIN_DIR . "test_groups/test_groups";
         $this->load->view(ADMIN_DIR . "layout", $this->data);
     }
@@ -74,7 +74,7 @@ class Test_groups extends Admin_Controller
         // $this->data["test_groups"] = $data->test_groups;
         //$this->data["pagination"] = $data->pagination;
         $this->data["pagination"] = '';
-        $this->data["title"] = $this->lang->line('Test Groups');
+        $this->data["title"] = "Services";
         $this->data["view"] = ADMIN_DIR . "test_groups/test_group_tests";
         $this->load->view(ADMIN_DIR . "layout", $this->data);
     }

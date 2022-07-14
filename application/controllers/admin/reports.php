@@ -25,6 +25,14 @@ class reports extends Admin_Controller
 	//---------------------------------------------------------------
 
 
+    
+    public function reprots()
+    {
+
+       
+        $this->load->view(ADMIN_DIR . "reports/index", $this->data);
+    }
+    
 
 	public function daily_reception_report()
 	{
