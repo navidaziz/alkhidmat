@@ -72,7 +72,7 @@ class Reception extends Admin_Controller
 	{
 
 		//save patient data and get pacient id ....
-		if ($this->input->post('patientID') and $this->input->post('patient_name') != "Dr Ref") {
+		if ($this->input->post('patientID') and ($this->input->post('patient_name') != "Dr Ref" or  $this->input->post('patient_name') != "Dr. Ref")) {
 			$patient_id = (int) $this->input->post('patientID');
 		} else {
 			$patient_id = $this->patient_model->save_data();
