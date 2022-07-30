@@ -25,19 +25,27 @@ class reports extends Admin_Controller
 	//---------------------------------------------------------------
 
 
-    
-    public function reprots()
-    {
 
-       
-        $this->load->view(ADMIN_DIR . "reports/index", $this->data);
-    }
-    
+	public function index()
+	{
+
+		exit();
+		$this->load->view(ADMIN_DIR . "reports/index", $this->data);
+	}
+
 
 	public function daily_reception_report()
 	{
+		$date = $this->input->get('date');
+		if ($date) {
+			$date = date("Y-m-d", strtotime($date));
+		} else {
+			$date = date("Y-m-d");
+		}
+		//$this->data = $this->reports_model->daily_reception_report($date);
+		$this->data = $this->reports_model->today_recp_report($date);
+		$this->data['date'] = $date;
 
-		$this->data = $this->reports_model->daily_reception_report();
 		$this->load->view(ADMIN_DIR . "reports/daily_reception_report", $this->data);
 	}
 

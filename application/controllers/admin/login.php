@@ -91,7 +91,7 @@ class Login extends Admin_Controller
                     "user_email" => $user->user_email,
                     "user_title" => $user->user_title,
                     "role_id" => $user->role_id,
-                    "profile_complete" => $user->profile_complete,
+                    "profile_complete" => 1,
                     "role_level" =>  $role[0]->role_level,
                     "district_id" => '',
                     "role_homepage_id" => $role_homepage_id,

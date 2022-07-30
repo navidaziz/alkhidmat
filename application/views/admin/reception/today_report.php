@@ -1,11 +1,18 @@
 <div class="row">
-  <div><a target="new" class="btn btn-primary" href="<?php echo site_url(ADMIN_DIR . "reports/daily_reception_report") ?>">Print Daily Report</a></div>
+  <div>
+    <form action="<?php echo site_url(ADMIN_DIR . 'reports/daily_reception_report') ?>" method="get" target="new">
+      <input type="date" name="date" value="<?php echo date("Y-m-d"); ?>" />
+      <input type="submit" value="Print Report" name="Print Report" />
+    </form>
+
+    <!-- <a target="new" class="btn btn-primary" href="<?php echo site_url(ADMIN_DIR . "reports/daily_reception_report") ?>">Print Today Report</a> -->
+  </div>
   <br />
   <!-- MESSENGER -->
   <div class="col-md-6">
     <div class="box border blue" id="messenger">
       <div class="box-title">
-        <h4><i class="fa fa-bar-chart"></i>Today Catagories Wise Report</h4>
+        <h4><i class="fa fa-bar-chart"></i>Today Categories Wise Report</h4>
       </div>
       <div class="box-body">
         <table class="table table-bordered" id="today_categories_wise_report">
@@ -13,7 +20,7 @@
 
             <tr>
               <th>#</th>
-              <th>Catagories</th>
+              <th>Categories</th>
               <th>Total</th>
               <th>Cancelled</th>
               <th>Confirmed</th>

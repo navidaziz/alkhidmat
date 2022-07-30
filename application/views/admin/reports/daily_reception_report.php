@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Invoice</title>
+  <title>Daily Report</title>
   <link rel="stylesheet" href="style.css">
   <link rel="license" href="http://www.opensource.org/licenses/mit-license/">
   <script src="script.js"></script>
@@ -94,7 +94,7 @@
   <page size='A4'>
     <div style="padding: 5px;  padding-left:20px; padding-right:20px; " contenteditable="true">
       <h3 style="text-align: center;"> Alkhidmat Diagnostic Center Chitral </h3>
-      <h4 style="text-align: center;">Daily Receipt Report ( Date: <?php echo date("d F, Y ", time()) ?>)</h4>
+      <h4 style="text-align: center;">Daily Receipt Report ( Date: <?php echo date("d F, Y ", strtotime($date)) ?>)</h4>
 
       <h5>Category Wise Report</h5>
 
@@ -103,7 +103,7 @@
 
           <tr>
             <th>#</th>
-            <th>Catagories</th>
+            <th>Categories</th>
             <th>Total</th>
             <th>Cancelled</th>
             <th>Confirmed</th>
@@ -146,7 +146,7 @@
           <th>Cancelled</th>
           <th>Confirmed</th>
           <th>Discount</th>
-          <th>Total RS</th>
+          <th>Total Rs</th>
         </tr>
         <?php
         $count = 1;
