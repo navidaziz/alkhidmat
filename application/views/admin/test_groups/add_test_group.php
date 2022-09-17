@@ -13,7 +13,7 @@
                 </li>
                 <li>
                     <i class="fa fa-table"></i>
-                    <a href="<?php echo site_url(ADMIN_DIR . "test_groups/view/"); ?>"><?php echo $this->lang->line('Test Groups'); ?></a>
+                    <a href="<?php echo site_url(ADMIN_DIR . "test_groups/view/"); ?>">Services</a>
                 </li>
                 <li><?php echo $title; ?></li>
             </ul>
@@ -119,7 +119,9 @@
                             "name"          =>  "test_group_name",
                             "id"            =>  "test_group_name",
                             "class"         =>  "form-control",
-                            "style"         =>  "", "required"      => "required", "title"         =>  $this->lang->line('test_group_name'),
+                            "style"         =>  "",
+                            "required"      => "required",
+                            "title"         =>  $this->lang->line('test_group_name'),
                             "value"         =>  set_value("test_group_name"),
                             "placeholder"   =>  $this->lang->line('test_group_name')
                         );
@@ -156,6 +158,37 @@
                         echo  form_input($number);
                         ?>
                         <?php echo form_error("test_price", "<p class=\"text-danger\">", "</p>"); ?>
+                    </div>
+
+
+
+                </div>
+
+                <div class="form-group">
+
+                    <?php
+                    $label = array(
+                        "class" => "col-md-2 control-label",
+                        "style" => "",
+                    );
+                    echo form_label("Share", "share", $label);      ?>
+
+                    <div class="col-md-8">
+                        <?php
+
+                        $number = array(
+                            "type"          =>  "number",
+                            "name"          =>  "share",
+                            "id"            =>  "share",
+                            "class"         =>  "form-control",
+                            "style"         =>  "",
+                            "title"         =>  "Share",
+                            "value"         =>  set_value("share", 0),
+                            "placeholder"   =>  "Share"
+                        );
+                        echo  form_input($number);
+                        ?>
+                        <?php echo form_error("share", "<p class=\"text-danger\">", "</p>"); ?>
                     </div>
 
 

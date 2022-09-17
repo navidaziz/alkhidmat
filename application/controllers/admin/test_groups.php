@@ -251,7 +251,7 @@ class Test_groups extends Admin_Controller
         $this->data["test_categories"] = $this->test_type_model->getList("test_categories", "test_category_id", "test_category", $where = "`test_categories`.`status` IN (1) ");
 
 
-        $this->data["title"] = $this->lang->line('Add New Test Group');
+        $this->data["title"] = 'Add New Test Group';
         $this->data["view"] = ADMIN_DIR . "test_groups/add_test_group";
         $this->load->view(ADMIN_DIR . "layout", $this->data);
     }
@@ -286,7 +286,7 @@ class Test_groups extends Admin_Controller
         $test_group_id = (int) $test_group_id;
         $this->data["test_group"] = $this->test_group_model->get($test_group_id);
 
-        $this->data["title"] = $this->lang->line('Edit Test Group');
+        $this->data["title"] = 'Edit Test Group';
         $this->data["view"] = ADMIN_DIR . "test_groups/edit_test_group";
         $this->load->view(ADMIN_DIR . "layout", $this->data);
     }

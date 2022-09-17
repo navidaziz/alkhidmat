@@ -54,6 +54,7 @@ class Test_group_model extends MY_Model
 		$inputs["category_id"]  =  $this->input->post("test_category_id");
 
 		$inputs["test_price"]  =  $this->input->post("test_price");
+		$inputs["share"]  =  $this->input->post("share");
 
 		$inputs["test_time"]  =  $this->input->post("test_time");
 
@@ -69,6 +70,7 @@ class Test_group_model extends MY_Model
 
 
 		$inputs["test_price"]  =  $this->input->post("test_price");
+		$inputs["share"]  =  $this->input->post("share");
 
 		$inputs["test_time"]  =  $this->input->post("test_time");
 

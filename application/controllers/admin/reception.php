@@ -127,39 +127,11 @@ class Reception extends Admin_Controller
 			AND opd_doctor = '" . $test_group_ids . "'
 			AND DATE(created_date) = DATE(NOW())")->result()[0]->total;
 			$inputs["opd_doctor"] = $test_group_ids;
-			$inputs["patient_refer_by"]  =  1;
-			//for dr shabana 
 			$inputs['alkhidmat_income'] = 0;
-			if ($test_group_ids == 86) {
-				$inputs['alkhidmat_income'] = 100;
-			}
-			// for dr shabana dobler ultrasound share 
-			if ($test_group_ids == 104) {
-				$inputs['alkhidmat_income'] = 200;
-			}
-			// for dr Attiq ur Rahman share 
-			if ($test_group_ids == 114) {
-				$inputs['alkhidmat_income'] = 500;
-			}
-			//dr naila opd
-			if ($test_group_ids == 77) {
-				$inputs['alkhidmat_income'] = $inputs["total_price"];
-			}
+			$query = "SELECT `test_groups`.`share` FROM `test_groups` WHERE `test_groups`.`test_group_id`='" . $test_group_ids . "'";
+			$inputs['alkhidmat_income'] = $this->db->query($query)->result()[0]->share;
 
-			//dr naila opd
-			if ($test_group_ids == 121) {
-				$inputs['alkhidmat_income'] = 150;
-			}
-
-			//dr naila opd
-			if ($test_group_ids == 122) {
-				$inputs['alkhidmat_income'] = 150;
-			}
-
-			//dr naila opd
-			if ($test_group_ids == 123) {
-				$inputs['alkhidmat_income'] = 100;
-			}
+			$inputs["patient_refer_by"]  =  1;
 		} else {
 			$today_count = $this->db->query("SELECT count(*) as total FROM `invoices` 
 		               WHERE category_id = '" . $category_id[0]->category_id . "'
