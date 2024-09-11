@@ -381,7 +381,7 @@ class Lab extends Admin_Controller
 		$where = "`invoices`.`status` IN (1,2,3) 
 		AND (`invoice_id` LIKE " . $search . " 
 		OR `patients`.`patient_name` LIKE " . $search . "
-		OR `patients`.`patient_mobile_no` LIKE " . $search . ")
+		OR `patients`.`patient_mobile_no` LIKE " . $search . "
 		OR `patients`.`created_date` LIKE " . $search . ")
 		ORDER BY `invoices`.`invoice_id` DESC LIMIT 200";
 		$all_tests = $this->invoice_model->get_invoice_list($where, false);
