@@ -378,11 +378,12 @@ class Lab extends Admin_Controller
 			return false;
 		}
 		$search = $this->db->escape("%" . $this->input->post('search') . "%");
+		$date = $this->db->escape($this->input->post('search'));
 		$where = "`invoices`.`status` IN (1,2,3) 
 		AND (`invoice_id` LIKE " . $search . " 
 		OR `patients`.`patient_name` LIKE " . $search . "
 		OR `patients`.`patient_mobile_no` LIKE " . $search . "
-		OR `patients`.`created_date` = " . $search . ")
+		OR `patients`.`created_date` = " . $date . ")
 		ORDER BY `invoices`.`invoice_id` DESC LIMIT 200";
 		$all_tests = $this->invoice_model->get_invoice_list($where, false);
 		if ($all_tests) {
