@@ -274,7 +274,7 @@ class Reports_model extends MY_Model
 				WHERE `test_groups`.`test_group_id` = `invoices`.`opd_doctor`
 				AND `invoices`.`category_id`=5
 				AND `test_groups`.`share` >0
-				AND DATE(`invoices`.`created_date`) = BETWEEN( '" . $start_date . "' AND '" . $end_date . "')
+				AND DATE(`invoices`.`created_date`) BETWEEN( '" . $start_date . "' AND '" . $end_date . "')
 				GROUP BY `test_groups`.`test_group_name`";
 		$income_from_drs = $this->db->query($query)->result();
 		$data["income_from_drs"] = $income_from_drs;
