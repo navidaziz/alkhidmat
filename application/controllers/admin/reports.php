@@ -55,7 +55,8 @@ class reports extends Admin_Controller
 		$end_date="2024-06-30";
 		//$this->data = $this->reports_model->daily_reception_report($date);
 		$this->data = $this->reports_model->custom_report($start_date, $end_date);
-		$this->data['date'] = $start_date."".$end_date;
+		$this->data['start_date'] = $start_date;
+		$this->data['end_date'] = $end_date;
 
 		$this->load->view(ADMIN_DIR . "reports/daily_reception_report", $this->data);
 	}
@@ -64,7 +65,7 @@ class reports extends Admin_Controller
 	{
 
 		$this->data = $this->reports_model->today_recp_report($date);
-		$this->load->view(ADMIN_DIR . "reports/daily_reception_report", $this->data);
+		$this->load->view(ADMIN_DIR . "reports/custom_report", $this->data);
 	}
 
 	public function monthly_report($month, $year)
