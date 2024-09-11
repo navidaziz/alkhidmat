@@ -58,7 +58,7 @@ class reports extends Admin_Controller
 		$this->data['start_date'] = $start_date;
 		$this->data['end_date'] = $end_date;
 
-		$this->load->view(ADMIN_DIR . "reports/daily_reception_report", $this->data);
+		$this->load->view(ADMIN_DIR . "reports/custom_report", $this->data);
 	}
 
 	public function today_recp_report($date)
