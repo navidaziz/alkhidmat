@@ -382,26 +382,27 @@ class Lab extends Admin_Controller
 		AND (`invoice_id` LIKE " . $search . " 
 		OR `patients`.`patient_name` LIKE " . $search . "
 		OR `patients`.`patient_mobile_no` LIKE " . $search . ")
-		ORDER BY `invoices`.`invoice_id` DESC LIMIT 20";
+		OR `patients`.`created_date` LIKE " . $search . ")
+		ORDER BY `invoices`.`invoice_id` DESC LIMIT 200";
 		$all_tests = $this->invoice_model->get_invoice_list($where, false);
 		if ($all_tests) {
 ?>
-			<table class="table table-bordered">
-				<h5>Search Result</h5>
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>Name</th>
-						<th>Mobile</th>
-						<th>Receipts</th>
-						<!-- <th>Price</th>
+<table class="table table-bordered">
+    <h5>Search Result</h5>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Mobile</th>
+            <th>Receipts</th>
+            <!-- <th>Price</th>
               <th>Discount</th> -->
-						<th>Rs:</th>
-						<th>Status</th>
-						<th>Dated</th>
-					</tr>
-				</thead>
-				<?php foreach ($all_tests as $test) {
+            <th>Rs:</th>
+            <th>Status</th>
+            <th>Dated</th>
+        </tr>
+    </thead>
+    <?php foreach ($all_tests as $test) {
 					$color = '';
 					if ($test->status == 1) {
 						$color = "#E9F1FC";
@@ -414,29 +415,33 @@ class Lab extends Admin_Controller
 					}
 
 				?>
-					<tr style="background-color: <?php echo $color; ?>;">
-						<td><?php echo $test->invoice_id; ?> </td>
-						<td><?php echo $test->patient_name; ?></td>
-						<td><?php echo $test->patient_mobile_no; ?></td>
-						<td>
-							<a style="margin-left: 10px;" target="new" href="<?php echo site_url(ADMIN_DIR . "lab/print_patient_test_receipts/$test->invoice_id") ?>"><i class="fa fa-print" aria-hidden="true"></i> Receipts</a>
+    <tr style="background-color: <?php echo $color; ?>;">
+        <td><?php echo $test->invoice_id; ?> </td>
+        <td><?php echo $test->patient_name; ?></td>
+        <td><?php echo $test->patient_mobile_no; ?></td>
+        <td>
+            <a style="margin-left: 10px;" target="new"
+                href="<?php echo site_url(ADMIN_DIR . "lab/print_patient_test_receipts/$test->invoice_id") ?>"><i
+                    class="fa fa-print" aria-hidden="true"></i> Receipts</a>
 
 
-						</td>
-						<!-- <td><?php echo $test->price; ?></td>
+        </td>
+        <!-- <td><?php echo $test->price; ?></td>
               <td><?php echo $test->discount; ?></td> -->
-						<td><?php echo $test->total_price; ?></td>
-						<td>
+        <td><?php echo $test->total_price; ?></td>
+        <td>
 
-							<?php if ($test->status == 3) { ?>
-								<a style="margin-left: 10px;" target="new" href="<?php echo site_url(ADMIN_DIR . "lab/print_patient_test_report/$test->invoice_id") ?>"><i class="fa fa-print" aria-hidden="true"></i> Print</a>
-							<?php  } ?>
-						</td>
-						<td><?php echo date('d F, y', strtotime($test->created_date)); ?> </td>
-					</tr>
-				<?php } ?>
-			</table>
-		<?php } else {
+            <?php if ($test->status == 3) { ?>
+            <a style="margin-left: 10px;" target="new"
+                href="<?php echo site_url(ADMIN_DIR . "lab/print_patient_test_report/$test->invoice_id") ?>"><i
+                    class="fa fa-print" aria-hidden="true"></i> Print</a>
+            <?php  } ?>
+        </td>
+        <td><?php echo date('d F, y', strtotime($test->created_date)); ?> </td>
+    </tr>
+    <?php } ?>
+</table>
+<?php } else {
 			echo '<p style="color:red;"> Search Result not found. </p>';
 		} ?>
 <?php }
