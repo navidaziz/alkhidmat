@@ -205,7 +205,7 @@ class Reports_model extends MY_Model
 					`test_categories`
 					LEFT JOIN `invoices` 
 					ON (`test_categories`.`test_category_id` = `invoices`.`category_id`)
-					WHERE DATE(`invoices`.`created_date`) BETWEEN( '" . $start_date . "' AND '" . $end_date . "')
+					WHERE DATE(`invoices`.`created_date`) BETWEEN '" . $start_date . "' AND '" . $end_date . "' 
 					AND `invoices`.`category_id` !=5
 					GROUP BY `test_categories`.`test_category`;";
 		$today_cat_wise_progress_report = $this->db->query($query)->result();
@@ -220,7 +220,7 @@ class Reports_model extends MY_Model
 					`test_categories`
 					LEFT JOIN `invoices` 
 					ON (`test_categories`.`test_category_id` = `invoices`.`category_id`)
-					WHERE DATE(`invoices`.`created_date`) BETWEEN( '" . $start_date . "' AND '" . $end_date . "')
+					WHERE DATE(`invoices`.`created_date`) BETWEEN '" . $start_date . "' AND '" . $end_date . "' 
 					AND `invoices`.`category_id` !=5";
 		$today_cat_wise_progress_report = $this->db->query($query)->result();
 		$data["today_total_cat_wise_progress_reports"] = $today_cat_wise_progress_report;
@@ -238,7 +238,7 @@ class Reports_model extends MY_Model
 				`invoices` 
 				WHERE `test_groups`.`test_group_id` = `invoices`.`opd_doctor`
 				AND `invoices`.`category_id`=5
-				AND DATE(`invoices`.`created_date`) BETWEEN( '" . $start_date . "' AND '" . $end_date . "')
+				AND DATE(`invoices`.`created_date`) BETWEEN '" . $start_date . "' AND '" . $end_date . "' 
 				GROUP BY `test_groups`.`test_group_name`";
 		$today_OPD_report = $this->db->query($query)->result();
 		$data["today_OPD_reports"] = $today_OPD_report;
@@ -254,7 +254,7 @@ class Reports_model extends MY_Model
 				`invoices` 
 				WHERE `test_groups`.`test_group_id` = `invoices`.`opd_doctor`
 				AND `invoices`.`category_id`=5
-				AND DATE(`invoices`.`created_date`) BETWEEN( '" . $start_date . "' AND '" . $end_date . "')";
+				AND DATE(`invoices`.`created_date`) BETWEEN '" . $start_date . "' AND '" . $end_date . "' ";
 		$today_OPD_report = $this->db->query($query)->result();
 		$data["today_total_OPD_reports"] = $today_OPD_report;
 
@@ -274,7 +274,7 @@ class Reports_model extends MY_Model
 				WHERE `test_groups`.`test_group_id` = `invoices`.`opd_doctor`
 				AND `invoices`.`category_id`=5
 				AND `test_groups`.`share` >0
-				AND DATE(`invoices`.`created_date`) BETWEEN( '" . $start_date . "' AND '" . $end_date . "')
+				AND DATE(`invoices`.`created_date`) BETWEEN '" . $start_date . "' AND '" . $end_date . "' 
 				GROUP BY `test_groups`.`test_group_name`";
 		$income_from_drs = $this->db->query($query)->result();
 		$data["income_from_drs"] = $income_from_drs;
